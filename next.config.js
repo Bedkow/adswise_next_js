@@ -1,3 +1,5 @@
+const { parseCommandLine } = require('typescript')
+
 if (!process.env.WORDPRESS_API_URL) {
   throw new Error(`
     Please provide a valid WordPress instance URL.
