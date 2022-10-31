@@ -15,8 +15,8 @@ interface Props {
 export default function CoverImage({ title, coverImage, slug }: Props) {
   const image = (
     <Image
-      width={2000}
-      height={1000}
+      width={200}
+      height={100}
       alt={`Cover Image for ${title}`}
       src={coverImage?.node.sourceUrl}
       className={cn('shadow-small', {
@@ -27,12 +27,12 @@ export default function CoverImage({ title, coverImage, slug }: Props) {
   return (
     <div className="sm:mx-0">
       {slug ? (
-        <Link href={`/posts/${slug}`}>
-          <a aria-label={title}>{image}</a>
+        <Link href={`/posts/${slug}`} aria-label={title}>
+          {image}
         </Link>
       ) : (
         image
       )}
     </div>
-  )
+  );
 }
