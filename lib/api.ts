@@ -44,6 +44,26 @@ export async function getPreviewPost(id, idType = 'DATABASE_ID') {
   return data.post
 }
 
+export async function getAllCategories() {
+  const data = await fetchAPI(
+    `
+    query AllCategories{
+      categories {
+        edges {
+          node {
+            id
+            name
+            slug
+            uri
+          }
+        }
+      }
+    }
+    `
+  )
+  return data
+}
+
 export async function getAllPostsWithSlug() {
   const data = await fetchAPI(`
     {
