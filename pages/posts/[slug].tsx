@@ -5,16 +5,16 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import Container from '../../components/container'
 import PostBody from '../../components/post-body'
 import MoreStories from '../../components/more-stories'
-import Header from '../../components/header'
 import PostHeader from '../../components/post-header'
 import SectionSeparator from '../../components/section-separator'
 import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
 import Tags from '../../components/tags'
-import { getAllPostsWithSlug, getPostAndMorePosts } from '../../lib/api'
+import { getAllPostsWithSlug, getPostAndMorePosts, getAllCategories, getMainLogoData } from '../../lib/api'
 import { CMS_NAME } from '../../lib/constants'
+import BackButton from '../../components/back-button'
 
-export default function Post({ post, posts, preview }) {
+export default function Post({ post, posts, preview, allCategories, mainLogoData }) {
   const router = useRouter()
   const morePosts = posts?.edges
 
@@ -23,9 +23,8 @@ export default function Post({ post, posts, preview }) {
   }
 
   return (
-    <Layout preview={preview}>
+    <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData}>
       <Container>
-        <Header />
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
@@ -44,9 +43,10 @@ export default function Post({ post, posts, preview }) {
                 title={post.title}
                 coverImage={post.featuredImage}
                 date={post.date}
-                author={post.author}
+                // author={post.author}
                 categories={post.categories}
               />
+              <BackButton />
               <PostBody content={post.content} />
               <footer>
                 {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
@@ -68,12 +68,15 @@ export const getStaticProps: GetStaticProps = async ({
   previewData,
 }) => {
   const data = await getPostAndMorePosts(params?.slug, preview, previewData)
-
+  const allCategories = await getAllCategories()
+  const mainLogoData = await getMainLogoData()
   return {
     props: {
       preview,
       post: data.post,
       posts: data.posts,
+      allCategories,
+      mainLogoData
     },
     revalidate: 10,
   }

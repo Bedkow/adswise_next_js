@@ -10,7 +10,7 @@ export default function HeroPost({
   excerpt,
   author,
   slug,
-}) {
+}:{ title: any, coverImage:any, date:any, excerpt:any, author?: any, slug:any }) {
   return (
     <section>
       <div className="mb-8 md:mb-16">
@@ -37,7 +37,7 @@ export default function HeroPost({
             className="text-lg leading-relaxed mb-4"
             dangerouslySetInnerHTML={{ __html: excerpt }}
           />
-          <Avatar author={author} />
+          {/* <Avatar author={author} /> */}
         </div>
       </div>
     </section>

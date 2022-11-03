@@ -44,6 +44,31 @@ export async function getPreviewPost(id, idType = 'DATABASE_ID') {
   return data.post
 }
 
+export async function getMainLogoData() {
+  const logoData = await fetchAPI(
+    `
+    query MediaItems{
+      mediaItems {
+        edges {
+          node {
+            id
+            mediaDetails {
+              file
+            }
+            slug
+            title
+            sourceUrl
+            uri
+            altText
+          }
+        }
+      }
+    }
+    `
+  )
+  return logoData?.mediaItems
+}
+
 export async function getAllCategories() {
   const data = await fetchAPI(
     `
