@@ -10,7 +10,7 @@ export default function PostPreview({
   excerpt,
   author,
   slug,
-}) {
+}:{ title: any, coverImage:any, date:any, excerpt:any, author?: any, slug:any }) {
   return (
     <div>
       <div className="mb-5">
@@ -33,7 +33,7 @@ export default function PostPreview({
         className="text-lg leading-relaxed mb-4"
         dangerouslySetInnerHTML={{ __html: excerpt }}
       />
-      <Avatar author={author} />
+      {/* <Avatar author={author} /> */}
     </div>
   );
 }

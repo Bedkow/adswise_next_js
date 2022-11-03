@@ -1,12 +1,14 @@
 import Link from 'next/link'
+import MainLogo from './main-logo';
 
 
-
-export default function Header(allCategories) {
+export default function Header(allCategories, mainLogoData) {
+  console.log(allCategories)
   const categoriesList = allCategories.allCategories.categories.edges
-  console.log(allCategories.allCategories.categories.edges)
+  
   return (
 <header>
+  <MainLogo mainLogoData={mainLogoData}/>
   <nav>
     <ul>
       <li><Link href="/">Strona Główna</Link></li>
