@@ -2,9 +2,9 @@ import Link from 'next/link'
 import MainLogo from './main-logo';
 
 
-export default function Header(allCategories, mainLogoData) {
+export default function Header({allCategories, mainLogoData}) {
   console.log(allCategories)
-  const categoriesList = allCategories.allCategories.categories.edges
+  const categoriesList = allCategories.edges
   
   return (
 <header>

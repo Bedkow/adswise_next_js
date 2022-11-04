@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function MainLogo(mainLogoData) {
-console.log(mainLogoData)
+export default function MainLogo({mainLogoData}) {
+console.log(mainLogoData.edges[0].node)
+mainLogoData = mainLogoData.edges[0].node;
 
     return (
         <Link href={'/'}>
-        <Image src={'/'}  alt={''} width={100} height={100} />
+        <Image src={`${mainLogoData.sourceUrl}`}  alt={mainLogoData.altText} width={100} height={100} />
         </Link>
     )
 

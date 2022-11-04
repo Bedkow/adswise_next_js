@@ -21,7 +21,7 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
-
+console.log(allCategories)
   return (
     <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData}>
       <Container>
