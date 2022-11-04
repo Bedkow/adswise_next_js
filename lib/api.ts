@@ -48,7 +48,7 @@ export async function getMainLogoData() {
   const logoData = await fetchAPI(
     `
     query MediaItems{
-      mediaItems {
+      mediaItems(where: {title: "main-logo"}) {
         edges {
           node {
             id
@@ -66,7 +66,7 @@ export async function getMainLogoData() {
     }
     `
   )
-  return logoData?.mediaItems
+  return logoData.mediaItems
 }
 
 export async function getAllCategories() {
@@ -86,7 +86,7 @@ export async function getAllCategories() {
     }
     `
   )
-  return data
+  return data.categories
 }
 
 export async function getAllPostsWithSlug() {
