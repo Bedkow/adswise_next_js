@@ -109,6 +109,12 @@ export async function getPostsByCategory(categoryName) {
               uri
             }
           }
+          categories {
+            nodes {
+              name
+              slug
+            }
+          }
         }
       }
     }
