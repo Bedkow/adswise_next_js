@@ -89,17 +89,53 @@ export async function getAllCategories() {
   return data.categories
 }
 
-export async function getAllPostsWithSlug() {
-  const data = await fetchAPI(`
-    {
-      posts(first: 10000) {
-        edges {
-          node {
-            slug
+export async function getPostsByCategory(categoryName) {
+  const data = await fetchAPI(
+  `
+  {
+    posts(where: {categoryName: "${categoryName}"}) {
+      edges {
+        node {
+          id
+          slug
+          title
+          featuredImage {
+            node {
+              altText
+              id
+              link
+              slug
+              sourceUrl
+              uri
+            }
           }
         }
       }
     }
+  }
+  `)
+  return data.posts
+}
+
+export async function getAllPostsWithSlug() {
+  const data = await fetchAPI(`
+  {
+    posts(first: 10000) {
+      edges {
+        node {
+          slug
+          categories {
+            edges {
+              node {
+                id
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   `)
   return data?.posts
 }

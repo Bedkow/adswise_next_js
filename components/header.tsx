@@ -3,7 +3,6 @@ import MainLogo from './main-logo';
 
 
 export default function Header({allCategories, mainLogoData}) {
-  console.log(allCategories)
   const categoriesList = allCategories.edges
   
   return (

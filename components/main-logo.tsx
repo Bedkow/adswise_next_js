@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function MainLogo({mainLogoData}) {
-console.log(mainLogoData.edges[0].node)
 mainLogoData = mainLogoData.edges[0].node;
 
     return (
