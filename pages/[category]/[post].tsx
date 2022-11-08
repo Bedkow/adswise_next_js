@@ -21,7 +21,6 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
-console.log(allCategories)
   return (
     <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData}>
       <Container>
@@ -86,7 +85,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const allPosts = await getAllPostsWithSlug()
 
   return {
-    paths: allPosts.edges.map(({ node }) => `/posts/${node.slug}`) || [],
+    paths: allPosts.edges.map(({ node }) => `/${node.slug}`) || [],
     fallback: true,
   }
 }
