@@ -12,7 +12,7 @@ export default function HeroPost({
   slug,
   category,
 }:{ title: any, coverImage:any, date:any, excerpt:any, author?: any, slug:any, category: any }) {
-  console.log(category.nodes[0].slug);
+  // console.log(category.nodes[0].slug);
   const categorySlug = category.nodes[0].slug;
   return (
     <section>
