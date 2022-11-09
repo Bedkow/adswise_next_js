@@ -53,7 +53,7 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
             </article>
 
             <SectionSeparator />
-            {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+            {morePosts.length > 0 && <MoreStories postsForReadMore={morePosts} />}
           </>
         )}
       </Container>

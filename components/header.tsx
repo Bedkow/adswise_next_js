@@ -4,7 +4,7 @@ import MainLogo from './main-logo';
 
 export default function Header({allCategories, mainLogoData}) {
   const categoriesList = allCategories.edges
-  console.log(categoriesList)
+  // console.log(categoriesList)
 
   
   return (
@@ -15,7 +15,7 @@ export default function Header({allCategories, mainLogoData}) {
       <li><Link href="/">Strona Główna</Link></li>
       {categoriesList.map(
         (category) => {
-          console.log(category.node.slug)
+          // console.log(category.node.slug)
           if (category.node.slug !== "pozostale")
           return <li key={category.node.slug}><Link href={`/${category.node.slug}`}>{category.node.name}</Link></li>
         }
