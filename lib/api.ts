@@ -44,6 +44,24 @@ export async function getPreviewPost(id, idType = 'DATABASE_ID') {
   return data.post
 }
 
+export async function getSinglePostCategory(postCategorySlug) {
+  const data = await fetchAPI(
+    `
+    {
+      post(id: "${postCategorySlug}", idType: SLUG) {
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
+      }
+    }
+    `
+  )
+  return data.post
+}
+
 export async function getMainLogoData() {
   const logoData = await fetchAPI(
     `
@@ -135,6 +153,7 @@ export async function getAllPostsWithSlug() {
               node {
                 id
                 name
+                slug
               }
             }
           }
@@ -170,6 +189,12 @@ export async function getAllPostsForHome(preview) {
                 avatar {
                   url
                 }
+              }
+            }
+            categories {
+              nodes {
+                name
+                slug
               }
             }
           }
@@ -226,6 +251,7 @@ export async function getPostAndMorePosts(slug, preview, previewData) {
         edges {
           node {
             name
+            slug
           }
         }
       }

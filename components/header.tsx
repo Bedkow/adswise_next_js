@@ -4,6 +4,8 @@ import MainLogo from './main-logo';
 
 export default function Header({allCategories, mainLogoData}) {
   const categoriesList = allCategories.edges
+  console.log(categoriesList)
+
   
   return (
 <header>
@@ -13,11 +15,12 @@ export default function Header({allCategories, mainLogoData}) {
       <li><Link href="/">Strona Główna</Link></li>
       {categoriesList.map(
         (category) => {
+          console.log(category.node.slug)
           if (category.node.slug !== "pozostale")
-          return <li key={category.node.slug}><Link href={category.node.uri}>{category.node.name}</Link></li>
+          return <li key={category.node.slug}><Link href={`/${category.node.slug}`}>{category.node.name}</Link></li>
         }
       )}
-      <li><Link href="category/pozostale">Pozostałe</Link></li>
+      <li><Link key="pozostale" href="/pozostale">Pozostałe</Link></li>
     </ul>
   </nav>
 </header>
