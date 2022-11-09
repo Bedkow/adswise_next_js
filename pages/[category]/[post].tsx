@@ -10,7 +10,7 @@ import SectionSeparator from '../../components/section-separator'
 import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
 import Tags from '../../components/tags'
-import { getAllPostsWithSlug, getPostAndMorePosts, getAllCategories, getMainLogoData } from '../../lib/api'
+import { getAllPostsWithSlug, getPostAndMorePosts, getAllCategories, getMainLogoData, getSinglePostCategory } from '../../lib/api'
 import { CMS_NAME } from '../../lib/constants'
 import BackButton from '../../components/back-button'
 
@@ -66,9 +66,14 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
   previewData,
 }) => {
-  const data = await getPostAndMorePosts(params?.slug, preview, previewData)
+  // const paramsCategory = params.category
+  // const paramsPost = params.post
+  // params.slug = `${paramsCategory}/${paramsPost}`
+  // console.log(params.slug)
+  const data = await getPostAndMorePosts(params?.post, preview, previewData)
   const allCategories = await getAllCategories()
-  const mainLogoData = await getMainLogoData()
+  const mainLogoData = await getMainLogoData
+  ()
   return {
     props: {
       preview,
@@ -83,9 +88,18 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allPosts = await getAllPostsWithSlug()
+  // const singlePostCategory = getSinglePostCategory()
+  const generatedPaths = [];
+  allPosts.edges.map(({ node }) => {
+    generatedPaths.push({
+      params: {category: node.categories.edges[0].node.slug, post: node.slug}
+    })
+  })
+
+  // `${node.categories.edges[0].node.slug}/${node.slug}`
 
   return {
-    paths: allPosts.edges.map(({ node }) => `/${node.slug}`) || [],
+    paths: generatedPaths,
     fallback: true,
   }
 }

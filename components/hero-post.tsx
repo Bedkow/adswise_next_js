@@ -10,7 +10,10 @@ export default function HeroPost({
   excerpt,
   author,
   slug,
-}:{ title: any, coverImage:any, date:any, excerpt:any, author?: any, slug:any }) {
+  category,
+}:{ title: any, coverImage:any, date:any, excerpt:any, author?: any, slug:any, category: any }) {
+  console.log(category.nodes[0].slug);
+  const categorySlug = category.nodes[0].slug;
   return (
     <section>
       <div className="mb-8 md:mb-16">
@@ -22,7 +25,7 @@ export default function HeroPost({
         <div>
           <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
             <Link
-              href={`/posts/${slug}`}
+              href={`/${categorySlug}/${slug}`}
               className="hover:underline"
               dangerouslySetInnerHTML={{ __html: title }}>
 

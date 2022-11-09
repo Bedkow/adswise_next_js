@@ -1,6 +1,7 @@
 import PostPreview from './post-preview'
 
 export default function MoreStories({ posts }) {
+  console.log(posts[0].node.categories.edges[0].node.slug)
   return (
     <section>
       <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
@@ -16,6 +17,8 @@ export default function MoreStories({ posts }) {
             // author={node.author}
             slug={node.slug}
             excerpt={node.excerpt}
+            // category="dupa"
+            category={node.categories.edges[0].node.slug}
           />
         ))}
       </div>
