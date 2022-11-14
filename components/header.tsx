@@ -23,6 +23,7 @@ export default function Header({allCategories, mainLogoData}) {
       <li><Link key="pozostale" href="/pozostale">Pozostałe</Link></li>
     </ul>
   </nav>
+  <hr/>
 </header>
   );
 }

@@ -1,15 +1,18 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { getAllCategories, getPostsByCategory } from '../../lib/api'
+import { getAllCategories, getPostsByCategory, getMainLogoData } from '../../lib/api'
 import Link from 'next/link'
 import Image from 'next/image'
+import Layout from '../../components/layout'
 
-function SingleCategoryPage({filteredPosts}) {
+function SingleCategoryPage({filteredPosts, allCategories, mainLogoData}) {
     console.log(filteredPosts)
     const categoryName = filteredPosts.edges[0].node.categories.nodes[0].name;
     const categorySlug = filteredPosts.edges[0].node.categories.nodes[0].slug;
 
   return (
+    <Layout preview={false} allCategories={allCategories} mainLogoData={mainLogoData}>
+
     <div>SingleCategoryPage - all posts for that category
     <h1>{categoryName}</h1>
 
@@ -23,15 +26,21 @@ function SingleCategoryPage({filteredPosts}) {
         }
     )}
     </div>
+    </Layout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async(context) => {
     const {params} = context
-    const filteredPosts = await getPostsByCategory(params.category)
+    const filteredPosts = await getPostsByCategory(params.category);
+    const mainLogoData = await getMainLogoData
+    ();
+    const allCategories = await getAllCategories();
 return {
     props: {
-        filteredPosts
+        filteredPosts,
+        allCategories,
+        mainLogoData
     }
 }
 }

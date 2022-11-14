@@ -70,10 +70,10 @@ export const getStaticProps: GetStaticProps = async ({
   // const paramsPost = params.post
   // params.slug = `${paramsCategory}/${paramsPost}`
   // console.log(params.slug)
-  const data = await getPostAndMorePosts(params?.post, preview, previewData)
-  const allCategories = await getAllCategories()
+  const data = await getPostAndMorePosts(params?.post, preview, previewData);
+  const allCategories = await getAllCategories();
   const mainLogoData = await getMainLogoData
-  ()
+  ();
   return {
     props: {
       preview,
