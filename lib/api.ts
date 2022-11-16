@@ -103,7 +103,7 @@ export async function getAllCategories() {
       }
     }
     `
-  )
+  );
   return data.categories
 }
 
