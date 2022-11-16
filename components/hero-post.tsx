@@ -12,7 +12,6 @@ export default function HeroPost({
   slug,
   category,
 }:{ title: any, coverImage:any, date:any, excerpt:any, author?: any, slug:any, category: any }) {
-  // console.log(category.nodes[0].slug);
   const categorySlug = category.nodes[0].slug;
   return (
     <section>
@@ -28,7 +27,6 @@ export default function HeroPost({
               href={`/${categorySlug}/${slug}`}
               className="hover:underline"
               dangerouslySetInnerHTML={{ __html: title }}>
-
             </Link>
           </h3>
           <div className="mb-4 md:mb-0 text-lg">
@@ -40,7 +38,6 @@ export default function HeroPost({
             className="text-lg leading-relaxed mb-4"
             dangerouslySetInnerHTML={{ __html: excerpt }}
           />
-          {/* <Avatar author={author} /> */}
         </div>
       </div>
     </section>
