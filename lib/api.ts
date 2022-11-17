@@ -147,6 +147,7 @@ export async function getAllPostsWithSlug() {
     posts(first: 10000) {
       edges {
         node {
+          title
           slug
           categories {
             edges {

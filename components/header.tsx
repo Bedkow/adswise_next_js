@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import MainLogo from './main-logo';
+import Breadcrumbs from './breadcrumbs';
 
 
-export default function Header({allCategories, mainLogoData}) {
+export default function Header({allCategories, mainLogoData, postsList}) {
   const categoriesList = allCategories?.edges
-
-  console.log({mainLogoData})
 
   return (
 <header>
@@ -22,6 +21,7 @@ export default function Header({allCategories, mainLogoData}) {
       <li><Link key="pozostale" href="/pozostale">Pozostałe</Link></li>
     </ul>
   </nav>
+  <Breadcrumbs categoriesList={categoriesList} postsList={postsList}/>
   <hr/>
 </header>
   );
