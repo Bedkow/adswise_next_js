@@ -101,6 +101,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: generatedPaths,
-    fallback: true,
+    fallback: false,
   }
 }
