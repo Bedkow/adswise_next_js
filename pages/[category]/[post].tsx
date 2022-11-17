@@ -18,6 +18,8 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
   const router = useRouter()
   const morePosts = posts?.edges
 
+  console.log(mainLogoData)
+
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
@@ -66,14 +68,13 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
   previewData,
 }) => {
-  // const paramsCategory = params.category
-  // const paramsPost = params.post
-  // params.slug = `${paramsCategory}/${paramsPost}`
-  // console.log(params.slug)
   const data = await getPostAndMorePosts(params?.post, preview, previewData);
   const allCategories = await getAllCategories();
-  const mainLogoData = await getMainLogoData
-  ();
+  const mainLogoData = await getMainLogoData();
+
+  // console.log({allCategories});
+  console.log({mainLogoData});
+
   return {
     props: {
       preview,

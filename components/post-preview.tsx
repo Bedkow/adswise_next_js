@@ -12,7 +12,6 @@ export default function PostPreview({
   slug,
   category,
 }:{ title: any, coverImage:any, date:any, excerpt:any, author?: any, slug:any, category: any }) {
-  console.log(category)
   return (
     <div>
       <div className="mb-5">
@@ -25,7 +24,6 @@ export default function PostPreview({
           href={`/${category}/${slug}`}
           className="hover:underline"
           dangerouslySetInnerHTML={{ __html: title }}>
-
         </Link>
       </h3>
       <div className="text-lg mb-4">
@@ -35,7 +33,6 @@ export default function PostPreview({
         className="text-lg leading-relaxed mb-4"
         dangerouslySetInnerHTML={{ __html: excerpt }}
       />
-      {/* <Avatar author={author} /> */}
     </div>
   );
 }

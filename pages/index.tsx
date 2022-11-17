@@ -14,12 +14,11 @@ export default function Index({ allPostsForHome: { edges }, preview, allCategori
   const heroPost = edges[0]?.node
   const morePostsForHome = edges.slice(1)
 
-  console.log(morePostsForHome)
 
   return (
     <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData}>
       <Head>
-        <title>Next.js Blog Example with {CMS_NAME}</title>
+        <title>Next.js Blog Example with</title>
       </Head>
       <Container>
         <Intro />
