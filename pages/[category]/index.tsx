@@ -1,16 +1,19 @@
 import React from 'react'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { getAllCategories, getPostsByCategory, getMainLogoData } from '../../lib/api'
-import Link from 'next/link'
-import Image from 'next/image'
-import Layout from '../../components/layout'
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { getAllCategories, getPostsByCategory, getMainLogoData, getAllPostsWithSlug } from '../../lib/api';
+import Link from 'next/link';
+import Image from 'next/image';
+import Layout from '../../components/layout';
+import {useRouter} from 'next/router';
 
-function SingleCategoryPage({filteredPosts, allCategories, mainLogoData}) {
+function SingleCategoryPage({filteredPosts, allCategories, mainLogoData, postsList}) {
     const categoryName = filteredPosts.edges[0].node.categories.nodes[0].name;
     const categorySlug = filteredPosts.edges[0].node.categories.nodes[0].slug;
 
+    const router = useRouter();
+
   return (
-    <Layout preview={false} allCategories={allCategories} mainLogoData={mainLogoData}>
+    <Layout preview={false} allCategories={allCategories} mainLogoData={mainLogoData} postsList={postsList}>
 
     <div>SingleCategoryPage - all posts for that category
     <h1>{categoryName}</h1>
@@ -35,11 +38,14 @@ export const getStaticProps: GetStaticProps = async(context) => {
     const mainLogoData = await getMainLogoData
     ();
     const allCategories = await getAllCategories();
+    const postsList = await getAllPostsWithSlug();
+
 return {
     props: {
         filteredPosts,
         allCategories,
-        mainLogoData
+        mainLogoData,
+        postsList
     }
 }
 }

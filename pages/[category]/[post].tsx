@@ -14,17 +14,15 @@ import { getAllPostsWithSlug, getPostAndMorePosts, getAllCategories, getMainLogo
 import { CMS_NAME } from '../../lib/constants'
 import BackButton from '../../components/back-button'
 
-export default function Post({ post, posts, preview, allCategories, mainLogoData }) {
+export default function Post({ post, posts, preview, allCategories, mainLogoData, postsList }) {
   const router = useRouter()
   const morePosts = posts?.edges
-
-  console.log(mainLogoData)
 
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
   return (
-    <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData}>
+    <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData} postsList={postsList}>
       <Container>
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
@@ -71,9 +69,7 @@ export const getStaticProps: GetStaticProps = async ({
   const data = await getPostAndMorePosts(params?.post, preview, previewData);
   const allCategories = await getAllCategories();
   const mainLogoData = await getMainLogoData();
-
-  // console.log({allCategories});
-  console.log({mainLogoData});
+  const postsList = await getAllPostsWithSlug();
 
   return {
     props: {
@@ -81,7 +77,8 @@ export const getStaticProps: GetStaticProps = async ({
       post: data.post,
       posts: data.posts,
       allCategories,
-      mainLogoData
+      mainLogoData,
+      postsList
     },
     revalidate: 10,
   }

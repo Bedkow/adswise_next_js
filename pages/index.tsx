@@ -5,18 +5,18 @@ import MoreStories from '../components/more-stories';
 import HeroPost from '../components/hero-post';
 import Intro from '../components/intro';
 import Layout from '../components/layout';
-import { CMS_NAME } from '../lib/constants';
-import { getAllCategories, getMainLogoData, getAllPostsForHome } from '../lib/api';
+import { getAllCategories, getMainLogoData, getAllPostsForHome, getAllPostsWithSlug } from '../lib/api';
+import { useRouter } from 'next/router';
 
 
-export default function Index({ allPostsForHome: { edges }, preview, allCategories, mainLogoData }: {allPostsForHome?: any, preview: boolean, allCategories?: any, mainLogoData: any}) {
+export default function Index({ allPostsForHome: { edges }, preview, allCategories, mainLogoData, postsList }: {allPostsForHome?: any, preview: boolean, allCategories?: any, mainLogoData: any, postsList: any}) {
 
   const heroPost = edges[0]?.node
   const morePostsForHome = edges.slice(1)
-
+  const router = useRouter();
 
   return (
-    <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData}>
+    <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData} postsList={postsList}>
       <Head>
         <title>Next.js Blog Example with</title>
       </Head>
@@ -43,9 +43,10 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const allPostsForHome = await getAllPostsForHome(preview)
   const allCategories = await getAllCategories()
   const mainLogoData = await getMainLogoData()
+  const postsList = await getAllPostsWithSlug();
 
   return {
-    props: { allPostsForHome, preview, allCategories, mainLogoData },
+    props: { allPostsForHome, preview, allCategories, mainLogoData, postsList },
     revalidate: 10,
   }
 }
