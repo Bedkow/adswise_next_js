@@ -6,7 +6,6 @@ import Image from 'next/image'
 import Layout from '../../components/layout'
 
 function SingleCategoryPage({filteredPosts, allCategories, mainLogoData}) {
-    console.log(filteredPosts)
     const categoryName = filteredPosts.edges[0].node.categories.nodes[0].name;
     const categorySlug = filteredPosts.edges[0].node.categories.nodes[0].slug;
 

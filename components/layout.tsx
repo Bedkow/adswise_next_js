@@ -4,6 +4,7 @@ import Header from './header'
 import Meta from './meta'
 
 export default function Layout({ preview, allCategories, children, mainLogoData }: {preview: boolean, allCategories?: any, children: any, mainLogoData: any}) {
+  console.log(mainLogoData)
   return (
     <>
       <Meta />
