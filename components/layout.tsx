@@ -8,7 +8,7 @@ export default function Layout({ preview, allCategories, children, mainLogoData 
   return (
     <>
       <Meta />
-      <div className="min-h-screen">
+      <div>
         <Alert preview={preview} />
         <Header allCategories={allCategories} mainLogoData={mainLogoData}/>
         <main>{children}</main>

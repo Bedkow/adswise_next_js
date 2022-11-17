@@ -7,17 +7,16 @@ export default function Avatar({ author }) {
     : author.node.name || null
 
   return (
-    <div className="flex items-center">
-      <div className="w-12 h-12 relative mr-4">
+    <div>
+      <div >
         <Image
           src={author.node.avatar.url}
           width={100}
           height={100}
-          className="rounded-full"
           alt={name}
         />
       </div>
-      <div className="text-xl font-bold">{name}</div>
+      <div>{name}</div>
     </div>
   )
 }
