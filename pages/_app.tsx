@@ -4,16 +4,6 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 
 const GlobalStyles = createGlobalStyle`
-  /* roboto-regular - latin */
-  @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    src: local(''),
-        url('../fonts/roboto-v30-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-        url('../fonts/roboto-v30-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-  }
-
   * {
     box-sizing: border-box;
     margin: 0;
@@ -38,11 +28,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 	};
 
 	return (
-		<ThemeProvider theme={theme}>
-			<GlobalStyles />
-			<Component {...pageProps} />
-		</ThemeProvider>
-	);
+    <>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </ThemeProvider>
+	  </>
+  );
 }
 
 export default MyApp;
