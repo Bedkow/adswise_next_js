@@ -21,7 +21,7 @@ function SingleCategoryPage({filteredPosts, allCategories, mainLogoData, postsLi
     {filteredPosts.edges.map(
         (post) => {
            return ( <Link href={`${categorySlug}/${post.node.slug}`} key={post.node.slug}>
-                <Image width={100} height={100} alt={post.node.featuredImage.node.altText} src={post.node.featuredImage.node.sourceUrl}></Image>
+                {post.node.featuredImage && <Image width={100} height={100} alt={post.node.featuredImage.node.altText} src={post.node.featuredImage.node.sourceUrl}></Image>}
                 <h2>{post.node.title}</h2>
             </Link>
            )
