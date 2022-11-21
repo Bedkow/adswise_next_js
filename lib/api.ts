@@ -98,6 +98,18 @@ export async function getAllCategories() {
             name
             slug
             uri
+            parent {
+              node {
+                name
+                slug
+              }
+            }
+            children {
+              nodes {
+                name
+                slug
+              }
+            }
           }
         }
       }

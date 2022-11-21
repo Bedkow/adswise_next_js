@@ -24,12 +24,12 @@ export default function CoverImage({ title, coverImage, slug, category }: Props)
   )
   return (
     <div>
-      {slug ? (
+      {slug && coverImage ? (
         <Link href={`/${category}/${slug}`} aria-label={title}>
           {image}
         </Link>
       ) : (
-        image
+        null
       )}
     </div>
   );
