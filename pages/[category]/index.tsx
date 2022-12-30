@@ -11,6 +11,7 @@ function SingleCategoryPage({filteredPosts, allCategories, mainLogoData, postsLi
     const categorySlug = filteredPosts.edges[0].node.categories.nodes[0].slug;
 
     const router = useRouter();
+    console.log(filteredPosts.edges)
 
   return (
     <Layout preview={false} allCategories={allCategories} mainLogoData={mainLogoData} postsList={postsList}>
@@ -20,7 +21,7 @@ function SingleCategoryPage({filteredPosts, allCategories, mainLogoData, postsLi
 
     {filteredPosts.edges.map(
         (post) => {
-           return ( <Link href={`${categorySlug}/${post.node.slug}`} key={post.node.slug}>
+           return ( <Link href={`${post.node.categories.nodes[0].slug}/${post.node.slug}`} key={post.node.slug}>
                 {post.node.featuredImage && <Image width={100} height={100} alt={post.node.featuredImage.node.altText} src={post.node.featuredImage.node.sourceUrl}></Image>}
                 <h2>{post.node.title}</h2>
             </Link>
