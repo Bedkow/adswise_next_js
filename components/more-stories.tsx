@@ -25,7 +25,6 @@ export default function MoreStories({ postsForHome, postsForReadMore }: {postsFo
             // author={node.author}
             slug={node.slug}
             excerpt={node.excerpt}
-            // category="dupa"
             category={node.categories.nodes[0].slug}
           />
 )})}
