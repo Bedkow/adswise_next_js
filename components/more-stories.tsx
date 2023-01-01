@@ -22,7 +22,6 @@ export default function MoreStories({ postsForHome, postsForReadMore }: {postsFo
             title={node.title}
             coverImage={node.featuredImage}
             date={node.date}
-            // author={node.author}
             slug={node.slug}
             excerpt={node.excerpt}
             category={node.categories.nodes[0].slug}
@@ -35,10 +34,8 @@ export default function MoreStories({ postsForHome, postsForReadMore }: {postsFo
             title={node.title}
             coverImage={node.featuredImage}
             date={node.date}
-            // author={node.author}
             slug={node.slug}
             excerpt={node.excerpt}
-            // category="dupa"
             category={node.categories.edges[0].node.slug}
           />
 )})}

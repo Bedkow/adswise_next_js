@@ -20,7 +20,7 @@ export default function PostPreview({
       </div>
       <h3>
         <Link
-          href={`/${category}/${slug}`}
+          href={`/post/${slug}`}
           dangerouslySetInnerHTML={{ __html: title }}>
         </Link>
       </h3>

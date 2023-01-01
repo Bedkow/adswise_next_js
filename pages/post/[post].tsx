@@ -31,7 +31,7 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
             <article>
               <Head>
                 <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
+                  {`AdsWise | ${post.title}`}
                 </title>
                 <meta
                   property="og:image"
@@ -86,15 +86,12 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allPosts = await getAllPostsWithSlug()
-  // const singlePostCategory = getSinglePostCategory()
   const generatedPaths = [];
   allPosts.edges.map(({ node }) => {
     generatedPaths.push({
-      params: {category: node.categories.edges[0].node.slug, post: node.slug}
+      params: {post: node.slug}
     })
   })
-
-  // `${node.categories.edges[0].node.slug}/${node.slug}`
 
   return {
     paths: generatedPaths,

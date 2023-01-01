@@ -46,9 +46,9 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 			<MainLogo mainLogoData={mainLogoData} />
 			<MainNav>
 				<CategoryList>
-					<CategoryListItem key={'strona-glowna'}>
+					{/* <CategoryListItem key={'strona-glowna'}>
 						<Link href="/">Strona Główna</Link>
-					</CategoryListItem>
+					</CategoryListItem> */}
 					{categoriesList?.map((category) => {
 						if (
 							category.node.slug !== 'pozostale' &&
