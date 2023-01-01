@@ -6,19 +6,16 @@ import HeroPost from '../components/hero-post';
 import Intro from '../components/intro';
 import Layout from '../components/layout';
 import { getAllCategories, getMainLogoData, getAllPostsForHome, getAllPostsWithSlug } from '../lib/api';
-import { useRouter } from 'next/router';
-
 
 export default function Index({ allPostsForHome: { edges }, preview, allCategories, mainLogoData, postsList }: {allPostsForHome?: any, preview: boolean, allCategories?: any, mainLogoData: any, postsList: any}) {
 
   const heroPost = edges[0]?.node
   const morePostsForHome = edges.slice(1)
-  const router = useRouter();
 
   return (
     <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData} postsList={postsList}>
       <Head>
-        <title>Next.js Blog Example with</title>
+        <title>AdsWise | Strona Główna</title>
       </Head>
       <Container>
         <Intro />
@@ -27,7 +24,6 @@ export default function Index({ allPostsForHome: { edges }, preview, allCategori
             title={heroPost.title}
             coverImage={heroPost.featuredImage}
             date={heroPost.date}
-            // author={heroPost.author}
             slug={heroPost.slug}
             excerpt={heroPost.excerpt}
             category={heroPost.categories}

@@ -6,7 +6,7 @@ export default function MainLogo({mainLogoData}) {
 
     return (
         <Link href={'/'}>
-        <Image src={`${mainLogoDataTest.sourceUrl}`}  alt={mainLogoDataTest.altText} width={100} height={100} />
+        <Image src={`${mainLogoDataTest.sourceUrl}`}  alt={mainLogoDataTest.altText} width={279/2} height={136/2} />
         </Link>
     )
 

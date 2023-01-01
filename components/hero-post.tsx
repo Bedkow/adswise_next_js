@@ -23,7 +23,7 @@ export default function HeroPost({
         <div>
           <h3>
             <Link
-              href={`/${categorySlug}/${slug}`}
+              href={`/post/${slug}`}
               dangerouslySetInnerHTML={{ __html: title }}>
             </Link>
           </h3>
