@@ -9,7 +9,9 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import Layout from "../../components/layout";
-import { useRouter } from "next/router";
+import Pagination from "../../components/pagination";
+import { useState } from "react";
+import { paginate } from "../../helpers/paginate";
 
 function SingleCategoryPage({
 	filteredPosts,
@@ -17,7 +19,19 @@ function SingleCategoryPage({
 	mainLogoData,
 	postsList,
 }) {
+	const [currentPage, setCurrentPage] = useState(1);
 	const categoryName = filteredPosts.edges[0].node.categories.nodes[0].name;
+
+	let posts = filteredPosts;
+	let pageSize = 2; //////////////////////////////////////
+
+	const onPageChange = (page) => {
+		setCurrentPage(page);
+	};
+
+	console.log(`all filtered posts: ${JSON.stringify(posts.edges)}`)
+
+	const paginatedPosts = paginate(posts.edges, currentPage, pageSize);
 
 	return (
 		<Layout
@@ -27,11 +41,9 @@ function SingleCategoryPage({
 			postsList={postsList}>
 			<h1>{categoryName}</h1>
 
-			{filteredPosts.edges.map((post) => {
+			{paginatedPosts.map((post) => {
 				return (
-					<Link
-						href={`/post/${post.node.slug}`}
-						key={post.node.slug}>
+					<Link href={`/post/${post.node.slug}`} key={post.node.slug}>
 						{post.node.featuredImage && (
 							<Image
 								width={100}
@@ -43,6 +55,13 @@ function SingleCategoryPage({
 					</Link>
 				);
 			})}
+
+			<Pagination
+				items={posts.edges.length}
+				currentPage={currentPage}
+				pageSize={pageSize}
+				onPageChange={onPageChange}
+			/>
 		</Layout>
 	);
 }
@@ -71,6 +90,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		params: { category: category.node.slug },
 	}));
 	return { paths, fallback: false };
-}
+};
 
 export default SingleCategoryPage;
