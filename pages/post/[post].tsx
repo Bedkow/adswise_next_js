@@ -11,12 +11,15 @@ import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
 import Tags from '../../components/tags'
 import { getAllPostsWithSlug, getPostAndMorePosts, getAllCategories, getMainLogoData, getSinglePostCategory } from '../../lib/api'
-import { CMS_NAME } from '../../lib/constants'
 import BackButton from '../../components/back-button'
 
 export default function Post({ post, posts, preview, allCategories, mainLogoData, postsList }) {
   const router = useRouter()
   const morePosts = posts?.edges
+
+  console.log(`-----------------------`)
+  console.log(morePosts)
+
 
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />

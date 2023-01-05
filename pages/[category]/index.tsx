@@ -12,6 +12,7 @@ import Layout from "../../components/layout";
 import Pagination from "../../components/pagination";
 import { useState } from "react";
 import { paginate } from "../../helpers/paginate";
+import { useRouter } from "next/router";
 
 function SingleCategoryPage({
 	filteredPosts,
@@ -20,7 +21,16 @@ function SingleCategoryPage({
 	postsList,
 }) {
 	const [currentPage, setCurrentPage] = useState(1);
-	const categoryName = filteredPosts.edges[0].node.categories.nodes[0].name;
+
+	const router = useRouter();
+
+	console.log(`router query: ${router.query.category}`)
+
+	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category})
+
+	console.log(`cat slug: ${foundPost.node.categories.nodes[0].slug}`)
+
+	const categoryName = foundPost.node.categories.nodes[0].name;
 
 	let posts = filteredPosts;
 	let pageSize = 2; //////////////////////////////////////
