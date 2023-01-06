@@ -40,6 +40,8 @@ function SingleCategoryPageNext({
 	let posts = filteredPosts;
 	let pageSize = 1; //////////////////////////////////////
 
+	console.log(posts)
+
 	// const onPageChange = (page) => {
 	// 	setCurrentPage(page);
 	// };
@@ -49,10 +51,6 @@ function SingleCategoryPageNext({
 	// console.log(`all filtered posts: ${JSON.stringify(posts.edges)}`)
 
 	const paginatedPosts = paginate(posts.edges, currentPage, pageSize);
-
-	const getNumberOfPosts = () => {
-		return posts.edges.length;
-	};
 
 	return (
 		<Layout

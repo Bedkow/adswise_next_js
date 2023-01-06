@@ -33,7 +33,7 @@ function SingleCategoryPage({
 	const categoryName = foundPost.node.categories.nodes[0].name;
 
 	let posts = filteredPosts;
-	let pageSize = 2; //////////////////////////////////////
+	let pageSize = 1; //////////////////////////////////////
 
 	// const onPageChange = (page) => {
 	// 	setCurrentPage(page);
