@@ -1,34 +1,49 @@
 import Pagination from "./pagination";
 import PostPreview from "./post-preview";
 import { useState } from "react";
-import { paginate } from '../helpers/paginate';
+import { paginate } from "../helpers/paginate";
 
 export default function MoreStories({
 	postsForHome,
 	postsForReadMore,
+	pagination,
 }: {
 	postsForHome?: any;
 	postsForReadMore?: any;
+	pagination?: boolean;
 }) {
 	const [currentPage, setCurrentPage] = useState(1);
 
 	let posts = [];
+	let paginatedPosts;
 	let pageSize;
-	if (postsForHome) {
-		posts = postsForHome;
-		pageSize = 6;
-	} else if (postsForReadMore) {
-		posts = postsForReadMore;
-		pageSize = 3;
-	}
 
 	const onPageChange = (page) => {
 		setCurrentPage(page);
 	};
 
-	console.log(currentPage);
+	if (pagination) {
 
-  const paginatedPosts = paginate(posts, currentPage, pageSize)
+		if (postsForHome) {
+			posts = postsForHome;
+			pageSize = 6;
+		} else if (postsForReadMore) {
+			posts = postsForReadMore;
+			pageSize = 3;
+		}
+
+		paginatedPosts = paginate(posts, currentPage, pageSize);
+
+	} else {
+
+		if (postsForHome) {
+			posts = postsForHome;
+		} else if (postsForReadMore) {
+			posts = postsForReadMore;
+		}
+
+		paginatedPosts = posts;
+	}
 
 	return (
 		<section>
@@ -64,12 +79,11 @@ export default function MoreStories({
 						);
 					})}
 
-				<Pagination
+				{pagination && <Pagination
 					items={posts.length}
 					currentPage={currentPage}
 					pageSize={pageSize}
-					onPageChange={onPageChange}
-				/>
+				/>}
 			</div>
 		</section>
 	);

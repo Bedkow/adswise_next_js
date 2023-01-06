@@ -90,7 +90,7 @@ export async function getMainLogoData() {
 export async function getAllCategories() {
 	const data = await fetchAPI(
 		`
-    query AllCategories{
+    query AllCategories {
       categories {
         edges {
           node {
@@ -104,8 +104,15 @@ export async function getAllCategories() {
                 slug
               }
             }
+            contentNodes {
+              nodes {
+                id
+                slug
+              }
+            }
             children {
               nodes {
+                count
                 name
                 slug
               }
