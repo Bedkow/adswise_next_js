@@ -3,8 +3,7 @@
 export default function Pagination({
 	items,
 	currentPage,
-	pageSize,
-	onPageChange,
+	pageSize
 }) {
 	const pagesCount = Math.ceil(items / pageSize);
 
@@ -24,7 +23,7 @@ export default function Pagination({
 			<ul>
 				{pages.map((page) => (
 					<li key={page}>
-						<a onClick={() => onPageChange(page)}>{page}</a>
+						<a>{page}</a>
 					</li>
 				))}
 			</ul>

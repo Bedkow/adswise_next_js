@@ -5,16 +5,17 @@ import {
 	getPostsByCategory,
 	getMainLogoData,
 	getAllPostsWithSlug,
-} from "../../lib/api";
+} from "../../../lib/api";
 import Link from "next/link";
 import Image from "next/image";
-import Layout from "../../components/layout";
-import Pagination from "../../components/pagination";
+import Layout from "../../../components/layout";
+import Pagination from "../../../components/pagination";
 import { useState } from "react";
-import { paginate } from "../../helpers/paginate";
+import { paginate } from "../../../helpers/paginate";
 import { useRouter } from "next/router";
+import postcss from "postcss";
 
-function SingleCategoryPage({
+function SingleCategoryPageNext({
 	filteredPosts,
 	allCategories,
 	mainLogoData,
@@ -24,26 +25,34 @@ function SingleCategoryPage({
 
 	const router = useRouter();
 
-	console.log(`router query: ${router.query.category}`)
+	console.log(
+		`router query: ${router.query.category} / ${router.query.pageNumber}`
+	);
 
-	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category})
+	const foundPost = filteredPosts.edges.find((post, index) => {
+		return post.node.categories.nodes[0].slug === router.query.category;
+	});
 
-	console.log(`cat slug: ${foundPost.node.categories.nodes[0].slug}`)
+	console.log(`cat slug: ${foundPost.node.categories.nodes[0].slug}`);
 
 	const categoryName = foundPost.node.categories.nodes[0].name;
 
 	let posts = filteredPosts;
-	let pageSize = 2; //////////////////////////////////////
+	let pageSize = 1; //////////////////////////////////////
 
 	// const onPageChange = (page) => {
 	// 	setCurrentPage(page);
 	// };
 
+	let currentPage = router.query.pageNumber;
+
 	// console.log(`all filtered posts: ${JSON.stringify(posts.edges)}`)
 
-	let currentPage = 1;
-
 	const paginatedPosts = paginate(posts.edges, currentPage, pageSize);
+
+	const getNumberOfPosts = () => {
+		return posts.edges.length;
+	};
 
 	return (
 		<Layout
@@ -69,7 +78,7 @@ function SingleCategoryPage({
 			})}
 
 			<Pagination
-				items={posts.edges.length}
+				items={posts.edges.length} ////???
 				currentPage={currentPage}
 				pageSize={pageSize}
 			/>
@@ -97,10 +106,29 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
 	const allCategories = await getAllCategories();
 
-	const paths = allCategories.edges.map((category) => ({
-		params: { category: category.node.slug },
-	}));
-	return { paths, fallback: false };
+	// const pagesCount = Math.ceil(itemsCount / pageSize);
+	// const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
+
+	let generatedPaths = [];
+
+	allCategories.edges.map((category) => {
+		// x / page size (post number)
+		let pageNumber = Math.ceil(category.node.contentNodes.nodes.length / 1);
+		let pages = Array.from({ length: pageNumber }, (_, i) => i + 1);
+
+		
+
+		pages.map((page) => {
+			generatedPaths.push({
+				params: {
+					category: category.node.slug,
+					pageNumber: page.toString(),
+				},
+			});
+		});
+	});
+
+	return { paths: generatedPaths, fallback: false };
 };
 
-export default SingleCategoryPage;
+export default SingleCategoryPageNext;
