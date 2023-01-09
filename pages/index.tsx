@@ -6,6 +6,7 @@ import HeroPost from '../components/hero-post';
 import Intro from '../components/intro';
 import Layout from '../components/layout';
 import { getAllCategories, getMainLogoData, getAllPostsForHome, getAllPostsWithSlug } from '../lib/api';
+import CategoryPostsBox from '../components/category-posts-box';
 
 export default function Index({ allPostsForHome: { edges }, preview, allCategories, mainLogoData, postsList }: {allPostsForHome?: any, preview: boolean, allCategories?: any, mainLogoData: any, postsList: any}) {
 
@@ -19,6 +20,7 @@ export default function Index({ allPostsForHome: { edges }, preview, allCategori
       </Head>
       <Container>
         <Intro />
+        <CategoryPostsBox category={heroPost.categories}/>
         {heroPost && (
           <HeroPost
             title={heroPost.title}
