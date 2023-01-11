@@ -12,6 +12,8 @@ export default function HeroPost({
   category,
 }:{ title: any, coverImage:any, date:any, excerpt:any, author?: any, slug:any, category: any }) {
   const categorySlug = category.nodes[0].slug;
+  // excerpt = `${excerpt}...`
+  console.log(excerpt)
   return (
     <section>
       <div>
@@ -30,10 +32,11 @@ export default function HeroPost({
           <div>
             <Date dateString={date} />
           </div>
+          <h2>Kategoria: {category.nodes[0].name}</h2>
         </div>
         <div>
           <div
-            dangerouslySetInnerHTML={{ __html: excerpt }}
+            dangerouslySetInnerHTML={{ __html: excerpt}}
           />
         </div>
       </div>
