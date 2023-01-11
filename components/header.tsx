@@ -25,6 +25,7 @@ const SubcategoryList = styled.ul`
   flex-direction: column;
   list-style-type: none;
   display: none;
+  z-index: 10;
 
   ${CategoryListItem}:hover & {
     display: flex;
@@ -35,6 +36,7 @@ const SubcategoryList = styled.ul`
 const SubcategoryListItem = styled.li`
   border: 1px dotted black;
   padding: 3px;
+  background-color: white;
 `
 
 
