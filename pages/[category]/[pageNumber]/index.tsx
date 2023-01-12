@@ -58,6 +58,7 @@ function SingleCategoryPageNext({
 			allCategories={allCategories}
 			mainLogoData={mainLogoData}
 			postsList={postsList}>
+				
 			<h1>{categoryName}</h1>
 
 			{paginatedPosts.map((post) => {
