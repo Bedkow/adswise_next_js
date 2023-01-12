@@ -184,6 +184,24 @@ export async function getAllPostsWithSlug() {
                 id
                 name
                 slug
+                children {
+                  edges {
+                    node {
+                      id
+                      name
+                      slug
+                    }
+                  }
+                }
+                ancestors {
+                  edges {
+                    node {
+                      id
+                      name
+                      slug
+                    }
+                  }
+                }
               }
             }
           }

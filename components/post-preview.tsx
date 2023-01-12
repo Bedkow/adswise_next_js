@@ -10,7 +10,7 @@ export default function PostPreview({
   author,
   slug,
   category,
-}:{ title: any, coverImage:any, date:any, excerpt:any, author?: any, slug:any, category: any }) {
+}:{ title: any, coverImage:any, date:any, excerpt?:any, author?: any, slug:any, category: any }) {
   return (
     <div>
       <div>
@@ -27,9 +27,9 @@ export default function PostPreview({
       <div>
         <Date dateString={date} />
       </div>
-      <div
+      {/* <div
         dangerouslySetInnerHTML={{ __html: excerpt }}
-      />
+      /> */}
     </div>
   );
 }

@@ -66,7 +66,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
                       (subCategory) => {
                         return (
                           <SubcategoryListItem key={`${subCategory.slug}`}>
-                            <Link href={`${subCategory.slug}`}>subCat - {subCategory.name}</Link>
+                            <Link href={`/${subCategory.slug}`}>subCat - {subCategory.name}</Link>
                           </SubcategoryListItem>
                         )
                       }
