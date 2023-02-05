@@ -25,30 +25,20 @@ function SingleCategoryPageNext({
 
 	const router = useRouter();
 
-	console.log(
-		`router query: ${router.query.category} / ${router.query.pageNumber}`
-	);
-
 	const foundPost = filteredPosts.edges.find((post, index) => {
 		return post.node.categories.nodes[0].slug === router.query.category;
 	});
-
-	console.log(`cat slug: ${foundPost.node.categories.nodes[0].slug}`);
 
 	const categoryName = foundPost.node.categories.nodes[0].name;
 
 	let posts = filteredPosts;
 	let pageSize = 1; //////////////////////////////////////
 
-	console.log(posts)
-
 	// const onPageChange = (page) => {
 	// 	setCurrentPage(page);
 	// };
 
 	let currentPage = router.query.pageNumber;
-
-	// console.log(`all filtered posts: ${JSON.stringify(posts.edges)}`)
 
 	const paginatedPosts = paginate(posts.edges, currentPage, pageSize);
 

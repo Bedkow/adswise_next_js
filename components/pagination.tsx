@@ -11,12 +11,6 @@ export default function Pagination({
 
 	const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
 
-    console.log(`number of items : ${items}`)
-    console.log(`pages count: ${pagesCount}`)
-    console.log(pages)
-    console.log(`current page: ${currentPage}`)
-
-
 	return (
 		<div>
             <hr></hr>

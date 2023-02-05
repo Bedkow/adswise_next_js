@@ -24,11 +24,7 @@ function SingleCategoryPage({
 
 	const router = useRouter();
 
-	console.log(`router query: ${router.query.category}`)
-
 	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category})
-
-	console.log(`cat slug: ${foundPost.node.categories.nodes[0].slug}`)
 
 	const categoryName = foundPost.node.categories.nodes[0].name;
 
@@ -38,8 +34,6 @@ function SingleCategoryPage({
 	// const onPageChange = (page) => {
 	// 	setCurrentPage(page);
 	// };
-
-	// console.log(`all filtered posts: ${JSON.stringify(posts.edges)}`)
 
 	let currentPage = 1;
 
