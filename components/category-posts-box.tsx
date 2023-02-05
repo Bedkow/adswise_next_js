@@ -17,14 +17,16 @@ export default function CategoryPostsBox({
 	morePostsForHome,
 }: {
 	category: any;
-	tileNumber?: any;
+	tileNumber?: number;
 	morePostsForHome?: any;
 }) {
-	console.log(morePostsForHome);
 
     let sliceEnd = tileNumber || 6;
 
+	//prevent creation of sparse arrays
+	if (morePostsForHome.length > tileNumber) {
     morePostsForHome = morePostsForHome.slice(0, sliceEnd)
+	}
     
 	return (
 		<CategoryBox className="category-box">
