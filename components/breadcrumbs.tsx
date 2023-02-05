@@ -13,8 +13,6 @@ export default function Breadcrumbs({
 	const router = useRouter();
 	const currentQuery = router.query;
 
-	console.log(router.query.category);
-
 	let category;
 	let categoryName;
 	let categorySlug;
@@ -32,7 +30,6 @@ export default function Breadcrumbs({
 	});
 
 	const postTitle = post?.node.title;
-	// console.log(post)
 
 	let postCategoryName;
 	let postCategorySlug;

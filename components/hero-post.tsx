@@ -13,7 +13,6 @@ export default function HeroPost({
 }:{ title: any, coverImage:any, date:any, excerpt:any, author?: any, slug:any, category: any }) {
   const categorySlug = category.nodes[0].slug;
   // excerpt = `${excerpt}...`
-  console.log(excerpt)
   return (
     <section>
       <div>

@@ -30,8 +30,6 @@ export default function Index({
 	const morePostsForHome = edges.slice(1);
 	let moreFilteredPostsForHome;
 
-	console.log(allCategories);
-
 	return (
 		<Layout
 			preview={preview}
