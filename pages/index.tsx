@@ -57,7 +57,7 @@ export default function Index({
 
 				{morePostsForHome.length > 0 &&
 					allCategories.edges.map((category) => {
-						if (!category.node.parent && category.node.slug !== 'pozostale') {
+						if (!category.node.parent && category.node.slug !== 'pozostale' && category.node.contentNodes.nodes.length > 0) {
 							moreFilteredPostsForHome = morePostsForHome.filter((post) => {
 								return post.node.categories.nodes[0].slug === category.node.slug;
 							});
@@ -65,6 +65,7 @@ export default function Index({
 								<CategoryPostsBox
 									key={category.node.slug}
 									category={category.node.name}
+                  tileNumber={6} //change to customize tile number
 									morePostsForHome={moreFilteredPostsForHome}
 								/>
 							);
@@ -72,7 +73,7 @@ export default function Index({
 					})}
 				{morePostsForHome.length > 0 &&
 					allCategories.edges.map((category) => {
-						if (!category.node.parent && category.node.slug === 'pozostale') {
+						if (!category.node.parent && category.node.slug === 'pozostale' && category.node.contentNodes.nodes.length > 0) {
               moreFilteredPostsForHome = morePostsForHome.filter((post) => {
 								return post.node.categories.nodes[0].slug === category.node.slug;
               });
@@ -80,6 +81,7 @@ export default function Index({
 								<CategoryPostsBox
 									key={category.node.slug}
 									category={category.node.name}
+                  tileNumber={6} //change to customize tile number
 									morePostsForHome={moreFilteredPostsForHome}
 								/>
 							);
