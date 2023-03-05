@@ -6,7 +6,12 @@ import styled from 'styled-components';
 
 const PageLayout = styled.div`
   max-width: 100%;
-  margin: 0 50px;
+
+  @media only screen and (min-width: ${(props)=> props.theme.breakpoints.tabletPlus}px) {
+    main {
+    margin: 0 50px;
+    }
+  }
 `
 
 export default function Layout({ preview, allCategories, children, mainLogoData, postsList }: {preview: boolean, allCategories?: any, children: any, mainLogoData: any, postsList: any}) {
