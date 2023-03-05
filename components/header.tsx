@@ -2,7 +2,7 @@ import Link from "next/link";
 import MainLogo from "./main-logo";
 import Breadcrumbs from "./breadcrumbs";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const StyledHeader = styled.header`
 	background-color: ${(props) => props.theme.colors.secondary};
@@ -23,7 +23,7 @@ const CategoryList = styled.ul`
 	justify-content: center;
 	flex-wrap: wrap;
 
-	@media only screen and (min-width: ${(props) => props.theme.breakpoints.desktopPlus}px) {
+	@media only screen and (min-width: ${(props) =>props.theme.breakpoints.desktopPlus}px) {
 		display: flex;
 	}
 `;
@@ -41,7 +41,7 @@ const CategoryHamburgerButton = styled.span`
 	flex-wrap: nowrap;
 	justify-content: space-between;
 
-	@media only screen and (min-width: ${(props) => props.theme.breakpoints.desktopPlus}px) {
+	@media only screen and (min-width: ${(props) =>props.theme.breakpoints.desktopPlus}px) {
 		display: none;
 	}
 
@@ -81,21 +81,31 @@ const CategoryHamburger = styled.ul`
 	position: absolute;
 	background-color: ${(props) => props.theme.colors.secondary};
 
-	@media only screen and (min-width: ${(props) => props.theme.breakpoints.desktopPlus}px) {
+	@media only screen and (min-width: ${(props) =>props.theme.breakpoints.desktopPlus}px) {
 		display: none;
 	}
 `;
 
 const CategoryListItem = styled.li`
-	border: 1px solid black;
-	padding: 7px;
+	background-color: ${(props) => props.theme.colors.CTA};
+	/* padding: 7px; */
 	border-radius: 5px;
+
+	a {
+		color: ${(props) => props.theme.colors.textSecondary};
+	}
 `;
 
 const CategoryHamburgerItem = styled.li`
+	background-color: ${(props) => props.theme.colors.CTA};
 	border: 1px solid black;
-	padding: 7px;
+	/* padding: 7px; */
 	border-radius: 5px;
+	width: fit-content;
+	height: fit-content;
+	a {
+		color: ${(props) => props.theme.colors.textSecondary};
+	}
 `;
 
 const SubcategoryList = styled.ul`
@@ -117,22 +127,71 @@ const SubcategoryHamburger = styled.ul`
 	list-style-type: none;
 	z-index: 10;
 	border-radius: 5px;
-`
+	overflow: hidden;
+`;
 
 const SubcategoryListItem = styled.li`
 	/* border: 1px dotted black; */
-	padding: 10px;
-	background-color: ${(props) => props.theme.colors.secondary};
+	/* padding: 10px; */
+	background-color: ${(props) => props.theme.colors.accentBlue};
+	border-radius: 5px;
+
+	a {
+		color: ${(props) => props.theme.colors.textSecondary};
+	}
 `;
 
 const SubcategoryHamburgerItem = styled.li`
-	padding: 10px 10px 10px 20px;
-	background-color: ${(props) => props.theme.colors.secondary};
-`
+	padding-left: 20px;
+	background-color: ${(props) => props.theme.colors.accentBlue};
+	a {
+		color: ${(props) => props.theme.colors.textSecondary};
+	}
+	/* border-radius: 5px; */
+`;
+
+const NameWrapper = styled.div`
+	padding: 7px;
+	width: 100%;
+	height: 100%;
+`;
 
 export default function Header({ allCategories, mainLogoData, postsList }) {
 	let [hamburgerVisible, setHamburgerVisible] = useState(false);
+	let [width, setWidth] = useState(0);
+
+	/////////////////////////////////////////////////
+	// Debounce
+	function debounce(func, time) {
+		var time = time || 100; // 100 by default if no param
+		var timer;
+		return function (event) {
+			if (timer) clearTimeout(timer);
+			timer = setTimeout(func, time, event);
+		};
+	}
+
+	///////////////////////////////////////////////
+
+	if (typeof window !== "undefined") {
+		// browser code
+		window.addEventListener(
+			"resize",
+			debounce(() => {
+				setWidth(window.innerWidth);
+				console.log(window.innerWidth);
+				// if (window.innerWidth >= 1280) {
+				// hamburgerVisible = true;
+				// setHamburgerVisible(hamburgerVisible);
+				// }
+			}, 150)
+		);
+	}
+
+	// useEffect(()=>{}, [width])
+
 	const categoriesList = allCategories?.edges;
+
 	const handleHamburgerIconClick = (e) => {
 		e.currentTarget.classList.toggle("active");
 		// console.log(`before state change: ${hamburgerVisible}`);
@@ -150,51 +209,56 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 					<span className='burger-meat'></span>
 					<span className='lower-bun'></span>
 				</CategoryHamburgerButton>
-				{!hamburgerVisible && <CategoryList>
-					{categoriesList?.map((category) => {
-						if (
-							category.node.slug !== "pozostale" &&
-							category.node.parent === null &&
-							category.node.contentNodes.nodes.length > 0
-						) {
-							return (
-								<CategoryListItem key={category.node.slug}>
-									<Link href={`/${category.node.slug}`}>
-										{category.node.name}
-									</Link>
-									{category.node.children.nodes.length > 0 && (
-										<SubcategoryList>
-											{category.node.children.nodes.map((subCategory) => {
-												return (
-													<SubcategoryListItem key={`${subCategory.slug}`}>
-														<Link href={`/${subCategory.slug}`}>
-															subCat - {subCategory.name}
-														</Link>
-													</SubcategoryListItem>
-												);
-											})}
-										</SubcategoryList>
-									)}
-								</CategoryListItem>
-							);
-						}
-					})}
-					{categoriesList?.map((category) => {
-						if (
-							category.node.slug === "pozostale" &&
-							category.node.parent === null &&
-							category.node.contentNodes.nodes.length > 0
-						) {
-							return (
-								<CategoryListItem>
-									<Link key='pozostale' href='/pozostale'>
-										Pozostałe
-									</Link>
-								</CategoryListItem>
-							);
-						}
-					})}
-				</CategoryList>}
+				{!hamburgerVisible && /*width >= 1280 &&*/(
+					<CategoryList>
+						{categoriesList?.map((category) => {
+							if (
+								category.node.slug !== "pozostale" &&
+								category.node.parent === null &&
+								category.node.contentNodes.nodes.length > 0
+							) {
+								return (
+									<CategoryListItem key={category.node.slug}>
+										<Link href={`/${category.node.slug}`}>
+											<NameWrapper>{category.node.name}</NameWrapper>
+										</Link>
+
+										{category.node.children.nodes.length > 0 && (
+											<SubcategoryList>
+												{category.node.children.nodes.map((subCategory) => {
+													return (
+														<SubcategoryListItem key={`${subCategory.slug}`}>
+															<Link href={`/${subCategory.slug}`}>
+																<NameWrapper>
+																	subCat - {subCategory.name}
+																</NameWrapper>
+															</Link>
+														</SubcategoryListItem>
+													);
+												})}
+											</SubcategoryList>
+										)}
+									</CategoryListItem>
+								);
+							}
+						})}
+						{categoriesList?.map((category) => {
+							if (
+								category.node.slug === "pozostale" &&
+								category.node.parent === null &&
+								category.node.contentNodes.nodes.length > 0
+							) {
+								return (
+									<CategoryListItem key='pozostale'>
+										<Link href='/pozostale'>
+											<NameWrapper>Pozostałe</NameWrapper>
+										</Link>
+									</CategoryListItem>
+								);
+							}
+						})}
+					</CategoryList>
+				)}
 
 				{hamburgerVisible && (
 					<CategoryHamburger>
@@ -207,15 +271,19 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 								return (
 									<CategoryHamburgerItem key={category.node.slug}>
 										<Link href={`/${category.node.slug}`}>
-											{category.node.name}
+											<NameWrapper>{category.node.name}</NameWrapper>
 										</Link>
+
 										{category.node.children.nodes.length > 0 && (
 											<SubcategoryHamburger>
 												{category.node.children.nodes.map((subCategory) => {
 													return (
-														<SubcategoryHamburgerItem key={`${subCategory.slug}`}>
+														<SubcategoryHamburgerItem
+															key={`${subCategory.slug}`}>
 															<Link href={`/${subCategory.slug}`}>
-																subCat - {subCategory.name}
+																<NameWrapper>
+																	subCat - {subCategory.name}
+																</NameWrapper>
 															</Link>
 														</SubcategoryHamburgerItem>
 													);
@@ -235,7 +303,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 								return (
 									<CategoryHamburgerItem>
 										<Link key='pozostale' href='/pozostale'>
-											Pozostałe
+											<NameWrapper>Pozostałe</NameWrapper>
 										</Link>
 									</CategoryHamburgerItem>
 								);

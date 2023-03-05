@@ -38,6 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       accentGreen: `#45A85E`,
       accentBlue: `#4887F2`,
 			text: '#e1e1e1',
+      textSecondary: '#262626',
       CTA: '#F6C026',
       CTASecondary: `#ffffff`
 		},
