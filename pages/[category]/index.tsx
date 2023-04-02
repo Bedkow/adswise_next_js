@@ -26,7 +26,7 @@ function SingleCategoryPage({
 
 	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category})
 
-	const categoryName = foundPost.node.categories.nodes[0].name;
+	const categoryName = foundPost?.node.categories.nodes[0].name;
 
 	let posts = filteredPosts;
 	let pageSize = 1; //////////////////////////////////////
