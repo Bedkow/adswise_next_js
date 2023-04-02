@@ -179,7 +179,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 			"resize",
 			debounce(() => {
 				setWidth(window.innerWidth);
-				console.log(window.innerWidth);
+				// console.log(window.innerWidth);
 				// if (window.innerWidth >= 1280) {
 				// hamburgerVisible = true;
 				// setHamburgerVisible(hamburgerVisible);

@@ -26,16 +26,18 @@ function SingleCategoryPage({
 
 	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category})
 
-	const categoryName = foundPost?.node.categories.nodes[0].name;
+	const categoryName = foundPost.node.categories.nodes[0].name;
 
 	let posts = filteredPosts;
-	let pageSize = 1; //////////////////////////////////////
+	let pageSize = 6; //////////////////////////////////////
 
 	// const onPageChange = (page) => {
 	// 	setCurrentPage(page);
 	// };
 
 	let currentPage = 1;
+
+	// console.log(allCategories)
 
 	const paginatedPosts = paginate(posts.edges, currentPage, pageSize);
 
@@ -90,8 +92,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const allCategories = await getAllCategories();
+	// console.log(allCategories.edges[0].node.contentNodes.nodes.length)
+	const filteredAllCategories = allCategories.edges.filter((category) => {
+		return category.node.contentNodes.nodes.length > 0
+	})
 
-	const paths = allCategories.edges.map((category) => ({
+	console.log("filtered:@@@@@@@@@@@@@@@@@@@ \n" + filteredAllCategories)
+
+	const paths = filteredAllCategories.map((category) => ({
 		params: { category: category.node.slug },
 	}));
 	return { paths, fallback: false };
