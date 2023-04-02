@@ -31,7 +31,7 @@ export default function HeroPost({
           <div>
             <Date dateString={date} />
           </div>
-          <h2>Kategoria: {category.nodes[0].name}</h2>
+          <h4>Kategoria: {category.nodes[0].name}</h4>
         </div>
         <div>
           <div
