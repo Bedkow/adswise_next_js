@@ -2,6 +2,22 @@ import { AppProps } from 'next/app';
 import '../styles/index.css';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
+const theme = {
+  colors: {
+    primary: '#f3f3f3',
+    secondary: '#b0b0b0',
+    accentGreen: `#c1ffd0`,
+    accentBlue: `#bcd5ff`,
+    text: '#121212',
+    textSecondary: '#262626',
+    CTA: '#ffffff',
+    CTASecondary: `#000000`
+  },
+  breakpoints: {
+    tabletPlus: 560,
+    desktopPlus: 1280,
+  }
+};
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -15,12 +31,12 @@ const GlobalStyles = createGlobalStyle`
     font-size: 16px;
     width: 100%;
     height: 100%;
-    background-color: #404989;
-    color: #e1e1e1;
+    background-color: ${theme.colors.primary};
+    color: ${theme.colors.text};
   }
 
   a, a:visited {
-    color: #e1e1e1;
+    color: ${theme.colors.text};
     text-decoration: none;
   }
 
@@ -30,23 +46,6 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
-
-	const theme = {
-		colors: {
-			primary: '#404989',
-			secondary: '#282E56',
-      accentGreen: `#45A85E`,
-      accentBlue: `#4887F2`,
-			text: '#e1e1e1',
-      textSecondary: '#262626',
-      CTA: '#F6C026',
-      CTASecondary: `#ffffff`
-		},
-    breakpoints: {
-      tabletPlus: 560,
-      desktopPlus: 1280,
-    }
-	};
 
 	return (
     <>
