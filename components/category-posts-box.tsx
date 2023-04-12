@@ -36,6 +36,8 @@ export default function CategoryPostsBox({
 	if (morePostsForHome.length > tileNumber) {
     morePostsForHome = morePostsForHome.slice(0, sliceEnd)
 	}
+
+	// console.log(morePostsForHome)
     
 	return (
 		<CategoryBox className="category-box">

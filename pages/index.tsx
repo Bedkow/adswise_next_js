@@ -1,17 +1,17 @@
-import Head from 'next/head';
-import { GetStaticProps } from 'next';
-import Container from '../components/container';
-import MoreStories from '../components/more-stories';
-import HeroPost from '../components/hero-post';
-import Intro from '../components/intro';
-import Layout from '../components/layout';
+import Head from "next/head";
+import { GetStaticProps } from "next";
+import Container from "../components/container";
+import MoreStories from "../components/more-stories";
+import HeroPost from "../components/hero-post";
+import Intro from "../components/intro";
+import Layout from "../components/layout";
 import {
 	getAllCategories,
 	getMainLogoData,
 	getAllPostsForHome,
 	getAllPostsWithSlug,
-} from '../lib/api';
-import CategoryPostsBox from '../components/category-posts-box';
+} from "../lib/api";
+import CategoryPostsBox from "../components/category-posts-box";
 
 export default function Index({
 	allPostsForHome: { edges },
@@ -26,17 +26,17 @@ export default function Index({
 	mainLogoData: any;
 	postsList: any;
 }) {
+
 	const heroPost = edges[0]?.node;
 	const morePostsForHome = edges.slice(1);
 	let moreFilteredPostsForHome;
-
+	console.log(edges);
 	return (
 		<Layout
 			preview={preview}
 			allCategories={allCategories}
 			mainLogoData={mainLogoData}
-			postsList={postsList}
-		>
+			postsList={postsList}>
 			<Head>
 				<title>AdsWise | Strona Główna</title>
 			</Head>
@@ -54,18 +54,27 @@ export default function Index({
 					/>
 				)}
 				{/* {morePostsForHome.length > 0 && <MoreStories postsForHome={morePostsForHome} />} */}
-
+				{console.log(morePostsForHome)}
+				{console.log(allCategories)}
 				{morePostsForHome.length > 0 &&
 					allCategories.edges.map((category) => {
-						if (!category.node.parent && category.node.slug !== 'pozostale' && category.node.contentNodes.nodes.length > 0) {
+						if (
+							!category.node.parent &&
+							category.node.slug !== "pozostale" &&
+							category.node.contentNodes.nodes.length > 0
+						) {
 							moreFilteredPostsForHome = morePostsForHome.filter((post) => {
-								return post.node.categories.nodes[0].slug === category.node.slug;
+								// console.log(`post cat slug: ${post.node.categories.nodes[0].slug}`)
+								// console.log(`cat slug: ${category.node.slug}`)
+								return (
+									post.node.categories.nodes[0].slug === category.node.slug
+								);
 							});
 							return (
 								<CategoryPostsBox
 									key={category.node.slug}
 									category={category.node.name}
-                  tileNumber={6} //change to customize tile number
+									tileNumber={6} //change to customize tile number
 									morePostsForHome={moreFilteredPostsForHome}
 								/>
 							);
@@ -73,15 +82,21 @@ export default function Index({
 					})}
 				{morePostsForHome.length > 0 &&
 					allCategories.edges.map((category) => {
-						if (!category.node.parent && category.node.slug === 'pozostale' && category.node.contentNodes.nodes.length > 0) {
-              moreFilteredPostsForHome = morePostsForHome.filter((post) => {
-								return post.node.categories.nodes[0].slug === category.node.slug;
-              });
+						if (
+							!category.node.parent &&
+							category.node.slug === "pozostale" &&
+							category.node.contentNodes.nodes.length > 0
+						) {
+							moreFilteredPostsForHome = morePostsForHome.filter((post) => {
+								return (
+									post.node.categories.nodes[0].slug === category.node.slug
+								);
+							});
 							return (
 								<CategoryPostsBox
 									key={category.node.slug}
 									category={category.node.name}
-                  tileNumber={6} //change to customize tile number
+									tileNumber={6} //change to customize tile number
 									morePostsForHome={moreFilteredPostsForHome}
 								/>
 							);
