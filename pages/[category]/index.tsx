@@ -24,9 +24,14 @@ function SingleCategoryPage({
 
 	const router = useRouter();
 
-	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category})
+	// console.log(filteredPosts)
 
-	const categoryName = foundPost.node.categories.nodes[0].name;
+	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category || post.node.categories.nodes[0].ancestors.nodes[0].slug === router.query.category})
+
+
+	// console.log(foundPost)
+
+	const categoryName = foundPost.node.categories.nodes[0].ancestors.nodes[0].name || foundPost.node.categories.nodes[0].name;
 
 	let posts = filteredPosts;
 	let pageSize = 6; //////////////////////////////////////
@@ -97,7 +102,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		return category.node.contentNodes.nodes.length > 0
 	})
 
-	console.log("filtered:@@@@@@@@@@@@@@@@@@@ \n" + filteredAllCategories)
+	// console.log("filtered:@@@@@@@@@@@@@@@@@@@ \n" + filteredAllCategories)
 
 	const paths = filteredAllCategories.map((category) => ({
 		params: { category: category.node.slug },

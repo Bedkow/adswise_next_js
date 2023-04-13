@@ -129,33 +129,40 @@ export async function getAllCategories() {
 export async function getPostsByCategory(categoryName) {
 	const data = await fetchAPI(
 		`
-  {
-    posts(where: {categoryName: "${categoryName}"}) {
-      edges {
-        node {
-          id
-          slug
-          title
-          featuredImage {
-            node {
-              altText
-              id
-              link
-              slug
-              sourceUrl
-              uri
+    {
+      posts(where: {categoryName: "${categoryName}"}) {
+        edges {
+          node {
+            id
+            slug
+            title
+            featuredImage {
+              node {
+                altText
+                id
+                link
+                slug
+                sourceUrl
+                uri
+              }
             }
-          }
-          categories {
-            nodes {
-              name
-              slug
-              children {
-                edges {
-                  node {
-                    count
-                    slug
+            categories {
+              nodes {
+                name
+                slug
+                children {
+                  edges {
+                    node {
+                      count
+                      slug
+                      name
+                    }
+                  }
+                }
+                ancestors {
+                  nodes {
                     name
+                    slug
                   }
                 }
               }
@@ -164,7 +171,6 @@ export async function getPostsByCategory(categoryName) {
         }
       }
     }
-  }
   `
 	);
 	return data.posts;
