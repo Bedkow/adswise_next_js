@@ -30,7 +30,7 @@ export default function Index({
 	const heroPost = edges[0]?.node;
 	const morePostsForHome = edges.slice(1);
 	let moreFilteredPostsForHome;
-	console.log(edges);
+	// console.log(edges);
 	return (
 		<Layout
 			preview={preview}
@@ -54,8 +54,8 @@ export default function Index({
 					/>
 				)}
 				{/* {morePostsForHome.length > 0 && <MoreStories postsForHome={morePostsForHome} />} */}
-				{console.log(morePostsForHome)}
-				{console.log(allCategories)}
+				{/* {console.log(morePostsForHome)} */}
+				{/* {console.log(allCategories)} */}
 				{morePostsForHome.length > 0 &&
 					allCategories.edges.map((category) => {
 						if (
