@@ -31,7 +31,7 @@ function SingleCategoryPage({
 
 	// console.log(foundPost)
 
-	const categoryName = foundPost.node.categories.nodes[0].ancestors.nodes[0].name || foundPost.node.categories.nodes[0].name;
+	const categoryName = foundPost.node.categories.nodes[0].name || foundPost.node.categories.nodes[0].ancestors.nodes[0].name;
 
 	let posts = filteredPosts;
 	let pageSize = 6; //////////////////////////////////////
