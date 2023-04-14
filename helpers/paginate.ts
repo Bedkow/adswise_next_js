@@ -1,4 +1,12 @@
-export const paginate = (items, pageNumber, pageSize) => {
-    const startIndex = (pageNumber - 1) * pageSize;
-    return items.slice(startIndex, startIndex + pageSize);
-   };
+const getPages = (length: number, inc: number = 1) =>
+	Array.from({ length }, (_, i) => i + inc);
+
+export const paginate = (
+	totalItems: number,
+	currentPage: number,
+	itemsPerPage: number
+) => {
+	const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+	return getPages(totalPages);
+};

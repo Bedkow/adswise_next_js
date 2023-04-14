@@ -21,7 +21,6 @@ function SingleCategoryPageNext({
 	mainLogoData,
 	postsList,
 }) {
-	// const [currentPage, setCurrentPage] = useState(1);
 
 	const router = useRouter();
 
@@ -29,16 +28,17 @@ function SingleCategoryPageNext({
 
 	const categoryName = foundPost.node.categories.nodes[0].name || foundPost.node.categories.nodes[0].ancestors.nodes[0].name;
 
-	let posts = filteredPosts;
-	let pageSize = 1; //////////////////////////////////////
+	// current pagination page number
+	let currentPage = +router.query.pageNumber
 
-	// const onPageChange = (page) => {
-	// 	setCurrentPage(page);
-	// };
+	// number of posts per page, passed to pagination
+	let perPage = 6
 
-	let currentPage = router.query.pageNumber;
+	// calc starting index to slice
+	let sliceStartingIndex = (currentPage - 1) * perPage
 
-	const paginatedPosts = paginate(posts.edges, currentPage, pageSize);
+	// only posts for current page
+	let filteredSlicedPosts = filteredPosts.edges.slice(sliceStartingIndex, sliceStartingIndex + perPage)
 
 	return (
 		<Layout
@@ -49,7 +49,7 @@ function SingleCategoryPageNext({
 				
 			<h1>{categoryName}</h1>
 
-			{paginatedPosts.map((post) => {
+			{filteredSlicedPosts.map((post) => {
 				return (
 					<Link href={`/post/${post.node.slug}`} key={post.node.slug}>
 						{post.node.featuredImage && (
@@ -64,10 +64,10 @@ function SingleCategoryPageNext({
 				);
 			})}
 
-			<Pagination
-				items={posts.edges.length} ////???
+<Pagination
+				totalItems={filteredPosts.edges.length}
 				currentPage={currentPage}
-				pageSize={pageSize}
+				itemsPerPage={perPage}
 			/>
 		</Layout>
 	);
