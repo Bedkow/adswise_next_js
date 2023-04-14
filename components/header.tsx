@@ -209,8 +209,8 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 					<span className='burger-meat'></span>
 					<span className='lower-bun'></span>
 				</CategoryHamburgerButton>
-				{!hamburgerVisible && /*width >= 1280 &&*/(
-					<CategoryList>
+				{!hamburgerVisible && (
+					/*width >= 1280 &&*/ <CategoryList>
 						{categoriesList?.map((category) => {
 							if (
 								category.node.slug !== "pozostale" &&
@@ -225,16 +225,22 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 
 										{category.node.children.nodes.length > 0 && (
 											<SubcategoryList>
+												{/* {console.log(category)} */}
 												{category.node.children.nodes.map((subCategory) => {
-													return (
-														<SubcategoryListItem key={`${subCategory.slug}`}>
-															<Link href={`/${subCategory.slug}`}>
-																<NameWrapper>
-																	subCat - {subCategory.name}
-																</NameWrapper>
-															</Link>
-														</SubcategoryListItem>
-													);
+													// {console.log(subCategory.count)}
+													if (subCategory.count && subCategory.count > 0) {
+														return (
+															<SubcategoryListItem key={`${subCategory.slug}`}>
+																<Link href={`/${subCategory.slug}`}>
+																	<NameWrapper>
+																		subCat - {subCategory.name}
+																	</NameWrapper>
+																</Link>
+															</SubcategoryListItem>
+														);
+													} else {
+														return null;
+													}
 												})}
 											</SubcategoryList>
 										)}
@@ -277,16 +283,20 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 										{category.node.children.nodes.length > 0 && (
 											<SubcategoryHamburger>
 												{category.node.children.nodes.map((subCategory) => {
-													return (
-														<SubcategoryHamburgerItem
-															key={`${subCategory.slug}`}>
-															<Link href={`/${subCategory.slug}`}>
-																<NameWrapper>
-																	subCat - {subCategory.name}
-																</NameWrapper>
-															</Link>
-														</SubcategoryHamburgerItem>
-													);
+													if (subCategory.count && subCategory.count > 0) {
+														return (
+															<SubcategoryHamburgerItem
+																key={`${subCategory.slug}`}>
+																<Link href={`/${subCategory.slug}`}>
+																	<NameWrapper>
+																		subCat - {subCategory.name}
+																	</NameWrapper>
+																</Link>
+															</SubcategoryHamburgerItem>
+														);
+													} else {
+														return null;
+													}
 												})}
 											</SubcategoryHamburger>
 										)}
