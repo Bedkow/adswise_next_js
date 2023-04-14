@@ -25,11 +25,9 @@ function SingleCategoryPageNext({
 
 	const router = useRouter();
 
-	const foundPost = filteredPosts.edges.find((post, index) => {
-		return post.node.categories.nodes[0].slug === router.query.category;
-	});
+	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category || post.node.categories.nodes[0].ancestors.nodes[0].slug === router.query.category})
 
-	const categoryName = foundPost.node.categories.nodes[0].name;
+	const categoryName = foundPost.node.categories.nodes[0].name || foundPost.node.categories.nodes[0].ancestors.nodes[0].name;
 
 	let posts = filteredPosts;
 	let pageSize = 1; //////////////////////////////////////
