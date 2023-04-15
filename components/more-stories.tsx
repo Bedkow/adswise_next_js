@@ -32,7 +32,7 @@ export default function MoreStories({
 			pageSize = 3;
 		}
 
-		paginatedPosts = paginate(posts, currentPage, pageSize);
+		paginatedPosts = posts /*paginate(posts, currentPage, pageSize);*/
 
 	} else {
 
@@ -79,11 +79,11 @@ export default function MoreStories({
 						);
 					})}
 
-				{pagination && <Pagination
-					items={posts.length}
+				{/* {pagination && <Pagination
+					totalItems={posts.length}
 					currentPage={currentPage}
-					pageSize={pageSize}
-				/>}
+					itemsPerPage={pageSize}
+				/>} */}
 			</div>
 		</section>
 	);
