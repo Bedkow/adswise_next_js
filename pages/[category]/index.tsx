@@ -20,31 +20,44 @@ function SingleCategoryPage({
 	mainLogoData,
 	postsList,
 }) {
-	// const [currentPage, setCurrentPage] = useState(1);
+	//
+	// console.log(filteredPosts)
+	//
 
 	const router = useRouter();
 
-	// console.log(filteredPosts)
+	const foundPost = filteredPosts.edges.find((post, index) => {
+		return (
+			post.node.categories.nodes[0].slug === router.query.category ||
+			post.node.categories.nodes[0].ancestors.nodes[0].slug ===
+				router.query.category
+		);
+	});
 
-	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category || post.node.categories.nodes[0].ancestors.nodes[0].slug === router.query.category})
+	// console.log(foundPost);
 
+	const categoryName = () => {
+		if (foundPost.node.categories.nodes[0].slug === router.query.category) {
+			return foundPost.node.categories.nodes[0].name;
+		} else if (
+			foundPost.node.categories.nodes[0].ancestors.nodes[0].slug ===
+			router.query.category
+		) {
+			return foundPost.node.categories.nodes[0].ancestors.nodes[0].name;
+		} else {
+			// if anything breaks, pretend everything is fine
+			return "-Strona Kategorii-";
+		}
+	};
 
-	// console.log(foundPost)
-
-	const categoryName = foundPost.node.categories.nodes[0].name || foundPost.node.categories.nodes[0].ancestors.nodes[0].name;
-
-	let posts = filteredPosts;
-	let pageSize = 6; //////////////////////////////////////
-
-	// const onPageChange = (page) => {
-	// 	setCurrentPage(page);
-	// };
-
+	// current pagination page number
 	let currentPage = 1;
 
-	// console.log(allCategories)
+	// number of posts per page, passed to pagination
+	let perPage = 6;
 
-	const paginatedPosts = paginate(posts.edges, currentPage, pageSize);
+	// only posts for current page
+	let filteredSlicedPosts = filteredPosts.edges.slice(0, perPage);
 
 	return (
 		<Layout
@@ -52,27 +65,29 @@ function SingleCategoryPage({
 			allCategories={allCategories}
 			mainLogoData={mainLogoData}
 			postsList={postsList}>
-			<h1>{categoryName}</h1>
+			<h1>{categoryName()}</h1>
 
-			{paginatedPosts.map((post) => {
+			{filteredSlicedPosts.map((paginatedPost) => {
 				return (
-					<Link href={`/post/${post.node.slug}`} key={post.node.slug}>
-						{post.node.featuredImage && (
+					<Link
+						href={`/post/${paginatedPost.node.slug}`}
+						key={paginatedPost.node.slug}>
+						{paginatedPost.node.featuredImage && (
 							<Image
 								width={100}
 								height={100}
-								alt={post.node.featuredImage.node.altText}
-								src={post.node.featuredImage.node.sourceUrl}></Image>
+								alt={paginatedPost.node.featuredImage.node.altText}
+								src={paginatedPost.node.featuredImage.node.sourceUrl}></Image>
 						)}
-						<h2>{post.node.title}</h2>
+						<h2>{paginatedPost.node.title}</h2>
 					</Link>
 				);
 			})}
 
 			<Pagination
-				items={posts.edges.length}
+				totalItems={filteredPosts.edges.length}
 				currentPage={currentPage}
-				pageSize={pageSize}
+				itemsPerPage={perPage}
 			/>
 		</Layout>
 	);
@@ -99,8 +114,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	const allCategories = await getAllCategories();
 	// console.log(allCategories.edges[0].node.contentNodes.nodes.length)
 	const filteredAllCategories = allCategories.edges.filter((category) => {
-		return category.node.contentNodes.nodes.length > 0
-	})
+		return category.node.contentNodes.nodes.length > 0;
+	});
 
 	// console.log("filtered:@@@@@@@@@@@@@@@@@@@ \n" + filteredAllCategories)
 
