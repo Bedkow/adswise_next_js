@@ -2,18 +2,24 @@ import { AppProps } from 'next/app';
 import '../styles/index.css';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
+const theme = {
+  colors: {
+    primary: '#f3f3f3',
+    secondary: '#b0b0b0',
+    accentGreen: `#c1ffd0`,
+    accentBlue: `#bcd5ff`,
+    text: '#121212',
+    textSecondary: '#262626',
+    CTA: '#ffffff',
+    CTASecondary: `#000000`
+  },
+  breakpoints: {
+    tabletPlus: 560,
+    desktopPlus: 1280,
+  }
+};
 
 const GlobalStyles = createGlobalStyle`
-  /* roboto-regular - latin */
-  @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    src: local(''),
-        url('../fonts/roboto-v30-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-        url('../fonts/roboto-v30-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-  }
-
   * {
     box-sizing: border-box;
     margin: 0;
@@ -25,24 +31,30 @@ const GlobalStyles = createGlobalStyle`
     font-size: 16px;
     width: 100%;
     height: 100%;
+    background-color: ${theme.colors.primary};
+    color: ${theme.colors.text};
+  }
+
+  a, a:visited {
+    color: ${theme.colors.text};
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
-	const theme = {
-		colors: {
-			primary: '#2A2B2A',
-			secondary: '#3F7CAC',
-			text: '#D6D6D6',
-		},
-	};
 
 	return (
-		<ThemeProvider theme={theme}>
-			<GlobalStyles />
-			<Component {...pageProps} />
-		</ThemeProvider>
-	);
+    <>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </ThemeProvider>
+	  </>
+  );
 }
 
 export default MyApp;

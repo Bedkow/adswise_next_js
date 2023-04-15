@@ -5,25 +5,22 @@ import {
 	getPostsByCategory,
 	getMainLogoData,
 	getAllPostsWithSlug,
-} from "../../lib/api";
+} from "../../../lib/api";
 import Link from "next/link";
 import Image from "next/image";
-import Layout from "../../components/layout";
-import Pagination from "../../components/pagination";
+import Layout from "../../../components/layout";
+import Pagination from "../../../components/pagination";
 import { useState } from "react";
-import { paginate } from "../../helpers/paginate";
+import { paginate } from "../../../helpers/paginate";
 import { useRouter } from "next/router";
+import postcss from "postcss";
 
-function SingleCategoryPage({
+function SingleCategoryPageNext({
 	filteredPosts,
 	allCategories,
 	mainLogoData,
 	postsList,
 }) {
-	//
-	// console.log(filteredPosts)
-	//
-
 	const router = useRouter();
 
 	const foundPost = filteredPosts.edges.find((post, index) => {
@@ -33,8 +30,6 @@ function SingleCategoryPage({
 				router.query.category
 		);
 	});
-
-	// console.log(foundPost);
 
 	const categoryName = () => {
 		if (foundPost.node.categories.nodes[0].slug === router.query.category) {
@@ -51,13 +46,19 @@ function SingleCategoryPage({
 	};
 
 	// current pagination page number
-	let currentPage = 1;
+	let currentPage = +router.query.pageNumber;
 
 	// number of posts per page, passed to pagination
 	let perPage = 6;
 
+	// calc starting index to slice
+	let sliceStartingIndex = (currentPage - 1) * perPage;
+
 	// only posts for current page
-	let filteredSlicedPosts = filteredPosts.edges.slice(0, perPage);
+	let filteredSlicedPosts = filteredPosts.edges.slice(
+		sliceStartingIndex,
+		sliceStartingIndex + perPage
+	);
 
 	return (
 		<Layout
@@ -67,19 +68,17 @@ function SingleCategoryPage({
 			postsList={postsList}>
 			<h1>{categoryName()}</h1>
 
-			{filteredSlicedPosts.map((paginatedPost) => {
+			{filteredSlicedPosts.map((post) => {
 				return (
-					<Link
-						href={`/post/${paginatedPost.node.slug}`}
-						key={paginatedPost.node.slug}>
-						{paginatedPost.node.featuredImage && (
+					<Link href={`/post/${post.node.slug}`} key={post.node.slug}>
+						{post.node.featuredImage && (
 							<Image
 								width={100}
 								height={100}
-								alt={paginatedPost.node.featuredImage.node.altText}
-								src={paginatedPost.node.featuredImage.node.sourceUrl}></Image>
+								alt={post.node.featuredImage.node.altText}
+								src={post.node.featuredImage.node.sourceUrl}></Image>
 						)}
-						<h2>{paginatedPost.node.title}</h2>
+						<h2>{post.node.title}</h2>
 					</Link>
 				);
 			})}
@@ -112,17 +111,28 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const allCategories = await getAllCategories();
-	// console.log(allCategories.edges[0].node.contentNodes.nodes.length)
-	const filteredAllCategories = allCategories.edges.filter((category) => {
-		return category.node.contentNodes.nodes.length > 0;
+
+	// const pagesCount = Math.ceil(itemsCount / pageSize);
+	// const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
+
+	let generatedPaths = [];
+
+	allCategories.edges.map((category) => {
+		// x / page size (post number)
+		let pageNumber = Math.ceil(category.node.contentNodes.nodes.length / 1);
+		let pages = Array.from({ length: pageNumber }, (_, i) => i + 1);
+
+		pages.map((page) => {
+			generatedPaths.push({
+				params: {
+					category: category.node.slug,
+					pageNumber: page.toString(),
+				},
+			});
+		});
 	});
 
-	// console.log("filtered:@@@@@@@@@@@@@@@@@@@ \n" + filteredAllCategories)
-
-	const paths = filteredAllCategories.map((category) => ({
-		params: { category: category.node.slug },
-	}));
-	return { paths, fallback: false };
+	return { paths: generatedPaths, fallback: false };
 };
 
-export default SingleCategoryPage;
+export default SingleCategoryPageNext;
