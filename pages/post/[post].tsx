@@ -11,20 +11,17 @@ import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
 import Tags from '../../components/tags'
 import { getAllPostsWithSlug, getPostAndMorePosts, getAllCategories, getMainLogoData, getSinglePostCategory } from '../../lib/api'
-import { CMS_NAME } from '../../lib/constants'
 import BackButton from '../../components/back-button'
 
-export default function Post({ post, posts, preview, allCategories, mainLogoData }) {
+export default function Post({ post, posts, preview, allCategories, mainLogoData, postsList }) {
   const router = useRouter()
   const morePosts = posts?.edges
-
-  console.log(mainLogoData)
 
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
   return (
-    <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData}>
+    <Layout preview={preview} allCategories={allCategories} mainLogoData={mainLogoData} postsList={postsList}>
       <Container>
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
@@ -33,7 +30,7 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
             <article>
               <Head>
                 <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
+                  {`AdsWise | ${post.title}`}
                 </title>
                 <meta
                   property="og:image"
@@ -71,9 +68,7 @@ export const getStaticProps: GetStaticProps = async ({
   const data = await getPostAndMorePosts(params?.post, preview, previewData);
   const allCategories = await getAllCategories();
   const mainLogoData = await getMainLogoData();
-
-  // console.log({allCategories});
-  console.log({mainLogoData});
+  const postsList = await getAllPostsWithSlug();
 
   return {
     props: {
@@ -81,7 +76,8 @@ export const getStaticProps: GetStaticProps = async ({
       post: data.post,
       posts: data.posts,
       allCategories,
-      mainLogoData
+      mainLogoData,
+      postsList
     },
     revalidate: 10,
   }
@@ -89,15 +85,12 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allPosts = await getAllPostsWithSlug()
-  // const singlePostCategory = getSinglePostCategory()
   const generatedPaths = [];
   allPosts.edges.map(({ node }) => {
     generatedPaths.push({
-      params: {category: node.categories.edges[0].node.slug, post: node.slug}
+      params: {post: node.slug}
     })
   })
-
-  // `${node.categories.edges[0].node.slug}/${node.slug}`
 
   return {
     paths: generatedPaths,
