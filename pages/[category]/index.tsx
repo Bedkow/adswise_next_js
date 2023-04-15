@@ -20,26 +20,44 @@ function SingleCategoryPage({
 	mainLogoData,
 	postsList,
 }) {
-
 	//
 	// console.log(filteredPosts)
 	//
 
 	const router = useRouter();
 
-	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category || post.node.categories.nodes[0].ancestors.nodes[0].slug === router.query.category})
+	const foundPost = filteredPosts.edges.find((post, index) => {
+		return (
+			post.node.categories.nodes[0].slug === router.query.category ||
+			post.node.categories.nodes[0].ancestors.nodes[0].slug ===
+				router.query.category
+		);
+	});
 
-	const categoryName = foundPost.node.categories.nodes[0].name || foundPost.node.categories.nodes[0].ancestors.nodes[0].name;
+	// console.log(foundPost);
+
+	const categoryName = () => {
+		if (foundPost.node.categories.nodes[0].slug === router.query.category) {
+			return foundPost.node.categories.nodes[0].name;
+		} else if (
+			foundPost.node.categories.nodes[0].ancestors.nodes[0].slug ===
+			router.query.category
+		) {
+			return foundPost.node.categories.nodes[0].ancestors.nodes[0].name;
+		} else {
+			// if anything breaks, pretend everything is fine
+			return "-Strona Kategorii-";
+		}
+	};
 
 	// current pagination page number
 	let currentPage = 1;
 
 	// number of posts per page, passed to pagination
-	let perPage = 6
+	let perPage = 6;
 
 	// only posts for current page
-	let filteredSlicedPosts = filteredPosts.edges.slice(0, perPage)
-
+	let filteredSlicedPosts = filteredPosts.edges.slice(0, perPage);
 
 	return (
 		<Layout
@@ -47,11 +65,13 @@ function SingleCategoryPage({
 			allCategories={allCategories}
 			mainLogoData={mainLogoData}
 			postsList={postsList}>
-			<h1>{categoryName}</h1>
+			<h1>{categoryName()}</h1>
 
 			{filteredSlicedPosts.map((paginatedPost) => {
 				return (
-					<Link href={`/post/${paginatedPost.node.slug}`} key={paginatedPost.node.slug}>
+					<Link
+						href={`/post/${paginatedPost.node.slug}`}
+						key={paginatedPost.node.slug}>
 						{paginatedPost.node.featuredImage && (
 							<Image
 								width={100}
@@ -94,8 +114,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	const allCategories = await getAllCategories();
 	// console.log(allCategories.edges[0].node.contentNodes.nodes.length)
 	const filteredAllCategories = allCategories.edges.filter((category) => {
-		return category.node.contentNodes.nodes.length > 0
-	})
+		return category.node.contentNodes.nodes.length > 0;
+	});
 
 	// console.log("filtered:@@@@@@@@@@@@@@@@@@@ \n" + filteredAllCategories)
 

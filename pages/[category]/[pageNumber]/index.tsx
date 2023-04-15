@@ -21,24 +21,44 @@ function SingleCategoryPageNext({
 	mainLogoData,
 	postsList,
 }) {
-
 	const router = useRouter();
 
-	const foundPost = filteredPosts.edges.find((post, index) => { return post.node.categories.nodes[0].slug === router.query.category || post.node.categories.nodes[0].ancestors.nodes[0].slug === router.query.category})
+	const foundPost = filteredPosts.edges.find((post, index) => {
+		return (
+			post.node.categories.nodes[0].slug === router.query.category ||
+			post.node.categories.nodes[0].ancestors.nodes[0].slug ===
+				router.query.category
+		);
+	});
 
-	const categoryName = foundPost.node.categories.nodes[0].name || foundPost.node.categories.nodes[0].ancestors.nodes[0].name;
+	const categoryName = () => {
+		if (foundPost.node.categories.nodes[0].slug === router.query.category) {
+			return foundPost.node.categories.nodes[0].name;
+		} else if (
+			foundPost.node.categories.nodes[0].ancestors.nodes[0].slug ===
+			router.query.category
+		) {
+			return foundPost.node.categories.nodes[0].ancestors.nodes[0].name;
+		} else {
+			// if anything breaks, pretend everything is fine
+			return "-Strona Kategorii-";
+		}
+	};
 
 	// current pagination page number
-	let currentPage = +router.query.pageNumber
+	let currentPage = +router.query.pageNumber;
 
 	// number of posts per page, passed to pagination
-	let perPage = 6
+	let perPage = 6;
 
 	// calc starting index to slice
-	let sliceStartingIndex = (currentPage - 1) * perPage
+	let sliceStartingIndex = (currentPage - 1) * perPage;
 
 	// only posts for current page
-	let filteredSlicedPosts = filteredPosts.edges.slice(sliceStartingIndex, sliceStartingIndex + perPage)
+	let filteredSlicedPosts = filteredPosts.edges.slice(
+		sliceStartingIndex,
+		sliceStartingIndex + perPage
+	);
 
 	return (
 		<Layout
@@ -46,8 +66,7 @@ function SingleCategoryPageNext({
 			allCategories={allCategories}
 			mainLogoData={mainLogoData}
 			postsList={postsList}>
-				
-			<h1>{categoryName}</h1>
+			<h1>{categoryName()}</h1>
 
 			{filteredSlicedPosts.map((post) => {
 				return (
@@ -64,7 +83,7 @@ function SingleCategoryPageNext({
 				);
 			})}
 
-<Pagination
+			<Pagination
 				totalItems={filteredPosts.edges.length}
 				currentPage={currentPage}
 				itemsPerPage={perPage}
@@ -102,8 +121,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		// x / page size (post number)
 		let pageNumber = Math.ceil(category.node.contentNodes.nodes.length / 1);
 		let pages = Array.from({ length: pageNumber }, (_, i) => i + 1);
-
-		
 
 		pages.map((page) => {
 			generatedPaths.push({
