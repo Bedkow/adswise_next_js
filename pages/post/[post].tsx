@@ -41,7 +41,7 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
                 title={post.title}
                 coverImage={post.featuredImage}
                 date={post.date}
-                // author={post.author}
+                author={post.author}
                 categories={post.categories}
               />
               <BackButton />

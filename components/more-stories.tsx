@@ -7,10 +7,12 @@ export default function MoreStories({
 	postsForHome,
 	postsForReadMore,
 	pagination,
+	tilesNumber,
 }: {
 	postsForHome?: any;
 	postsForReadMore?: any;
 	pagination?: boolean;
+	tilesNumber?: number;
 }) {
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -23,7 +25,6 @@ export default function MoreStories({
 	};
 
 	if (pagination) {
-
 		if (postsForHome) {
 			posts = postsForHome;
 			pageSize = 6;
@@ -32,14 +33,20 @@ export default function MoreStories({
 			pageSize = 3;
 		}
 
-		paginatedPosts = posts /*paginate(posts, currentPage, pageSize);*/
-
+		paginatedPosts = posts; /*paginate(posts, currentPage, pageSize);*/
 	} else {
-
 		if (postsForHome) {
-			posts = postsForHome;
+			if (tilesNumber) {
+				posts = postsForHome.slice(0, tilesNumber);
+			} else {
+				posts = postsForHome;
+			}
 		} else if (postsForReadMore) {
-			posts = postsForReadMore;
+			if (tilesNumber) {
+				posts = postsForReadMore.slice(0, tilesNumber);
+			} else {
+				posts = postsForReadMore;
+			}
 		}
 
 		paginatedPosts = posts;
