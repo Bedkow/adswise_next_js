@@ -53,9 +53,9 @@ export default function Index({
 						category={heroPost.categories}
 					/>
 				)}
-				{/* {morePostsForHome.length > 0 && <MoreStories postsForHome={morePostsForHome} />} */}
-				{/* {console.log(morePostsForHome)} */}
-				{/* {console.log(allCategories)} */}
+				{morePostsForHome.length > 0 && <MoreStories postsForHome={morePostsForHome} pagination={false} tilesNumber={5} />}
+				{console.log(morePostsForHome)}
+				{console.log(allCategories)}
 				{morePostsForHome.length > 0 &&
 					allCategories.edges.map((category) => {
 						if (

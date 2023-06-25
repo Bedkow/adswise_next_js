@@ -17,6 +17,8 @@ export default function PostHeader({
   author?,
   categories,
 }) {
+
+  console.log(author)
   return (
     <>
       <PostTitle>{title}</PostTitle>
@@ -25,8 +27,10 @@ export default function PostHeader({
       </div>
       <div>
         <div>
-          Posted <Date dateString={date} />
+          <Date dateString={date} />
           <Categories categories={categories} />
+          {author && author.node.firstName && author.node.lastName && <span>{`${author.node.firstName} ${author.node.lastName}`}</span>}
+          {author && author.node.name && !author.node.firstName && !author.node.lastName &&  <span>{`${author.node.name}`}</span>}
         </div>
       </div>
     </>
