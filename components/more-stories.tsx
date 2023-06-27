@@ -2,6 +2,7 @@ import Pagination from "./pagination";
 import PostPreview from "./post-preview";
 import { useState } from "react";
 import { paginate } from "../helpers/paginate";
+import styled from 'styled-components';
 
 export default function MoreStories({
 	postsForHome,
@@ -53,9 +54,7 @@ export default function MoreStories({
 	}
 
 	return (
-		<section>
-			<h2>Więcej Artykułów</h2>
-			<div>
+		<>	
 				{postsForHome &&
 					paginatedPosts.map(({ node }, index) => {
 						return (
@@ -91,7 +90,6 @@ export default function MoreStories({
 					currentPage={currentPage}
 					itemsPerPage={pageSize}
 				/>} */}
-			</div>
-		</section>
+		</>
 	);
 }
