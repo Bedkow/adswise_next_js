@@ -1,6 +1,7 @@
 import Date from './date'
 import CoverImage from './cover-image'
 import Link from 'next/link'
+import styled from 'styled-components';
 
 export default function HeroPost({
   title,

@@ -12,6 +12,22 @@ import {
 	getAllPostsWithSlug,
 } from "../lib/api";
 import CategoryPostsBox from "../components/category-posts-box";
+import styled from 'styled-components';
+
+const StyledTopPostsContainer = styled.div`
+	border: solid black 2px;
+	display: grid;
+	width: 100%;
+	height: min-content;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+`
+const StyledHeroPostContainer = styled.div`
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row-start: 1;
+	grid-row-end: 3;
+`
 
 export default function Index({
 	allPostsForHome: { edges },
@@ -42,8 +58,9 @@ export default function Index({
 			</Head>
 			<Container>
 				<Intro />
-
+				<StyledTopPostsContainer>
 				{heroPost && (
+					<StyledHeroPostContainer>
 					<HeroPost
 						title={heroPost.title}
 						coverImage={heroPost.featuredImage}
@@ -52,11 +69,15 @@ export default function Index({
 						excerpt={heroPost.excerpt}
 						category={heroPost.categories}
 					/>
+					</StyledHeroPostContainer>
 				)}
+
 				{morePostsForHome.length > 0 && <MoreStories postsForHome={morePostsForHome} pagination={false} tilesNumber={5} />}
-				{console.log(morePostsForHome)}
-				{console.log(allCategories)}
-				{morePostsForHome.length > 0 &&
+				</StyledTopPostsContainer>
+				{/* {console.log(morePostsForHome)} */}
+				{/* {console.log(allCategories)} */}
+
+				{/* {morePostsForHome.length > 0 &&
 					allCategories.edges.map((category) => {
 						if (
 							!category.node.parent &&
@@ -101,7 +122,7 @@ export default function Index({
 								/>
 							);
 						}
-					})}
+					})} */}
 			</Container>
 		</Layout>
 	);
