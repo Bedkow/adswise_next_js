@@ -40,6 +40,7 @@ const CategoryHamburgerButton = styled.span`
 	flex-direction: column;
 	flex-wrap: nowrap;
 	justify-content: space-between;
+	z-index: 10;
 
 	@media only screen and (min-width: ${(props) =>props.theme.breakpoints.desktopPlus}px) {
 		display: none;

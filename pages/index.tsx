@@ -15,12 +15,15 @@ import CategoryPostsBox from "../components/category-posts-box";
 import styled from 'styled-components';
 
 const StyledTopPostsContainer = styled.div`
-	border: solid black 2px;
+	/* border: solid black 2px; */
 	display: grid;
 	width: 100%;
 	height: min-content;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(3, 1fr);
+	gap: 20px;
+	max-width: 1400px;
+	margin: 0 auto 0 auto;
 `
 const StyledHeroPostContainer = styled.div`
 	grid-column-start: 1;
@@ -77,7 +80,7 @@ export default function Index({
 				{/* {console.log(morePostsForHome)} */}
 				{/* {console.log(allCategories)} */}
 
-				{/* {morePostsForHome.length > 0 &&
+				{morePostsForHome.length > 0 &&
 					allCategories.edges.map((category) => {
 						if (
 							!category.node.parent &&
@@ -122,7 +125,7 @@ export default function Index({
 								/>
 							);
 						}
-					})} */}
+					})}
 			</Container>
 		</Layout>
 	);
