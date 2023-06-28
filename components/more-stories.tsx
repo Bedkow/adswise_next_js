@@ -4,6 +4,8 @@ import { useState } from "react";
 import { paginate } from "../helpers/paginate";
 import styled from 'styled-components';
 
+// const StyledPostPreviewContainer
+
 export default function MoreStories({
 	postsForHome,
 	postsForReadMore,
