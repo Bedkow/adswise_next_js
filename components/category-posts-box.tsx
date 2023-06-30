@@ -2,6 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+interface CategoryPostsBoxProps {
+	category?: any;
+	tileNumber?: number;
+	morePostsForHome?: any;
+	layoutID?: 1 | 2 | 3;
+}
+
 const CategoryBox = styled.div`
     /* position: relative; */
 	
@@ -12,23 +19,27 @@ const ImageContainer = styled.div`
     /* height: 100px; */
     /* position: relative; */
 `
-
-const PostTilesContainer = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+// bypass TypeScript misbehaving
+const PostTilesContainer = styled.div<CategoryPostsBoxProps>`
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr auto;
 	gap: 10px;
-`
+	
+	/* prop styling not working */
+	${props => props.layoutID == 1 && `
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-tamplate-rows: 1fr auto;
+		`}
+	`;
 
 export default function CategoryPostsBox({
 	category,
 	tileNumber,
 	morePostsForHome,
-}: {
-	category: any;
-	tileNumber?: number;
-	morePostsForHome?: any;
-}) {
+	layoutID,
+} : CategoryPostsBoxProps
+) {
 
     let sliceEnd = tileNumber || 6;
 

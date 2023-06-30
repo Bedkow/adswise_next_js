@@ -22,6 +22,8 @@ const PageContent = styled.div`
 
 	main {
 		flex-grow: 1;
+		max-width: 1400px;
+		margin: 0 auto 0 auto;
 	}
 `;
 
