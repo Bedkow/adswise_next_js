@@ -100,6 +100,7 @@ export default function Index({
 									category={category.node.name}
 									tileNumber={6} //change to customize tile number
 									morePostsForHome={moreFilteredPostsForHome}
+									layoutID={1}
 								/>
 							);
 						}
