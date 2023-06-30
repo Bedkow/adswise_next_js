@@ -25,10 +25,11 @@ const PostTilesContainer = styled.div<CategoryPostsBoxProps>`
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-rows: 1fr auto;
 	gap: 10px;
-	
-	/* prop styling not working */
-	${props => props.layoutID == 1 && `
-		grid-template-columns: 1fr 1fr 1fr;
+
+	/* props have to be passed to tsx component */
+	/* dummy layout nr 2 */
+	${props => props.layoutID == 2 && `
+		grid-template-columns: 1fr 1fr;
 		grid-tamplate-rows: 1fr auto;
 		`}
 	`;
@@ -54,7 +55,7 @@ export default function CategoryPostsBox({
 		<CategoryBox className="category-box">
 			<hr />
 			<h2>{category}</h2>
-			<PostTilesContainer>
+			<PostTilesContainer layoutID={layoutID}>
 			{morePostsForHome.map((post) => {
 				return (
 					<div key={post.node.slug} className="post-tile">
