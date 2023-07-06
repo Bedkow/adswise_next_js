@@ -54,7 +54,7 @@ function SingleCategoryPage({
 	let currentPage = 1;
 
 	// number of posts per page, passed to pagination
-	let perPage = 6;
+	let perPage = 10;
 
 	// only posts for current page
 	let filteredSlicedPosts = filteredPosts.edges.slice(0, perPage);
