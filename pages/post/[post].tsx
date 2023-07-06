@@ -52,7 +52,7 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
             </article>
 
             <SectionSeparator />
-            {morePosts.length > 0 && <MoreStories postsForReadMore={morePosts} />}
+            {morePosts.length > 0 && <MoreStories postsForReadMore={morePosts} tilesNumber={4}/>}
           </>
         )}
       </Container>
@@ -65,7 +65,8 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
   previewData,
 }) => {
-  const data = await getPostAndMorePosts(params?.post, preview, previewData);
+  const morePostsNumberInTotal = 4 // number of posts to request for preview under /[post] route (individual post)
+  const data = await getPostAndMorePosts(params?.post, preview, previewData, morePostsNumberInTotal);
   const allCategories = await getAllCategories();
   const mainLogoData = await getMainLogoData();
   const postsList = await getAllPostsWithSlug();
