@@ -43,7 +43,8 @@ export default function Pagination({
 						className={`${
 							page === currentPage ? "active-page" : "inactive-page"
 						}`}>
-						<Link href={`/${currentPaginatedCategory}/${page}`}>{page}</Link>
+						{page > 1 && <Link href={`/${currentPaginatedCategory}/${page}`}>{page}</Link>}
+						{page === 1 && <Link href={`/${currentPaginatedCategory}`}>{page}</Link>}
 					</PageLinkContainer>
 				))}
 			</ul>
