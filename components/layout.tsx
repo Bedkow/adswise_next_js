@@ -38,7 +38,7 @@ export default function Layout({
 	allCategories?: any;
 	children: any;
 	mainLogoData: any;
-	postsList: any;
+	postsList?: any;
 }) {
 	return (
 		<PageLayout className='layout'>
