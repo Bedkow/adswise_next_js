@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 const StyledHeader = styled.header`
 	background-color: ${(props) => props.theme.colors.secondary};
 	width: 100%;
+	min-height: 80px;
+	display: flex;
 `;
 
 const MainNav = styled.nav`
@@ -324,7 +326,6 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 				)}
 			</MainNav>
 			<Breadcrumbs categoriesList={categoriesList} postsList={postsList} />
-			<hr />
 		</StyledHeader>
 	);
 }
