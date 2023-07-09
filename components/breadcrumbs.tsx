@@ -77,11 +77,11 @@ export default function Breadcrumbs({
 					switch (currentRoute) {
 						case "/o-nas":
 							return <span>O nas</span>;
-						case "kontakt":
+						case "/kontakt":
 							return <span>Kontakt</span>;
-						case "polityka-prywatnosci":
+						case "/polityka-prywatnosci":
 							return <span>Polityka prywatności</span>;
-						case "regulamin":
+						case "/regulamin":
 							return <span>Regulamin</span>;
 						default:
 							return null;
