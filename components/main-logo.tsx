@@ -9,13 +9,13 @@ const LogoContainer = styled.div`
 
 const PlainTextLogo = styled.span`
     font-size: 32px;
-    height: 80px;
+    height: 100%;
     width: min-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: absolute;
-    left: 20px;
+    padding-left: 20px;
+    color: ${props => props.theme.colors.navBackgEl};
 `
 
 export default function MainLogo({mainLogoData}) {
