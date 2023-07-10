@@ -5,10 +5,10 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 
 const StyledHeader = styled.header`
-	background-color: ${(props) => props.theme.colors.secondary};
 	width: 100%;
 	min-height: 80px;
 	display: flex;
+	background-color: ${props => props.theme.colors.navBackg}
 `;
 
 const MainNav = styled.nav`
@@ -38,7 +38,6 @@ const CategoryHamburgerButton = styled.span`
 	width: 70px;
 	height: 70px;
 	padding: 5px;
-	background-color: ${(props) => props.theme.colors.secondary};
 	flex-direction: column;
 	flex-wrap: nowrap;
 	justify-content: space-between;
@@ -51,8 +50,8 @@ const CategoryHamburgerButton = styled.span`
 	span {
 		width: 100%;
 		height: 10px;
-		background-color: ${(props) => props.theme.colors.CTA};
 		border-radius: 5px;
+		background-color: ${props => props.theme.colors.navBackgEl};
 	}
 
 	&.active {
@@ -74,7 +73,7 @@ const CategoryHamburgerButton = styled.span`
 
 const CategoryHamburger = styled.ul`
 	padding: 20px;
-	width: 100%;
+	width: max-content;
 	display: flex;
 	gap: 10px;
 	flex-direction: column;
@@ -82,7 +81,9 @@ const CategoryHamburger = styled.ul`
 	justify-content: center;
 	flex-wrap: wrap;
 	position: absolute;
-	background-color: ${(props) => props.theme.colors.secondary};
+	right: 0px;
+	top: 75px;
+	background-color: ${props => props.theme.colors.navBackg};;
 
 	@media only screen and (min-width: ${(props) =>props.theme.breakpoints.desktopPlus}px) {
 		display: none;
@@ -90,25 +91,14 @@ const CategoryHamburger = styled.ul`
 `;
 
 const CategoryListItem = styled.li`
-	background-color: ${(props) => props.theme.colors.CTA};
-	/* padding: 7px; */
-	border-radius: 5px;
-
-	a {
-		color: ${(props) => props.theme.colors.textSecondary};
-	}
 `;
 
 const CategoryHamburgerItem = styled.li`
-	background-color: ${(props) => props.theme.colors.CTA};
 	border: 1px solid black;
-	/* padding: 7px; */
 	border-radius: 5px;
 	width: fit-content;
 	height: fit-content;
-	a {
-		color: ${(props) => props.theme.colors.textSecondary};
-	}
+
 `;
 
 const SubcategoryList = styled.ul`
@@ -116,7 +106,7 @@ const SubcategoryList = styled.ul`
 	list-style-type: none;
 	display: none;
 	z-index: 10;
-	border-radius: 5px;
+	
 
 	${CategoryListItem}:hover & {
 		display: flex;
@@ -134,29 +124,22 @@ const SubcategoryHamburger = styled.ul`
 `;
 
 const SubcategoryListItem = styled.li`
-	/* border: 1px dotted black; */
-	/* padding: 10px; */
-	background-color: ${(props) => props.theme.colors.accentBlue};
-	border-radius: 5px;
-
-	a {
-		color: ${(props) => props.theme.colors.textSecondary};
-	}
 `;
 
 const SubcategoryHamburgerItem = styled.li`
 	padding-left: 20px;
-	background-color: ${(props) => props.theme.colors.accentBlue};
-	a {
-		color: ${(props) => props.theme.colors.textSecondary};
-	}
-	/* border-radius: 5px; */
 `;
 
 const NameWrapper = styled.div`
 	padding: 7px;
 	width: 100%;
 	height: 100%;
+	background-color: ${props => props.theme.colors.navBackg};
+	color: ${props => props.theme.colors.navBackgEl};
+	:hover {
+		background-color: ${props => props.theme.colors.navBackgHover};
+		color: ${props => props.theme.colors.navBackgElHover};
+	}
 `;
 
 export default function Header({ allCategories, mainLogoData, postsList }) {

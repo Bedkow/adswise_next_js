@@ -11,7 +11,11 @@ const theme = {
     text: '#121212',
     textSecondary: '#262626',
     CTA: '#ffffff',
-    CTASecondary: `#000000`
+    CTASecondary: `#000000`,
+    navBackg: `#000000`,
+    navBackgEl: `#ffffff`,
+    navBackgHover: `#ffffff`,
+    navBackgElHover: `#000000`,
   },
   breakpoints: {
     tabletPlus: 560,
@@ -41,7 +45,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   a:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 `;
 
