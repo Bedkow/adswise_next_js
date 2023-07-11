@@ -8,7 +8,7 @@ const StyledHeader = styled.header`
 	width: 100%;
 	min-height: 80px;
 	display: flex;
-	background-color: ${props => props.theme.colors.navBackg}
+	background-color: ${props => props.theme.colors.navBackg};
 `;
 
 const MainNav = styled.nav`
@@ -35,8 +35,8 @@ const CategoryHamburgerButton = styled.span`
 	position: absolute;
 	top: 5px;
 	right: 5px;
-	width: 70px;
-	height: 70px;
+	width: 50px;
+	height: 50px;
 	padding: 5px;
 	flex-direction: column;
 	flex-wrap: nowrap;
@@ -49,7 +49,7 @@ const CategoryHamburgerButton = styled.span`
 
 	span {
 		width: 100%;
-		height: 10px;
+		height: 6px;
 		border-radius: 5px;
 		background-color: ${props => props.theme.colors.navBackgEl};
 	}
@@ -61,12 +61,12 @@ const CategoryHamburgerButton = styled.span`
 
 		.upper-bun {
 			transform: rotate(45deg);
-			translate: 0px 25px;
+			translate: 0px 17.5px;
 		}
 
 		.lower-bun {
 			transform: rotate(-45deg);
-			translate: 0px -25px;
+			translate: 0px -17.5px;
 		}
 	}
 `;
@@ -141,6 +141,24 @@ const NameWrapper = styled.div`
 		color: ${props => props.theme.colors.navBackgElHover};
 	}
 `;
+
+const BreadcrumbsContainerStyled = styled.span`
+	color: ${props => props.theme.colors.navBackgEl};
+	position: absolute;
+	left: 5px;
+	top: 60px;
+	white-space: nowrap;
+	font-size: 2.2vw;
+
+	@media screen and (min-width: 850px) {
+		font-size: 1rem;
+		left: 20px;
+	}
+
+	a {
+		color: ${props => props.theme.colors.navBackgEl};
+	}
+`
 
 export default function Header({ allCategories, mainLogoData, postsList }) {
 	let [hamburgerVisible, setHamburgerVisible] = useState(false);
@@ -308,7 +326,10 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 					</CategoryHamburger>
 				)}
 			</MainNav>
-			<Breadcrumbs categoriesList={categoriesList} postsList={postsList} />
+			<BreadcrumbsContainerStyled>
+				<Breadcrumbs categoriesList={categoriesList} postsList={postsList} />
+			</BreadcrumbsContainerStyled>
+			
 		</StyledHeader>
 	);
 }
