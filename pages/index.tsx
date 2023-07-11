@@ -30,6 +30,12 @@ const StyledHeroPostContainer = styled.div`
 	grid-column-end: 3;
 	grid-row-start: 1;
 	grid-row-end: 3;
+
+	@media screen and (max-width: 1000px) {
+		
+		grid-column-end: 4;
+		
+	}
 `
 
 export default function Index({
