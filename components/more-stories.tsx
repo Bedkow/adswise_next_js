@@ -4,7 +4,13 @@ import { useState } from "react";
 import { paginate } from "../helpers/paginate";
 import styled from 'styled-components';
 
-// const StyledPostPreviewContainer
+const MoreStoriesContainerStyled = styled.div`
+	@media screen and (max-width: 1000px){
+		/* :last-child {
+			display: none;
+		} */
+	}
+`
 
 export default function MoreStories({
 	postsForHome,

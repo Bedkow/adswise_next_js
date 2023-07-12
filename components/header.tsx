@@ -3,6 +3,7 @@ import MainLogo from "./main-logo";
 import Breadcrumbs from "./breadcrumbs";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { debounce } from "../helpers/debounce";
 
 const StyledHeader = styled.header`
 	width: 100%;
@@ -162,20 +163,7 @@ const BreadcrumbsContainerStyled = styled.span`
 
 export default function Header({ allCategories, mainLogoData, postsList }) {
 	let [hamburgerVisible, setHamburgerVisible] = useState(false);
-	let [width, setWidth] = useState(0);
-
-	/////////////////////////////////////////////////
-	// Debounce
-	function debounce(func, time) {
-		var time = time || 100; // 100 by default if no param
-		var timer;
-		return function (event) {
-			if (timer) clearTimeout(timer);
-			timer = setTimeout(func, time, event);
-		};
-	}
-
-	///////////////////////////////////////////////
+	const [width, setWidth] = useState(0);
 
 	if (typeof window !== "undefined") {
 		// browser code
@@ -183,11 +171,6 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 			"resize",
 			debounce(() => {
 				setWidth(window.innerWidth);
-				// console.log(window.innerWidth);
-				// if (window.innerWidth >= 1280) {
-				// hamburgerVisible = true;
-				// setHamburgerVisible(hamburgerVisible);
-				// }
 			}, 150)
 		);
 	}
