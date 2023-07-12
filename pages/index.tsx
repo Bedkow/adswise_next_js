@@ -13,6 +13,8 @@ import {
 } from "../lib/api";
 import CategoryPostsBox from "../components/category-posts-box";
 import styled from 'styled-components';
+import { useEffect, useState } from "react";
+import { debounce } from "../helpers/debounce";
 
 const StyledTopPostsContainer = styled.div`
 	/* border: solid black 2px; */
@@ -24,6 +26,16 @@ const StyledTopPostsContainer = styled.div`
 	gap: 20px;
 	max-width: 1400px;
 	margin: 0 auto 0 auto;
+
+	@media screen and (max-width: 1000px) {
+		grid-template-rows: repeat(4, 1fr);
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media screen and (max-width: 700px) {
+		grid-template-rows: 1.5fr repeat(4, 1fr);
+		grid-template-columns: 1fr;
+	}
 `
 const StyledHeroPostContainer = styled.div`
 	grid-column-start: 1;
@@ -32,9 +44,13 @@ const StyledHeroPostContainer = styled.div`
 	grid-row-end: 3;
 
 	@media screen and (max-width: 1000px) {
-		
-		grid-column-end: 4;
-		
+		grid-row-end: 3;
+		grid-column-end: 3;
+	}
+
+	@media screen and (max-width: 700px) {
+		grid-row-end: 2;
+		grid-column-end: 2;
 	}
 `
 
@@ -51,6 +67,30 @@ export default function Index({
 	mainLogoData: any;
 	postsList: any;
 }) {
+
+	const [width, setWidth] = useState(0);
+	const [morePostsForHomeTileNumber, setMorePostsForHomeTileNumber] = useState(5);
+
+	if (typeof window !== "undefined") {
+		// browser code
+		window.addEventListener(
+			"resize",
+			debounce(() => {
+				setWidth(window.innerWidth);
+			}, 50)
+		);
+	}
+
+	useEffect(()=>{
+		if (typeof window !== "undefined") {
+			console.log("use effect width")
+			if (width <= 1000 && morePostsForHomeTileNumber != 4) {
+				setMorePostsForHomeTileNumber(4)
+			} else if (width > 1000 && morePostsForHomeTileNumber !=5){
+				setMorePostsForHomeTileNumber(5)
+			}
+		}
+	}, [width])
 
 	const heroPost = edges[0]?.node;
 	const morePostsForHome = edges.slice(1);
@@ -81,7 +121,7 @@ export default function Index({
 					</StyledHeroPostContainer>
 				)}
 
-				{morePostsForHome.length > 0 && <MoreStories postsForHome={morePostsForHome} pagination={false} tilesNumber={5} />}
+				{morePostsForHome.length > 0 && <MoreStories postsForHome={morePostsForHome} pagination={false} tilesNumber={morePostsForHomeTileNumber} />}
 				</StyledTopPostsContainer>
 				{/* {console.log(morePostsForHome)} */}
 				{/* {console.log(allCategories)} */}
