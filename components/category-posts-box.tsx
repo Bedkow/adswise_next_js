@@ -25,25 +25,38 @@ const PostTilesContainer = styled.div<CategoryPostsBoxProps>`
 	gap: 10px;
 
 	/* props have to be passed to tsx component */
-	/* layout nr 2 */
+	/* layout nr 1 */
 	${props => props.layoutID == 1 && `
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: repeat(6, 1fr);
 
 		div.post-tile:nth-of-type(1) {
-			background-color: red;
+			grid-column-start: 1;
+			grid-column-end: 2;
+			grid-row-start: 1;
+			grid-row-end: 5;
 		}
 		div.post-tile:nth-of-type(2) {
-			background-color: red;
+			grid-column-start: 2;
+			grid-column-end: 3;
+			grid-row-start: 1;
+			grid-row-end: 5;
 		}
 		`}
 	/* layout nr 2 */
 	${props => props.layoutID == 2 && `
 		grid-template-columns: 1fr 1fr;
-		grid-tamplate-rows: 1fr auto;
+		grid-tamplate-rows: repeat(4, 1fr) auto;
+
+		div.post-tile:nth-of-type(1) {
+			grid-column-start: 1;
+			grid-column-end: 2;
+			grid-row-start: 1;
+			grid-row-end: 5;
+		}
 		`}
 
-	/* layout nr 2 */
+	/* layout nr 3 */
 	${props => props.layoutID == 3 && `
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-tamplate-rows: 1fr auto;
@@ -60,7 +73,6 @@ export default function CategoryPostsBox({
 	layoutID,
 } : CategoryPostsBoxProps
 ) {
-
     let sliceEnd = tileNumber || 6;
 
 	//prevent creation of sparse arrays
@@ -73,7 +85,9 @@ export default function CategoryPostsBox({
 			<span>{`layout: ${layoutID}`}</span>
 			<h2>{category}</h2>
 			<PostTilesContainer layoutID={layoutID}>
-			{morePostsForHome.map((post) => {
+			{morePostsForHome.map((post, index) => {
+				console.log(post)
+				console.log(index + 1)
 				return (
 					<div key={post.node.slug} className="post-tile">
 						<Link href={`/post/${post.node.slug}`}>
@@ -87,7 +101,9 @@ export default function CategoryPostsBox({
 						/>
                         </ImageContainer>
                         <h3>{post.node.title}</h3>
-						{/* <div dangerouslySetInnerHTML={{ __html: post.node.excerpt }} /> */}
+						{layoutID == 2 && index+1 == 1 && <div dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />}
+						{layoutID == 1 && index+1 == 1 && <div dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />}
+						{layoutID == 1 && index+1 == 2 && <div dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />}
 						</Link>
 					</div>
 				);
