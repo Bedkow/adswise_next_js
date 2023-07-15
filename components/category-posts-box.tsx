@@ -6,7 +6,7 @@ interface CategoryPostsBoxProps {
 	category?: any;
 	tileNumber?: number;
 	morePostsForHome?: any;
-	layoutID?: 1 | 2 | 3;
+	layoutID?: number;
 }
 
 const CategoryBox = styled.div`
@@ -48,12 +48,11 @@ export default function CategoryPostsBox({
 	if (morePostsForHome.length > tileNumber) {
     morePostsForHome = morePostsForHome.slice(0, sliceEnd)
 	}
-
-	// console.log(morePostsForHome)
-    
+	console.log(`${category} layoutID: ${layoutID}`)
 	return (
 		<CategoryBox className="category-box">
 			<hr />
+			<span>{`layout: ${layoutID}`}</span>
 			<h2>{category}</h2>
 			<PostTilesContainer layoutID={layoutID}>
 			{morePostsForHome.map((post) => {
