@@ -22,17 +22,36 @@ const ImageContainer = styled.div`
 // bypass TypeScript misbehaving
 const PostTilesContainer = styled.div<CategoryPostsBoxProps>`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: 1fr auto;
 	gap: 10px;
 
 	/* props have to be passed to tsx component */
-	/* dummy layout nr 2 */
+	/* layout nr 2 */
+	${props => props.layoutID == 1 && `
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: repeat(6, 1fr);
+
+		div.post-tile:nth-of-type(1) {
+			background-color: red;
+		}
+		div.post-tile:nth-of-type(2) {
+			background-color: red;
+		}
+		`}
+	/* layout nr 2 */
 	${props => props.layoutID == 2 && `
 		grid-template-columns: 1fr 1fr;
 		grid-tamplate-rows: 1fr auto;
 		`}
+
+	/* layout nr 2 */
+	${props => props.layoutID == 3 && `
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-tamplate-rows: 1fr auto;
+		`}
+		
 	`;
+
+	
 
 export default function CategoryPostsBox({
 	category,
@@ -48,7 +67,6 @@ export default function CategoryPostsBox({
 	if (morePostsForHome.length > tileNumber) {
     morePostsForHome = morePostsForHome.slice(0, sliceEnd)
 	}
-	console.log(`${category} layoutID: ${layoutID}`)
 	return (
 		<CategoryBox className="category-box">
 			<hr />

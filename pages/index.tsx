@@ -96,7 +96,8 @@ export default function Index({
 	const morePostsForHome = edges.slice(1);
 	let moreFilteredPostsForHome;
 	let currentLayoutID;
-	// console.log(currentLayoutID);
+
+	// function for different category tile styling prop
 	const calcLayoutID = (currentLayoutID) => {
 		if (!currentLayoutID) {
 			currentLayoutID = 1;
