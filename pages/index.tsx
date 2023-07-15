@@ -83,7 +83,6 @@ export default function Index({
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
-			// console.log("use effect width");
 			if (width <= 1000 && morePostsForHomeTileNumber != 4) {
 				setMorePostsForHomeTileNumber(4);
 			} else if (width > 1000 && morePostsForHomeTileNumber != 5) {
@@ -119,7 +118,6 @@ export default function Index({
 			category.node.contentNodes.nodes.length > 0
 		)
 	})
-	// console.log(allCategoriesWithPosts)
 
 	return (
 		<Layout
@@ -154,24 +152,16 @@ export default function Index({
 						/>
 					)}
 				</StyledTopPostsContainer>
-				{/* {console.log(morePostsForHome)} */}
-				{/* {console.log(allCategories)} */}
 
 				{morePostsForHome.length > 0 &&
 					allCategoriesWithPosts.map((category) => {
-						// console.log(category)
 						if (
 							!category.node.parent &&
 							category.node.slug !== "pozostale" &&
 							category.node.contentNodes.nodes.length > 0
 						) {
-							//
 							currentLayoutID = calcLayoutID(currentLayoutID);
-							// console.log(currentLayoutID);
-							//
 							moreFilteredPostsForHome = morePostsForHome.filter((post) => {
-								// console.log(`post cat slug: ${post.node.categories.nodes[0].slug}`)
-								// console.log(`cat slug: ${category.node.slug}`)
 								return (
 									post.node.categories.nodes[0].slug === category.node.slug
 								);
@@ -180,7 +170,7 @@ export default function Index({
 								<CategoryPostsBox
 									key={category.node.slug}
 									category={category.node.name}
-									tileNumber={6} //change to customize tile number
+									tileNumber={currentLayoutID == 2 ? 5 : 6} //change to customize tile number
 									morePostsForHome={moreFilteredPostsForHome}
 									layoutID={currentLayoutID}
 								/>
@@ -205,7 +195,7 @@ export default function Index({
 									category={category.node.name}
 									tileNumber={6} //change to customize tile number
 									morePostsForHome={moreFilteredPostsForHome}
-									layoutID={2}
+									layoutID={3}
 								/>
 							);
 						}
