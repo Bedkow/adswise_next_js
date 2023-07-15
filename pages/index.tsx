@@ -12,7 +12,7 @@ import {
 	getAllPostsWithSlug,
 } from "../lib/api";
 import CategoryPostsBox from "../components/category-posts-box";
-import styled from 'styled-components';
+import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { debounce } from "../helpers/debounce";
 
@@ -36,7 +36,7 @@ const StyledTopPostsContainer = styled.div`
 		grid-template-rows: 1.5fr repeat(4, 1fr);
 		grid-template-columns: 1fr;
 	}
-`
+`;
 const StyledHeroPostContainer = styled.div`
 	grid-column-start: 1;
 	grid-column-end: 3;
@@ -52,7 +52,7 @@ const StyledHeroPostContainer = styled.div`
 		grid-row-end: 2;
 		grid-column-end: 2;
 	}
-`
+`;
 
 export default function Index({
 	allPostsForHome: { edges },
@@ -67,9 +67,9 @@ export default function Index({
 	mainLogoData: any;
 	postsList: any;
 }) {
-
 	const [width, setWidth] = useState(0);
-	const [morePostsForHomeTileNumber, setMorePostsForHomeTileNumber] = useState(5);
+	const [morePostsForHomeTileNumber, setMorePostsForHomeTileNumber] =
+		useState(5);
 
 	if (typeof window !== "undefined") {
 		// browser code
@@ -81,21 +81,45 @@ export default function Index({
 		);
 	}
 
-	useEffect(()=>{
+	useEffect(() => {
 		if (typeof window !== "undefined") {
-			console.log("use effect width")
+			// console.log("use effect width");
 			if (width <= 1000 && morePostsForHomeTileNumber != 4) {
-				setMorePostsForHomeTileNumber(4)
-			} else if (width > 1000 && morePostsForHomeTileNumber !=5){
-				setMorePostsForHomeTileNumber(5)
+				setMorePostsForHomeTileNumber(4);
+			} else if (width > 1000 && morePostsForHomeTileNumber != 5) {
+				setMorePostsForHomeTileNumber(5);
 			}
 		}
-	}, [width])
+	}, [width]);
 
 	const heroPost = edges[0]?.node;
 	const morePostsForHome = edges.slice(1);
 	let moreFilteredPostsForHome;
-	// console.log(edges);
+	let currentLayoutID;
+	// console.log(currentLayoutID);
+	const calcLayoutID = (currentLayoutID) => {
+		if (!currentLayoutID) {
+			currentLayoutID = 1;
+		} else if (currentLayoutID == 1) {
+			currentLayoutID = 2;
+		} else if (currentLayoutID == 2) {
+			currentLayoutID = 3;
+		} else if (currentLayoutID == 3) {
+			currentLayoutID = 1;
+		} else {
+			currentLayoutID = 1;
+		}
+		return currentLayoutID;
+	}
+
+	//filter out categories without posts
+	const allCategoriesWithPosts = allCategories.edges.filter((category)=>{
+		return (
+			category.node.contentNodes.nodes.length > 0
+		)
+	})
+	// console.log(allCategoriesWithPosts)
+
 	return (
 		<Layout
 			preview={preview}
@@ -108,31 +132,42 @@ export default function Index({
 			<Container>
 				<Intro />
 				<StyledTopPostsContainer>
-				{heroPost && (
-					<StyledHeroPostContainer>
-					<HeroPost
-						title={heroPost.title}
-						coverImage={heroPost.featuredImage}
-						date={heroPost.date}
-						slug={heroPost.slug}
-						excerpt={heroPost.excerpt}
-						category={heroPost.categories}
-					/>
-					</StyledHeroPostContainer>
-				)}
+					{heroPost && (
+						<StyledHeroPostContainer>
+							<HeroPost
+								title={heroPost.title}
+								coverImage={heroPost.featuredImage}
+								date={heroPost.date}
+								slug={heroPost.slug}
+								excerpt={heroPost.excerpt}
+								category={heroPost.categories}
+							/>
+						</StyledHeroPostContainer>
+					)}
 
-				{morePostsForHome.length > 0 && <MoreStories postsForHome={morePostsForHome} pagination={false} tilesNumber={morePostsForHomeTileNumber} />}
+					{morePostsForHome.length > 0 && (
+						<MoreStories
+							postsForHome={morePostsForHome}
+							pagination={false}
+							tilesNumber={morePostsForHomeTileNumber}
+						/>
+					)}
 				</StyledTopPostsContainer>
 				{/* {console.log(morePostsForHome)} */}
 				{/* {console.log(allCategories)} */}
 
 				{morePostsForHome.length > 0 &&
-					allCategories.edges.map((category) => {
+					allCategoriesWithPosts.map((category) => {
+						// console.log(category)
 						if (
 							!category.node.parent &&
 							category.node.slug !== "pozostale" &&
 							category.node.contentNodes.nodes.length > 0
 						) {
+							//
+							currentLayoutID = calcLayoutID(currentLayoutID);
+							// console.log(currentLayoutID);
+							//
 							moreFilteredPostsForHome = morePostsForHome.filter((post) => {
 								// console.log(`post cat slug: ${post.node.categories.nodes[0].slug}`)
 								// console.log(`cat slug: ${category.node.slug}`)
@@ -146,7 +181,7 @@ export default function Index({
 									category={category.node.name}
 									tileNumber={6} //change to customize tile number
 									morePostsForHome={moreFilteredPostsForHome}
-									layoutID={1}
+									layoutID={currentLayoutID}
 								/>
 							);
 						}
@@ -169,6 +204,7 @@ export default function Index({
 									category={category.node.name}
 									tileNumber={6} //change to customize tile number
 									morePostsForHome={moreFilteredPostsForHome}
+									layoutID={2}
 								/>
 							);
 						}
