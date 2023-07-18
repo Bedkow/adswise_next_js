@@ -68,8 +68,8 @@ export default function Index({
 	postsList: any;
 }) {
 	const [width, setWidth] = useState(0);
-	const [morePostsForHomeTileNumber, setMorePostsForHomeTileNumber] =
-		useState(5);
+	const [morePostsForHomeTileNumber, setMorePostsForHomeTileNumber] = useState(5);
+	const [isMobile, setIsMobile] = useState(false)
 
 	if (typeof window !== "undefined") {
 		// browser code
@@ -83,10 +83,18 @@ export default function Index({
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
+			setWidth(window.innerWidth);
 			if (width <= 1000 && morePostsForHomeTileNumber != 4) {
 				setMorePostsForHomeTileNumber(4);
 			} else if (width > 1000 && morePostsForHomeTileNumber != 5) {
 				setMorePostsForHomeTileNumber(5);
+			}
+
+			// check if device is mobile
+			if (width <= 700) {
+				setIsMobile(true);
+			} else {
+				setIsMobile(false);
 			}
 		}
 	}, [width]);
@@ -173,6 +181,7 @@ export default function Index({
 									tileNumber={currentLayoutID == 2 ? 5 : 6} //change to customize tile number
 									morePostsForHome={moreFilteredPostsForHome}
 									layoutID={currentLayoutID}
+									isMobile={isMobile}
 								/>
 							);
 						}

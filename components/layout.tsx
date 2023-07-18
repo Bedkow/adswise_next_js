@@ -5,7 +5,7 @@ import Meta from "./meta";
 import styled from "styled-components";
 
 const PageLayout = styled.div`
-	max-width: 100%;
+	width: 100%;
 
 	@media only screen and (min-width: ${(props) =>props.theme.breakpoints.tabletPlus}px) {
 		main {
@@ -23,7 +23,9 @@ const PageContent = styled.div`
 	main {
 		flex-grow: 1;
 		max-width: 1400px;
+		width: 100%;
 		margin: 0 auto 0 auto;
+		padding: 0 50px 0 50px;
 	}
 `;
 
