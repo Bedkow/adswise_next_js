@@ -54,6 +54,12 @@ const StyledHeroPostContainer = styled.div`
 	}
 `;
 
+const RecentPostsTitle = styled.h2`
+	width: max-content;
+	margin: auto;
+	font-size: 2rem;
+`
+
 export default function Index({
 	allPostsForHome: { edges },
 	preview,
@@ -137,29 +143,32 @@ export default function Index({
 				<title>AdsWise | Strona Główna</title>
 			</Head>
 			<Container>
-				<Intro />
-				<StyledTopPostsContainer>
-					{heroPost && (
-						<StyledHeroPostContainer>
-							<HeroPost
-								title={heroPost.title}
-								coverImage={heroPost.featuredImage}
-								date={heroPost.date}
-								slug={heroPost.slug}
-								excerpt={heroPost.excerpt}
-								category={heroPost.categories}
-							/>
-						</StyledHeroPostContainer>
-					)}
+				<section>
+					<Intro />
+					<RecentPostsTitle>Ostatnie Posty</RecentPostsTitle>
+					<StyledTopPostsContainer>
+						{heroPost && (
+							<StyledHeroPostContainer>
+								<HeroPost
+									title={heroPost.title}
+									coverImage={heroPost.featuredImage}
+									date={heroPost.date}
+									slug={heroPost.slug}
+									excerpt={heroPost.excerpt}
+									category={heroPost.categories}
+								/>
+							</StyledHeroPostContainer>
+						)}
 
-					{morePostsForHome.length > 0 && (
-						<MoreStories
-							postsForHome={morePostsForHome}
-							pagination={false}
-							tilesNumber={morePostsForHomeTileNumber}
-						/>
-					)}
-				</StyledTopPostsContainer>
+						{morePostsForHome.length > 0 && (
+							<MoreStories
+								postsForHome={morePostsForHome}
+								pagination={false}
+								tilesNumber={morePostsForHomeTileNumber}
+							/>
+						)}
+					</StyledTopPostsContainer>
+				</section>
 
 				{morePostsForHome.length > 0 &&
 					allCategoriesWithPosts.map((category) => {

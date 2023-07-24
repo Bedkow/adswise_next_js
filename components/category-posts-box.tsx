@@ -11,7 +11,12 @@ interface CategoryPostsBoxProps {
 }
 
 const CategoryBox = styled.div`
-    /* position: relative; */
+    padding: 70px 0px 0px 0px;
+
+	h2 {
+		font-size: 2rem;
+		padding-bottom: 20px; 
+	}
 	
 `
 
@@ -19,38 +24,40 @@ const ImageContainer = styled.div`
     width: 100%;
     /* height: 100px; */
     /* position: relative; */
+	
 
 	img {
 		max-width: 100%;
+		margin: 0 auto;
 	}
 `
 // bypass TypeScript misbehaving
 const PostTilesContainer = styled.div<CategoryPostsBoxProps>`
 	display: grid;
-	gap: 10px;
+	gap: 60px;
 
 	/* props have to be passed to tsx component */
 	/* layout nr 1 */
 	${props => props.layoutID == 1 && `
 		grid-template-columns: 1fr 1fr;
-		grid-template-rows: repeat(4, 1fr) auto auto;
+		grid-auto-rows: auto;
 
 		div.post-tile:nth-of-type(1) {
 			grid-column-start: 1;
 			grid-column-end: 2;
 			grid-row-start: 1;
-			grid-row-end: 5;
+			grid-row-end: 2;
 		}
 		div.post-tile:nth-of-type(2) {
 			grid-column-start: 2;
 			grid-column-end: 3;
 			grid-row-start: 1;
-			grid-row-end: 5;
+			grid-row-end: 2;
 		}
 
 		@media only screen and (max-width: 700px){
 			grid-template-columns: 1fr;
-			grid-template-rows: 1fr auto;
+			grid-auto-rows: 1fr;
 
 			div.post-tile:nth-of-type(1) {
 				grid-column-start: 1;
@@ -68,19 +75,21 @@ const PostTilesContainer = styled.div<CategoryPostsBoxProps>`
 		`}
 	/* layout nr 2 */
 	${props => props.layoutID == 2 && `
-		grid-template-columns: 1fr 1fr;
-		grid-tamplate-rows: repeat(4, 1fr) auto;
+		
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr 1fr;
+		grid-auto-rows: 1fr;
 
 		div.post-tile:nth-of-type(1) {
 			grid-column-start: 1;
-			grid-column-end: 2;
+			grid-column-end: 3;
 			grid-row-start: 1;
-			grid-row-end: 5;
+			grid-row-end: 3;
 		}
 
 		@media only screen and (max-width: 700px){
 			grid-template-columns: 1fr;
-			grid-template-rows: 1fr auto;
+			grid-template-rows: 1fr;
 
 			div.post-tile:nth-of-type(1) {
 				grid-column-start: 1;
@@ -94,11 +103,11 @@ const PostTilesContainer = styled.div<CategoryPostsBoxProps>`
 	/* layout nr 3 */
 	${props => props.layoutID == 3 && `
 		grid-template-columns: 1fr 1fr 1fr;
-		grid-tamplate-rows: 1fr auto;
+		grid-auto-rows: 1fr;
 
 		@media only screen and (max-width: 700px){
 			grid-template-columns: 1fr;
-			grid-template-rows: 1fr auto;
+			grid-template-rows: 1fr;
 		}
 		`}
 	`;
@@ -121,9 +130,8 @@ export default function CategoryPostsBox({
 	}
 	return (
 		<CategoryBox className="category-box">
-			<hr />
-			<span>{`layout: ${layoutID}`}</span>
-			<h2>{category}</h2>
+			<span>{layoutID}</span>
+			<h2>{`| ${category}`}</h2>
 			<PostTilesContainer layoutID={layoutID}>
 			{morePostsForHome.map((post, index) => {
 				console.log(post)
