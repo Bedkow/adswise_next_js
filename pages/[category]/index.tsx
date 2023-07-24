@@ -13,6 +13,27 @@ import Pagination from "../../components/pagination";
 import { useState } from "react";
 import { paginate } from "../../helpers/paginate";
 import { useRouter } from "next/router";
+import styled from "styled-components";
+
+const CategoryPagePostsLayout = styled.div`
+	display: grid;
+	gap: 60px;
+	grid-template-columns: 1fr 1fr;
+	grid-auto-rows: 1fr;
+
+	@media only screen and (max-width: 700px) {
+		grid-template-columns: 1fr;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+`
+
+const CategoryPageTitle = styled.h1`
+	padding: 50px 0px 30px 0px;
+`
 
 function SingleCategoryPage({
 	filteredPosts,
@@ -20,9 +41,6 @@ function SingleCategoryPage({
 	mainLogoData,
 	postsList,
 }) {
-	//
-	// console.log(filteredPosts)
-	//
 
 	const router = useRouter();
 
@@ -65,24 +83,26 @@ function SingleCategoryPage({
 			allCategories={allCategories}
 			mainLogoData={mainLogoData}
 			postsList={postsList}>
-			<h1>{categoryName()}</h1>
 
+			<CategoryPageTitle>{`| ${categoryName()}`}</CategoryPageTitle>
+
+			<CategoryPagePostsLayout>
 			{filteredSlicedPosts.map((paginatedPost) => {
 				return (
 					<Link
 						href={`/post/${paginatedPost.node.slug}`}
 						key={paginatedPost.node.slug}>
 						{paginatedPost.node.featuredImage && (
-							<Image
-								width={100}
-								height={100}
+							<img
 								alt={paginatedPost.node.featuredImage.node.altText}
-								src={paginatedPost.node.featuredImage.node.sourceUrl}></Image>
+								src={paginatedPost.node.featuredImage.node.sourceUrl}></img>
+								
 						)}
 						<h2>{paginatedPost.node.title}</h2>
 					</Link>
 				);
 			})}
+			</CategoryPagePostsLayout>
 
 			<Pagination
 				totalItems={filteredPosts.edges.length}
