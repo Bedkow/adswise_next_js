@@ -130,7 +130,7 @@ export async function getPostsByCategory(categoryName) {
 	const data = await fetchAPI(
 		`
     {
-      posts(where: {categoryName: "${categoryName}"}) {
+      posts(where: {categoryName: "${categoryName}"}, first: 10000) {
         edges {
           node {
             id

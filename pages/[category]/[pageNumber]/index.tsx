@@ -49,7 +49,7 @@ function SingleCategoryPageNext({
 	let currentPage = +router.query.pageNumber;
 
 	// number of posts per page, passed to pagination
-	let perPage = 6;
+	let perPage = 10;
 
 	// calc starting index to slice
 	let sliceStartingIndex = (currentPage - 1) * perPage;
@@ -72,11 +72,9 @@ function SingleCategoryPageNext({
 				return (
 					<Link href={`/post/${post.node.slug}`} key={post.node.slug}>
 						{post.node.featuredImage && (
-							<Image
-								width={100}
-								height={100}
-								alt={post.node.featuredImage.node.altText}
-								src={post.node.featuredImage.node.sourceUrl}></Image>
+							<img
+							alt={post.node.featuredImage.node.altText}
+							src={post.node.featuredImage.node.sourceUrl}></img>
 						)}
 						<h2>{post.node.title}</h2>
 					</Link>

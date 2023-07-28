@@ -41,7 +41,8 @@ function SingleCategoryPage({
 	mainLogoData,
 	postsList,
 }) {
-
+	console.log(filteredPosts)
+	console.log(postsList)
 	const router = useRouter();
 
 	const foundPost = filteredPosts.edges.find((post, index) => {
@@ -73,6 +74,8 @@ function SingleCategoryPage({
 
 	// number of posts per page, passed to pagination
 	let perPage = 10;
+
+	
 
 	// only posts for current page
 	let filteredSlicedPosts = filteredPosts.edges.slice(0, perPage);
