@@ -11,7 +11,6 @@ import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
 import Tags from '../../components/tags'
 import { getAllPostsWithSlug, getPostAndMorePosts, getAllCategories, getMainLogoData, getSinglePostCategory } from '../../lib/api'
-import BackButton from '../../components/back-button'
 
 export default function Post({ post, posts, preview, allCategories, mainLogoData, postsList }) {
   const router = useRouter()
@@ -28,6 +27,7 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
         ) : (
           <>
             <article>
+
               <Head>
                 <title>
                   {`AdsWise | ${post.title}`}
@@ -37,6 +37,7 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
                   content={post.featuredImage?.node.sourceUrl}
                 />
               </Head>
+
               <PostHeader
                 title={post.title}
                 coverImage={post.featuredImage}
@@ -44,14 +45,17 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
                 author={post.author}
                 categories={post.categories}
               />
-              <BackButton />
+
               <PostBody content={post.content} />
-              <footer>
+
+              {/* <footer>
                 {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
-              </footer>
+              </footer> */}
+
             </article>
 
-            <SectionSeparator />
+            {/* <SectionSeparator /> */}
+            <span>Zobacz także:</span>
             {morePosts.length > 0 && <MoreStories postsForReadMore={morePosts} tilesNumber={4}/>}
           </>
         )}

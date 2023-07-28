@@ -12,6 +12,13 @@ const MoreStoriesContainerStyled = styled.div`
 	}
 `
 
+const PostsForReadMoreContainer = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-auto-rows: 1fr;
+	gap: 60px;
+`
+
 export default function MoreStories({
 	postsForHome,
 	postsForReadMore,
@@ -63,8 +70,7 @@ export default function MoreStories({
 
 	return (
 		<>	
-				{postsForHome &&
-					paginatedPosts.map(({ node }, index) => {
+				{postsForHome && paginatedPosts.map(({ node }, index) => {
 						return (
 							<PostPreview
 								key={node.slug}
@@ -77,21 +83,24 @@ export default function MoreStories({
 							/>
 						);
 					})}
+					
 
-				{postsForReadMore &&
-					paginatedPosts.map(({ node }, index) => {
-						return (
-							<PostPreview
-								key={node.slug}
-								title={node.title}
-								coverImage={node.featuredImage}
-								date={node.date}
-								slug={node.slug}
-								excerpt={node.excerpt}
-								category={node.categories.edges[0].node.slug}
-							/>
-						);
-					})}
+				{postsForReadMore && 
+					<PostsForReadMoreContainer>
+						{paginatedPosts.map(({ node }, index) => {
+							return (
+								<PostPreview
+									key={node.slug}
+									title={node.title}
+									coverImage={node.featuredImage}
+									date={node.date}
+									slug={node.slug}
+									excerpt={node.excerpt}
+									category={node.categories.edges[0].node.slug}
+								/>
+							);
+						})}
+					</PostsForReadMoreContainer>}
 
 				{/* {pagination && <Pagination
 					totalItems={posts.length}
