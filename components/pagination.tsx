@@ -70,19 +70,22 @@ export default function Pagination({
 	return (
 		<div>
 			<PaginationContainer>
-			{!isFirstPage() && (
-					<Link
-						href={`/${currentPaginatedCategory}/`}>
-						{"-<<-"}
-					</Link>
+				{!isFirstPage() && (
+					<PageLinkContainer>
+						<Link href={`/${currentPaginatedCategory}/`}>{"<<"}</Link>
+					</PageLinkContainer>
 				)}
 				{!isFirstPage() && (
-					<Link
-						href={`/${currentPaginatedCategory}/${
-							+router.query.pageNumber === 2 ? '' : +router.query.pageNumber - 1
-						}`}>
-						{"<"}
-					</Link>
+					<PageLinkContainer>
+						<Link
+							href={`/${currentPaginatedCategory}/${
+								+router.query.pageNumber === 2
+									? ""
+									: +router.query.pageNumber - 1
+							}`}>
+							{"<"}
+						</Link>
+					</PageLinkContainer>
 				)}
 
 				{pages.map((page) => (
@@ -101,18 +104,24 @@ export default function Pagination({
 					</PageLinkContainer>
 				))}
 				{!isLastPage() && (
-					<Link
-						href={`/${currentPaginatedCategory}/${
-							isFirstPage() ? 2 : +router.query.pageNumber + 1
-						}`}>
-						{">"}
-					</Link>
+					<PageLinkContainer>
+						<Link
+							href={`/${currentPaginatedCategory}/${
+								isFirstPage() ? 2 : +router.query.pageNumber + 1
+							}`}>
+							{">"}
+						</Link>
+					</PageLinkContainer>
 				)}
 				{!isLastPage() && (
-					<Link
-					href={`/${currentPaginatedCategory}/${Math.ceil(totalItems / itemsPerPage)}`}>
-					{"->>-"}
-				</Link>
+					<PageLinkContainer>
+						<Link
+							href={`/${currentPaginatedCategory}/${Math.ceil(
+								totalItems / itemsPerPage
+							)}`}>
+							{">>"}
+						</Link>
+					</PageLinkContainer>
 				)}
 			</PaginationContainer>
 		</div>
