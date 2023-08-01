@@ -1,7 +1,6 @@
 export default function Categories({ categories }) {
   return (
     <span >
-      
       {categories.edges.length > 0 ? (
         categories.edges.map((category, index) => (
           <span key={index}>

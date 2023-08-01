@@ -17,6 +17,7 @@ const PostsForReadMoreContainer = styled.div`
 	grid-template-columns: 1fr 1fr;
 	grid-auto-rows: 1fr;
 	gap: 60px;
+	margin-bottom: 40px;
 `
 
 export default function MoreStories({

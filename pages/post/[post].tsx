@@ -11,6 +11,11 @@ import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
 import Tags from '../../components/tags'
 import { getAllPostsWithSlug, getPostAndMorePosts, getAllCategories, getMainLogoData, getSinglePostCategory } from '../../lib/api'
+import styled from 'styled-components'
+
+const SeeAlso = styled.div`
+  font-size: 1.5rem;
+`
 
 export default function Post({ post, posts, preview, allCategories, mainLogoData, postsList }) {
   const router = useRouter()
@@ -55,7 +60,9 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
             </article>
 
             {/* <SectionSeparator /> */}
-            <span>Zobacz także:</span>
+
+            <SeeAlso>Zobacz także:</SeeAlso>
+
             {morePosts.length > 0 && <MoreStories postsForReadMore={morePosts} tilesNumber={4}/>}
           </>
         )}
