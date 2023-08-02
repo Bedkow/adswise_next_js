@@ -22,9 +22,7 @@ const CategoryBox = styled.div`
 
 const ImageContainer = styled.div`
     width: 100%;
-    /* height: 100px; */
-    /* position: relative; */
-	
+	margin-bottom: 20px;
 
 	img {
 		max-width: 100%;
@@ -112,7 +110,17 @@ const PostTilesContainer = styled.div<CategoryPostsBoxProps>`
 		`}
 	`;
 
-	
+const CategoryTitle = styled.h2`
+	margin-bottom: 20px;
+`
+
+const SinglePostTitle = styled.h3`
+	margin-bottom: 15px;
+`
+
+const SinglePostExcerpt = styled.div`
+	text-align: justify;
+`
 
 export default function CategoryPostsBox({
 	category,
@@ -130,8 +138,8 @@ export default function CategoryPostsBox({
 	}
 	return (
 		<CategoryBox className="category-box">
-			<span>{layoutID}</span>
-			<h2>{`| ${category}`}</h2>
+			{/* <span>{layoutID}</span> */}
+			<CategoryTitle>{`| ${category}`}</CategoryTitle>
 			<PostTilesContainer layoutID={layoutID}>
 			{morePostsForHome.map((post, index) => {
 				// console.log(post)
@@ -146,10 +154,10 @@ export default function CategoryPostsBox({
 							placeholder="empty"
 						/>
                         </ImageContainer>
-                        <h3>{post.node.title}</h3>
-						{layoutID == 2 && index+1 == 1 && !isMobile && <div dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />}
-						{layoutID == 1 && index+1 == 1 && !isMobile && <div dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />}
-						{layoutID == 1 && index+1 == 2 && !isMobile && <div dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />}
+                        <SinglePostTitle>{post.node.title}</SinglePostTitle>
+						{layoutID == 2 && index+1 == 1 && !isMobile && <SinglePostExcerpt dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />}
+						{layoutID == 1 && index+1 == 1 && !isMobile && <SinglePostExcerpt dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />}
+						{layoutID == 1 && index+1 == 2 && !isMobile && <SinglePostExcerpt dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />}
 						</Link>
 					</div>
 				);
