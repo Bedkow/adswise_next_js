@@ -12,7 +12,7 @@ const CoverImageContainer = styled.div`
 	}
 
   .image-container {
-    margin: 30px auto;
+    margin: 20px auto;
     width: 100%;
     max-width: 2000px;
   }
