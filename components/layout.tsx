@@ -48,7 +48,6 @@ export default function Layout({
   const categoriesList = allCategories?.edges;
 
   const router = useRouter();
-  console.log(router)
 	return (
 		<PageLayout className='layout'>
 			<Meta />

@@ -54,16 +54,9 @@ export default function Pagination({
 		}
 	}
 
-	// console.log(isLastPage());
-
 	const currentPaginatedCategory = router.query.category;
 
-	// console.log(router.query)
-
-	// console.log(totalItems, currentPage, itemsPerPage);
-
 	const pages = paginate(totalItems, currentPage, itemsPerPage);
-	
 
 	if (pages.length <= 1) return null;
 
