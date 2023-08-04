@@ -3,6 +3,8 @@ import Footer from "./footer";
 import Header from "./header";
 import Meta from "./meta";
 import styled from "styled-components";
+import { useRouter } from "next/router";
+import Breadcrumbs from "./breadcrumbs";
 
 const PageLayout = styled.div`
 	width: 100%;
@@ -42,6 +44,11 @@ export default function Layout({
 	mainLogoData: any;
 	postsList?: any;
 }) {
+
+  const categoriesList = allCategories?.edges;
+
+  const router = useRouter();
+  console.log(router)
 	return (
 		<PageLayout className='layout'>
 			<Meta />
@@ -52,6 +59,7 @@ export default function Layout({
 					mainLogoData={mainLogoData}
 					postsList={postsList}
 				/>
+        {router.query.post || router.query.category ? <Breadcrumbs categoriesList={categoriesList} postsList={postsList} /> : null}
 				<main>{children}</main>
 				<Footer />
 			</PageContent>

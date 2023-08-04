@@ -5,7 +5,6 @@ import styled from 'styled-components';
 const LogoContainer = styled.div`
     display: inline-block;
     position: absolute;
-    height: 80px;
     top: 0px;
     left: 0px;
 `
