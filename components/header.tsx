@@ -84,7 +84,7 @@ const CategoryHamburger = styled.ul`
 	flex-wrap: wrap;
 	position: absolute;
 	right: 0px;
-	top: 75px;
+	top: 60px;
 	background-color: ${props => props.theme.colors.navBackg};;
 
 	@media only screen and (min-width: ${(props) =>props.theme.breakpoints.desktopPlus}px) {
@@ -197,7 +197,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 															<SubcategoryListItem key={`${subCategory.slug}`}>
 																<Link href={`/${subCategory.slug}`}>
 																	<NameWrapper>
-																		subCat - {subCategory.name}
+																		{subCategory.name}
 																	</NameWrapper>
 																</Link>
 															</SubcategoryListItem>
@@ -253,7 +253,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 																key={`${subCategory.slug}`}>
 																<Link href={`/${subCategory.slug}`}>
 																	<NameWrapper>
-																		subCat - {subCategory.name}
+																		{subCategory.name}
 																	</NameWrapper>
 																</Link>
 															</SubcategoryHamburgerItem>

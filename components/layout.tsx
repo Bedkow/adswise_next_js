@@ -27,7 +27,7 @@ const PageContent = styled.div`
 		max-width: 1400px;
 		width: 100%;
 		margin: 0 auto 0 auto;
-		padding: 0 50px 0 50px;
+		padding: 50px 50px 50px 50px;
 	}
 `;
 
