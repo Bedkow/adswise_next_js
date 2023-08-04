@@ -1,5 +1,32 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import styled from "styled-components";
+
+const BreadcrumbsContainerStyled = styled.div`
+	color: ${props => props.theme.colors.navBackgEl};
+  background-color: ${props => props.theme.colors.navBackg};
+  white-space: nowrap;
+  overflow: auto;
+  min-height: 23px;
+  width:100%;
+  padding-left: 20px;
+  /* overflow-y: hidden; */
+  /* width: 100%; */
+	/* position: absolute; */
+	/* left: 5px; */
+	/* top: 60px; */
+	/* white-space: nowrap;
+	font-size: 2.2vw; */
+
+	/* @media screen and (min-width: 850px) {
+		font-size: 1rem;
+		left: 20px;
+	} */
+
+	a {
+		color: ${props => props.theme.colors.navBackgEl};
+	}
+`
 
 export default function Breadcrumbs({
 	isCategory,
@@ -65,7 +92,7 @@ export default function Breadcrumbs({
 	// ADD ANCESTOR TO BREADCRUMBS WHEN PAGE QUERY IS SUBCATEGORY @@@@
 
 	return (
-		<>
+		<BreadcrumbsContainerStyled>
 			<div>
 				{(postCategoryName || categoryName || routeIsPage) && (
 					<Link href='/'>
@@ -114,6 +141,6 @@ export default function Breadcrumbs({
 				{postTitle && <span>{` > `}</span>}
 				{postTitle && <span>{postTitle}</span>}
 			</div>
-		</>
+      </BreadcrumbsContainerStyled>
 	);
 }

@@ -7,7 +7,7 @@ import { debounce } from "../helpers/debounce";
 
 const StyledHeader = styled.header`
 	width: 100%;
-	min-height: 80px;
+	min-height: 60px;
 	display: flex;
 	background-color: ${props => props.theme.colors.navBackg};
 `;
@@ -142,24 +142,6 @@ const NameWrapper = styled.div`
 		color: ${props => props.theme.colors.navBackgElHover};
 	}
 `;
-
-const BreadcrumbsContainerStyled = styled.span`
-	color: ${props => props.theme.colors.navBackgEl};
-	position: absolute;
-	left: 5px;
-	top: 60px;
-	white-space: nowrap;
-	font-size: 2.2vw;
-
-	@media screen and (min-width: 850px) {
-		font-size: 1rem;
-		left: 20px;
-	}
-
-	a {
-		color: ${props => props.theme.colors.navBackgEl};
-	}
-`
 
 export default function Header({ allCategories, mainLogoData, postsList }) {
 	let [hamburgerVisible, setHamburgerVisible] = useState(false);
@@ -309,9 +291,9 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 					</CategoryHamburger>
 				)}
 			</MainNav>
-			<BreadcrumbsContainerStyled>
-				<Breadcrumbs categoriesList={categoriesList} postsList={postsList} />
-			</BreadcrumbsContainerStyled>
+			
+				{/* <Breadcrumbs categoriesList={categoriesList} postsList={postsList} /> */}
+			
 			
 		</StyledHeader>
 	);
