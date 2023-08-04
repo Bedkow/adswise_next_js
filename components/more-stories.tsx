@@ -47,7 +47,7 @@ export default function MoreStories({
 			pageSize = 6;
 		} else if (postsForReadMore) {
 			posts = postsForReadMore;
-			pageSize = 3;
+			pageSize = 4;
 		}
 
 		paginatedPosts = posts; /*paginate(posts, currentPage, pageSize);*/

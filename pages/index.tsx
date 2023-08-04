@@ -33,7 +33,7 @@ const StyledTopPostsContainer = styled.div`
 	}
 
 	@media screen and (max-width: 700px) {
-		grid-template-rows: 1.5fr repeat(4, 1fr);
+		grid-template-rows: 1.5fr repeat(4, 0.65fr);
 		grid-template-columns: 1fr;
 	}
 `;

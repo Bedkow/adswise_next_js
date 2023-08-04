@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
   previewData,
 }) => {
-  const morePostsNumberInTotal = 4 // number of posts to request for preview under /[post] route (individual post)
+  const morePostsNumberInTotal = 6 // number of posts to request for preview under /[post] route (individual post)
   const data = await getPostAndMorePosts(params?.post, preview, previewData, morePostsNumberInTotal);
   const allCategories = await getAllCategories();
   const mainLogoData = await getMainLogoData();

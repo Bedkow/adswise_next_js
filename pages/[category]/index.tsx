@@ -41,8 +41,7 @@ function SingleCategoryPage({
 	mainLogoData,
 	postsList,
 }) {
-	console.log(filteredPosts)
-	console.log(postsList)
+
 	const router = useRouter();
 
 	const foundPost = filteredPosts.edges.find((post, index) => {
@@ -52,8 +51,6 @@ function SingleCategoryPage({
 				router.query.category
 		);
 	});
-
-	// console.log(foundPost);
 
 	const categoryName = () => {
 		if (foundPost.node.categories.nodes[0].slug === router.query.category) {
@@ -135,12 +132,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const allCategories = await getAllCategories();
-	// console.log(allCategories.edges[0].node.contentNodes.nodes.length)
 	const filteredAllCategories = allCategories.edges.filter((category) => {
 		return category.node.contentNodes.nodes.length > 0;
 	});
-
-	// console.log("filtered:@@@@@@@@@@@@@@@@@@@ \n" + filteredAllCategories)
 
 	const paths = filteredAllCategories.map((category) => ({
 		params: { category: category.node.slug },

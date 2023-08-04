@@ -10,6 +10,7 @@ const StyledHeader = styled.header`
 	min-height: 60px;
 	display: flex;
 	background-color: ${props => props.theme.colors.navBackg};
+  color: ${props => props.theme.colors.navBackgEl};
 `;
 
 const MainNav = styled.nav`
@@ -157,16 +158,12 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 		);
 	}
 
-	// useEffect(()=>{}, [width])
-
 	const categoriesList = allCategories?.edges;
 
 	const handleHamburgerIconClick = (e) => {
 		e.currentTarget.classList.toggle("active");
-		// console.log(`before state change: ${hamburgerVisible}`);
 		hamburgerVisible = !hamburgerVisible;
 		setHamburgerVisible(hamburgerVisible);
-		// console.log(hamburgerVisible);
 	};
 
 	return (
@@ -194,9 +191,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 
 										{category.node.children.nodes.length > 0 && (
 											<SubcategoryList>
-												{/* {console.log(category)} */}
 												{category.node.children.nodes.map((subCategory) => {
-													// {console.log(subCategory.count)}
 													if (subCategory.count && subCategory.count > 0) {
 														return (
 															<SubcategoryListItem key={`${subCategory.slug}`}>

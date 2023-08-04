@@ -27,7 +27,6 @@ const PlainTextLogo = styled.span`
 
 export default function MainLogo({mainLogoData}) {
 //  const mainLogoDataTest = mainLogoData?.edges[0].node;
-// console.log(mainLogoDataTest.sourceUrl)
     return (
         <LogoContainer>
         <Link href={'/'} style={{

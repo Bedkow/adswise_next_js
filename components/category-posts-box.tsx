@@ -142,8 +142,6 @@ export default function CategoryPostsBox({
 			<CategoryTitle>{`| ${category}`}</CategoryTitle>
 			<PostTilesContainer layoutID={layoutID}>
 			{morePostsForHome.map((post, index) => {
-				// console.log(post)
-				// console.log(index + 1)
 				return (
 					<div key={post.node.slug} className="post-tile">
 						<Link href={`/post/${post.node.slug}`}>
