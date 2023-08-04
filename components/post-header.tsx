@@ -43,7 +43,9 @@ export default function PostHeader({
 			<div>
 				<PostMetadataContainer>
 					<Date dateString={date} />
+          <span>{` | `}</span>
 					<Categories categories={categories} />
+          <span>{` | `}</span>
 					<Author>
 						{author && author.node.firstName && author.node.lastName && (
 							<span>{`${author.node.firstName} ${author.node.lastName}`}</span>
