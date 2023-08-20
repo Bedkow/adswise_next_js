@@ -66,8 +66,7 @@ const PostTilesContainer = styled.div<CategoryPostsBoxProps>`
 			div.post-tile:nth-of-type(2) {
 				grid-column-start: 1;
 				grid-column-end: 2;
-				grid-row-start: 1;
-				grid-row-end: 1;
+				grid-row-start: 2;
 			}
 		}
 		`}
