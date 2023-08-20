@@ -48,6 +48,7 @@ export default function Layout({
   const categoriesList = allCategories?.edges;
 
   const router = useRouter();
+  console.log(router.route)
 	return (
 		<PageLayout className='layout'>
 			<Meta />
@@ -58,7 +59,7 @@ export default function Layout({
 					mainLogoData={mainLogoData}
 					postsList={postsList}
 				/>
-        {router.query.post || router.query.category ? <Breadcrumbs categoriesList={categoriesList} postsList={postsList} /> : null}
+        {router.route !== "/" ? <Breadcrumbs categoriesList={categoriesList} postsList={postsList} /> : null}
 				<main>{children}</main>
 				<Footer />
 			</PageContent>
