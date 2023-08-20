@@ -1,16 +1,6 @@
-import Pagination from "./pagination";
 import PostPreview from "./post-preview";
 import { useState } from "react";
-import { paginate } from "../helpers/paginate";
 import styled from 'styled-components';
-
-const MoreStoriesContainerStyled = styled.div`
-	@media screen and (max-width: 1000px){
-		/* :last-child {
-			display: none;
-		} */
-	}
-`
 
 const PostsForReadMoreContainer = styled.div`
 	display: grid;
@@ -18,6 +8,10 @@ const PostsForReadMoreContainer = styled.div`
 	grid-auto-rows: 1fr;
 	gap: 60px;
 	margin-bottom: 40px;
+
+  @media screen and (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 export default function MoreStories({
@@ -31,15 +25,11 @@ export default function MoreStories({
 	pagination?: boolean;
 	tilesNumber?: number;
 }) {
-	const [currentPage, setCurrentPage] = useState(1);
+
 
 	let posts = [];
 	let paginatedPosts;
 	let pageSize;
-
-	const onPageChange = (page) => {
-		setCurrentPage(page);
-	};
 
 	if (pagination) {
 		if (postsForHome) {
@@ -102,12 +92,6 @@ export default function MoreStories({
 							);
 						})}
 					</PostsForReadMoreContainer>}
-
-				{/* {pagination && <Pagination
-					totalItems={posts.length}
-					currentPage={currentPage}
-					itemsPerPage={pageSize}
-				/>} */}
 		</>
 	);
 }
