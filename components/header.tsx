@@ -8,6 +8,7 @@ import { debounce } from "../helpers/debounce";
 const StyledHeader = styled.header`
 	width: 100%;
 	min-height: 60px;
+  max-height: 60px;
 	display: flex;
 	background-color: ${props => props.theme.colors.navBackg};
   color: ${props => props.theme.colors.navBackgEl};

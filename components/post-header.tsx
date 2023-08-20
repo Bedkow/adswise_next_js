@@ -15,9 +15,13 @@ const Author = styled.span`
 
 const PostMetadataContainer = styled.div`
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   flex-direction: row;
   gap: 10px;
+
+  @media screen and (max-width: 700px){
+    gap: 5px;
+  }
 `
 
 export default function PostHeader({
