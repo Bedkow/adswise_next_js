@@ -1,9 +1,7 @@
 import Link from "next/link";
 import MainLogo from "./main-logo";
-import Breadcrumbs from "./breadcrumbs";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { debounce } from "../helpers/debounce";
+import { useState } from "react";
 
 const StyledHeader = styled.header`
 	width: 100%;
@@ -101,7 +99,6 @@ const CategoryHamburgerItem = styled.li`
 	border-radius: 5px;
 	width: fit-content;
 	height: fit-content;
-
 `;
 
 const SubcategoryList = styled.ul`
@@ -110,7 +107,6 @@ const SubcategoryList = styled.ul`
 	display: none;
 	z-index: 10;
 	
-
 	${CategoryListItem}:hover & {
 		display: flex;
 		position: absolute;
@@ -145,19 +141,8 @@ const NameWrapper = styled.div`
 	}
 `;
 
-export default function Header({ allCategories, mainLogoData, postsList }) {
+export default function Header({ allCategories, mainLogoData }) {
 	let [hamburgerVisible, setHamburgerVisible] = useState(false);
-	const [width, setWidth] = useState(0);
-
-	if (typeof window !== "undefined") {
-		// browser code
-		window.addEventListener(
-			"resize",
-			debounce(() => {
-				setWidth(window.innerWidth);
-			}, 150)
-		);
-	}
 
 	const categoriesList = allCategories?.edges;
 
@@ -177,7 +162,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 					<span className='lower-bun'></span>
 				</CategoryHamburgerButton>
 				{!hamburgerVisible && (
-					/*width >= 1280 &&*/ <CategoryList>
+				  <CategoryList>
 						{categoriesList?.map((category) => {
 							if (
 								category.node.slug !== "pozostale" &&
@@ -197,9 +182,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 														return (
 															<SubcategoryListItem key={`${subCategory.slug}`}>
 																<Link href={`/${subCategory.slug}`}>
-																	<NameWrapper>
-																		{subCategory.name}
-																	</NameWrapper>
+																	<NameWrapper>{subCategory.name}</NameWrapper>
 																</Link>
 															</SubcategoryListItem>
 														);
@@ -253,9 +236,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 															<SubcategoryHamburgerItem
 																key={`${subCategory.slug}`}>
 																<Link href={`/${subCategory.slug}`}>
-																	<NameWrapper>
-																		{subCategory.name}
-																	</NameWrapper>
+																	<NameWrapper>{subCategory.name}</NameWrapper>
 																</Link>
 															</SubcategoryHamburgerItem>
 														);
@@ -287,10 +268,6 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 					</CategoryHamburger>
 				)}
 			</MainNav>
-			
-				{/* <Breadcrumbs categoriesList={categoriesList} postsList={postsList} /> */}
-			
-			
 		</StyledHeader>
 	);
 }

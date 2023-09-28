@@ -17,7 +17,6 @@ import { useEffect, useState } from "react";
 import { debounce } from "../helpers/debounce";
 
 const StyledTopPostsContainer = styled.div`
-	/* border: solid black 2px; */
 	display: grid;
 	width: 100%;
 	height: min-content;
