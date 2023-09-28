@@ -59,8 +59,16 @@ export default function Layout({
 					mainLogoData={mainLogoData}
 					postsList={postsList}
 				/>
-        {router.route !== "/" ? <Breadcrumbs categoriesList={categoriesList} postsList={postsList} /> : null}
-				<main>{children}</main>
+
+				<main>
+					{router.route !== "/" ? (
+						<Breadcrumbs
+							categoriesList={categoriesList}
+							postsList={postsList}
+						/>
+					) : null}
+					<>{children}</>
+				</main>
 				<Footer />
 			</PageContent>
 		</PageLayout>

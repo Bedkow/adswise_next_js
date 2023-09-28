@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 const BreadcrumbsContainerStyled = styled.div`
-	color: ${props => props.theme.colors.navBackgEl};
-  background-color: ${props => props.theme.colors.navBackg};
+	color: ${props => props.theme.colors.text};
+  background-color: ${props => props.theme.colors.primary};
   white-space: nowrap;
   overflow: auto;
   min-height: 23px;
   width:100%;
-  padding-left: 20px;
+  /* padding-left: 20px; */
   /* overflow-y: hidden; */
   /* width: 100%; */
 	/* position: absolute; */
@@ -24,7 +24,7 @@ const BreadcrumbsContainerStyled = styled.div`
 	} */
 
 	a {
-		color: ${props => props.theme.colors.navBackgEl};
+		color: ${props => props.theme.colors.text};
 	}
 `
 

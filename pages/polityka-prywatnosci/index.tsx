@@ -2,13 +2,7 @@ import Layout from "../../components/layout";
 import { GetStaticProps } from "next";
 import { getAllCategories, getAllPostsWithSlug, getMainLogoData } from "../../lib/api";
 import styled from "styled-components";
-
-const StyledTitle = styled.h1`
-  padding: 5px;
-  width: max-content;
-  border: 3px black solid;
-  margin-bottom: 50px;
-`
+import { StyledTitle } from "../kontakt";
 
 export default function PrivacyPolicy({ mainLogoData, postsList, allCategories }) {
 	return (
