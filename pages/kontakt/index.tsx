@@ -3,11 +3,15 @@ import { GetStaticProps } from "next";
 import { getAllCategories, getAllPostsForHome, getAllPostsWithSlug, getMainLogoData } from "../../lib/api";
 import styled from "styled-components";
 
-const StyledTitle = styled.h1`
+export const StyledTitle = styled.h1`
   padding: 5px;
-  width: min-content;
+  width: max-content;
   border: 3px black solid;
-  margin-bottom: 50px;
+  margin: 10px auto 50px auto;
+
+  @media screen and (max-width: 700px) {
+    max-width: 100%;
+  }
 `
 
 const StyledEmail = styled.a`
