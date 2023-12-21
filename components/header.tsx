@@ -1,12 +1,15 @@
 import Link from "next/link";
 import MainLogo from "./main-logo";
-import Breadcrumbs from "./breadcrumbs";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const StyledHeader = styled.header`
-	background-color: ${(props) => props.theme.colors.secondary};
 	width: 100%;
+	min-height: 60px;
+  max-height: 60px;
+	display: flex;
+	background-color: ${props => props.theme.colors.navBackg};
+  color: ${props => props.theme.colors.navBackgEl};
 `;
 
 const MainNav = styled.nav`
@@ -33,13 +36,13 @@ const CategoryHamburgerButton = styled.span`
 	position: absolute;
 	top: 5px;
 	right: 5px;
-	width: 70px;
-	height: 70px;
+	width: 50px;
+	height: 50px;
 	padding: 5px;
-	background-color: ${(props) => props.theme.colors.secondary};
 	flex-direction: column;
 	flex-wrap: nowrap;
 	justify-content: space-between;
+	z-index: 10;
 
 	@media only screen and (min-width: ${(props) =>props.theme.breakpoints.desktopPlus}px) {
 		display: none;
@@ -47,9 +50,9 @@ const CategoryHamburgerButton = styled.span`
 
 	span {
 		width: 100%;
-		height: 10px;
-		background-color: ${(props) => props.theme.colors.CTA};
+		height: 6px;
 		border-radius: 5px;
+		background-color: ${props => props.theme.colors.navBackgEl};
 	}
 
 	&.active {
@@ -59,19 +62,19 @@ const CategoryHamburgerButton = styled.span`
 
 		.upper-bun {
 			transform: rotate(45deg);
-			translate: 0px 25px;
+			translate: 0px 17.5px;
 		}
 
 		.lower-bun {
 			transform: rotate(-45deg);
-			translate: 0px -25px;
+			translate: 0px -17.5px;
 		}
 	}
 `;
 
 const CategoryHamburger = styled.ul`
 	padding: 20px;
-	width: 100%;
+	width: max-content;
 	display: flex;
 	gap: 10px;
 	flex-direction: column;
@@ -79,7 +82,9 @@ const CategoryHamburger = styled.ul`
 	justify-content: center;
 	flex-wrap: wrap;
 	position: absolute;
-	background-color: ${(props) => props.theme.colors.secondary};
+	right: 0px;
+	top: 60px;
+	background-color: ${props => props.theme.colors.navBackg};;
 
 	@media only screen and (min-width: ${(props) =>props.theme.breakpoints.desktopPlus}px) {
 		display: none;
@@ -87,25 +92,13 @@ const CategoryHamburger = styled.ul`
 `;
 
 const CategoryListItem = styled.li`
-	background-color: ${(props) => props.theme.colors.CTA};
-	/* padding: 7px; */
-	border-radius: 5px;
-
-	a {
-		color: ${(props) => props.theme.colors.textSecondary};
-	}
 `;
 
 const CategoryHamburgerItem = styled.li`
-	background-color: ${(props) => props.theme.colors.CTA};
 	border: 1px solid black;
-	/* padding: 7px; */
 	border-radius: 5px;
 	width: fit-content;
 	height: fit-content;
-	a {
-		color: ${(props) => props.theme.colors.textSecondary};
-	}
 `;
 
 const SubcategoryList = styled.ul`
@@ -113,8 +106,7 @@ const SubcategoryList = styled.ul`
 	list-style-type: none;
 	display: none;
 	z-index: 10;
-	border-radius: 5px;
-
+	
 	${CategoryListItem}:hover & {
 		display: flex;
 		position: absolute;
@@ -131,73 +123,33 @@ const SubcategoryHamburger = styled.ul`
 `;
 
 const SubcategoryListItem = styled.li`
-	/* border: 1px dotted black; */
-	/* padding: 10px; */
-	background-color: ${(props) => props.theme.colors.accentBlue};
-	border-radius: 5px;
-
-	a {
-		color: ${(props) => props.theme.colors.textSecondary};
-	}
 `;
 
 const SubcategoryHamburgerItem = styled.li`
 	padding-left: 20px;
-	background-color: ${(props) => props.theme.colors.accentBlue};
-	a {
-		color: ${(props) => props.theme.colors.textSecondary};
-	}
-	/* border-radius: 5px; */
 `;
 
 const NameWrapper = styled.div`
 	padding: 7px;
 	width: 100%;
 	height: 100%;
+	background-color: ${props => props.theme.colors.navBackg};
+	color: ${props => props.theme.colors.navBackgEl};
+	:hover {
+		background-color: ${props => props.theme.colors.navBackgHover};
+		color: ${props => props.theme.colors.navBackgElHover};
+	}
 `;
 
-export default function Header({ allCategories, mainLogoData, postsList }) {
+export default function Header({ allCategories, mainLogoData }) {
 	let [hamburgerVisible, setHamburgerVisible] = useState(false);
-	let [width, setWidth] = useState(0);
-
-	/////////////////////////////////////////////////
-	// Debounce
-	function debounce(func, time) {
-		var time = time || 100; // 100 by default if no param
-		var timer;
-		return function (event) {
-			if (timer) clearTimeout(timer);
-			timer = setTimeout(func, time, event);
-		};
-	}
-
-	///////////////////////////////////////////////
-
-	if (typeof window !== "undefined") {
-		// browser code
-		window.addEventListener(
-			"resize",
-			debounce(() => {
-				setWidth(window.innerWidth);
-				// console.log(window.innerWidth);
-				// if (window.innerWidth >= 1280) {
-				// hamburgerVisible = true;
-				// setHamburgerVisible(hamburgerVisible);
-				// }
-			}, 150)
-		);
-	}
-
-	// useEffect(()=>{}, [width])
 
 	const categoriesList = allCategories?.edges;
 
 	const handleHamburgerIconClick = (e) => {
 		e.currentTarget.classList.toggle("active");
-		// console.log(`before state change: ${hamburgerVisible}`);
 		hamburgerVisible = !hamburgerVisible;
 		setHamburgerVisible(hamburgerVisible);
-		// console.log(hamburgerVisible);
 	};
 
 	return (
@@ -210,7 +162,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 					<span className='lower-bun'></span>
 				</CategoryHamburgerButton>
 				{!hamburgerVisible && (
-					/*width >= 1280 &&*/ <CategoryList>
+				  <CategoryList>
 						{categoriesList?.map((category) => {
 							if (
 								category.node.slug !== "pozostale" &&
@@ -225,16 +177,12 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 
 										{category.node.children.nodes.length > 0 && (
 											<SubcategoryList>
-												{/* {console.log(category)} */}
 												{category.node.children.nodes.map((subCategory) => {
-													// {console.log(subCategory.count)}
 													if (subCategory.count && subCategory.count > 0) {
 														return (
 															<SubcategoryListItem key={`${subCategory.slug}`}>
 																<Link href={`/${subCategory.slug}`}>
-																	<NameWrapper>
-																		subCat - {subCategory.name}
-																	</NameWrapper>
+																	<NameWrapper>{subCategory.name}</NameWrapper>
 																</Link>
 															</SubcategoryListItem>
 														);
@@ -288,9 +236,7 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 															<SubcategoryHamburgerItem
 																key={`${subCategory.slug}`}>
 																<Link href={`/${subCategory.slug}`}>
-																	<NameWrapper>
-																		subCat - {subCategory.name}
-																	</NameWrapper>
+																	<NameWrapper>{subCategory.name}</NameWrapper>
 																</Link>
 															</SubcategoryHamburgerItem>
 														);
@@ -322,8 +268,6 @@ export default function Header({ allCategories, mainLogoData, postsList }) {
 					</CategoryHamburger>
 				)}
 			</MainNav>
-			<Breadcrumbs categoriesList={categoriesList} postsList={postsList} />
-			<hr />
 		</StyledHeader>
 	);
 }

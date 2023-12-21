@@ -10,11 +10,23 @@ export type PaginationProps = {
 	itemsPerPage?: number;
 };
 
+const PaginationContainer = styled.ul`
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin: 30px 0px;
+`
+
 const PageLinkContainer = styled.li`
+	padding: 5px;
+	margin: 0px 5px;
+	font-size: 1.5rem;
+
 	&.active-page {
 		a {
 			font-weight: 700;
-			border: red solid 1px;
+			text-decoration: underline;
 		}
 	}
 `;
@@ -22,10 +34,25 @@ const PageLinkContainer = styled.li`
 export default function Pagination({
 	totalItems,
 	currentPage,
-	itemsPerPage = 6,
+	itemsPerPage = 10,
 }) {
 	const router = useRouter();
-	// console.log(router)
+
+	const isLastPage = () => {
+		if (Math.ceil(totalItems / itemsPerPage) === currentPage) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	const isFirstPage = () => {
+		if (!router.query.pageNumber || +router.query.pageNumber === 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	const currentPaginatedCategory = router.query.category;
 
@@ -35,18 +62,61 @@ export default function Pagination({
 
 	return (
 		<div>
-			<hr></hr>
-			<ul>
+			<PaginationContainer>
+				{!isFirstPage() && (
+					<PageLinkContainer>
+						<Link href={`/${currentPaginatedCategory}/`}>{"<<"}</Link>
+					</PageLinkContainer>
+				)}
+				{!isFirstPage() && (
+					<PageLinkContainer>
+						<Link
+							href={`/${currentPaginatedCategory}/${
+								+router.query.pageNumber === 2
+									? ""
+									: +router.query.pageNumber - 1
+							}`}>
+							{"<"}
+						</Link>
+					</PageLinkContainer>
+				)}
+
 				{pages.map((page) => (
 					<PageLinkContainer
 						key={page}
 						className={`${
 							page === currentPage ? "active-page" : "inactive-page"
 						}`}>
-						<Link href={`/${currentPaginatedCategory}/${page}`}>{page}</Link>
+						{page > 1 && (
+							<Link href={`/${currentPaginatedCategory}/${page}`}>{page}</Link>
+						)}
+
+						{page === 1 && (
+							<Link href={`/${currentPaginatedCategory}`}>{page}</Link>
+						)}
 					</PageLinkContainer>
 				))}
-			</ul>
+				{!isLastPage() && (
+					<PageLinkContainer>
+						<Link
+							href={`/${currentPaginatedCategory}/${
+								isFirstPage() ? 2 : +router.query.pageNumber + 1
+							}`}>
+							{">"}
+						</Link>
+					</PageLinkContainer>
+				)}
+				{!isLastPage() && (
+					<PageLinkContainer>
+						<Link
+							href={`/${currentPaginatedCategory}/${Math.ceil(
+								totalItems / itemsPerPage
+							)}`}>
+							{">>"}
+						</Link>
+					</PageLinkContainer>
+				)}
+			</PaginationContainer>
 		</div>
 	);
 }

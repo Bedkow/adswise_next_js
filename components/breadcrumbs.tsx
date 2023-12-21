@@ -1,68 +1,101 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+
+const BreadcrumbsContainerStyled = styled.div`
+	color: ${(props) => props.theme.colors.text};
+	background-color: ${(props) => props.theme.colors.primary};
+	white-space: nowrap;
+	overflow: auto;
+	min-height: 23px;
+	width: 100%;
+
+	a {
+		color: ${(props) => props.theme.colors.text};
+	}
+`;
 
 export default function Breadcrumbs({
-	isCategory,
 	postsList,
 	categoriesList,
 }: {
-	isCategory?: boolean;
-	postsList: any;
-	categoriesList: any;
+	postsList?: any;
+	categoriesList?: any;
 }) {
 	const router = useRouter();
 	const currentQuery = router.query;
+	const currentRoute = router.route;
 
 	let category;
 	let categoryName;
-	let categorySlug;
 
 	if (router.query.category) {
 		category = categoriesList.find((category) => {
 			return category.node.slug === currentQuery.category;
 		});
 		categoryName = category?.node.name;
-		categorySlug = category?.node.slug;
 	}
-
-	const post = postsList.edges.find((post) => {
-		return post.node.slug === currentQuery.post;
-	});
-
-	const postTitle = post?.node.title;
 
 	let postCategoryName;
 	let postCategorySlug;
 	let postCategoryAncestors;
 	let postCategoryAncestorsName;
 	let postCategoryAncestorsSlug;
+	let postTitle;
 
-	postCategoryName = post?.node.categories.edges[0].node.name;
-	postCategorySlug = post?.node.categories.edges[0].node.slug;
-	postCategoryAncestors = post?.node.categories.edges[0].node.ancestors;
+	if (postsList) {
+		const post = postsList.edges.find((post) => {
+			return post.node.slug === currentQuery.post;
+		});
 
-	if (postCategoryAncestors) {
-		postCategoryAncestorsName =
-			post?.node.categories.edges[0].node.ancestors.edges[0].node.name;
-		postCategoryAncestorsSlug =
-			post?.node.categories.edges[0].node.ancestors.edges[0].node.slug;
+		postTitle = post?.node.title;
+
+		postCategoryName = post?.node.categories.edges[0].node.name;
+		postCategorySlug = post?.node.categories.edges[0].node.slug;
+		postCategoryAncestors = post?.node.categories.edges[0].node.ancestors;
+
+		if (postCategoryAncestors) {
+			postCategoryAncestorsName =
+				post?.node.categories.edges[0].node.ancestors.edges[0].node.name;
+			postCategoryAncestorsSlug =
+				post?.node.categories.edges[0].node.ancestors.edges[0].node.slug;
+		}
 	}
 
-    // ADD ANCESTOR TO BREADCRUMBS WHEN PAGE QUERY IS SUBCATEGORY @@@@
+	let routeIsPage = false;
+	if (
+		currentRoute === "/o-nas" ||
+		currentRoute === "/kontakt" ||
+		currentRoute === "/polityka-prywatnosci" ||
+		currentRoute === "/regulamin"
+	) {
+		routeIsPage = true;
+	}
 
 	return (
-		<>
+		<BreadcrumbsContainerStyled>
 			<div>
-				{(postCategoryName || categoryName) && (
-					<Link href="/">
+				{(postCategoryName || categoryName || routeIsPage) && (
+					<Link href='/'>
 						<span>Strona Główna</span>
 					</Link>
 				)}
-				{/* {categoryName && (
-					<Link href="/">
-						<span>Strona Główna</span>
-					</Link>
-				)} */}
+				{routeIsPage && <span>{` > `}</span>}
+				{(() => {
+					switch (currentRoute) {
+						case "/o-nas":
+							return <span>O nas</span>;
+						case "/kontakt":
+							return <span>Kontakt</span>;
+						case "/polityka-prywatnosci":
+							return <span>Polityka prywatności</span>;
+						case "/regulamin":
+							return <span>Regulamin</span>;
+						default:
+							return null;
+					}
+				})()}
+
 				{postCategoryAncestors && <span>{` > `}</span>}
 				{postCategoryAncestors && (
 					<Link href={`/${postCategoryAncestorsSlug}`}>
@@ -75,7 +108,6 @@ export default function Breadcrumbs({
 						<span>{postCategoryName}</span>
 					</Link>
 				)}
-				{/* {categoryName && <span>{` > `}</span>} */}
 				{categoryName && (
 					<>
 						<span>{categoryName}</span>
@@ -84,6 +116,6 @@ export default function Breadcrumbs({
 				{postTitle && <span>{` > `}</span>}
 				{postTitle && <span>{postTitle}</span>}
 			</div>
-		</>
+		</BreadcrumbsContainerStyled>
 	);
 }

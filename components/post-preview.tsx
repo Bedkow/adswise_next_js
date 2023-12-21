@@ -15,7 +15,7 @@ export default function PostPreview({
     <div>
       <div>
         {coverImage && (
-          <CoverImage title={title} coverImage={coverImage} category={category} slug={slug} />
+          <CoverImage title={title} coverImage={coverImage} slug={slug} />
         )}
       </div>
       <h3>

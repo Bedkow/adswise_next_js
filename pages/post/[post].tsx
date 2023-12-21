@@ -11,7 +11,11 @@ import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
 import Tags from '../../components/tags'
 import { getAllPostsWithSlug, getPostAndMorePosts, getAllCategories, getMainLogoData, getSinglePostCategory } from '../../lib/api'
-import BackButton from '../../components/back-button'
+import styled from 'styled-components'
+
+const SeeAlso = styled.div`
+  font-size: 1.5rem;
+`
 
 export default function Post({ post, posts, preview, allCategories, mainLogoData, postsList }) {
   const router = useRouter()
@@ -28,6 +32,7 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
         ) : (
           <>
             <article>
+
               <Head>
                 <title>
                   {`AdsWise | ${post.title}`}
@@ -37,22 +42,28 @@ export default function Post({ post, posts, preview, allCategories, mainLogoData
                   content={post.featuredImage?.node.sourceUrl}
                 />
               </Head>
+
               <PostHeader
                 title={post.title}
                 coverImage={post.featuredImage}
                 date={post.date}
-                // author={post.author}
+                author={post.author}
                 categories={post.categories}
               />
-              <BackButton />
+
               <PostBody content={post.content} />
-              <footer>
+
+              {/* <footer>
                 {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
-              </footer>
+              </footer> */}
+
             </article>
 
-            <SectionSeparator />
-            {morePosts.length > 0 && <MoreStories postsForReadMore={morePosts} />}
+            {/* <SectionSeparator /> */}
+
+            <SeeAlso>Zobacz także:</SeeAlso>
+
+            {morePosts.length > 0 && <MoreStories postsForReadMore={morePosts} tilesNumber={4}/>}
           </>
         )}
       </Container>
@@ -65,7 +76,8 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
   previewData,
 }) => {
-  const data = await getPostAndMorePosts(params?.post, preview, previewData);
+  const morePostsNumberInTotal = 6 // number of posts to request for preview under /[post] route (individual post)
+  const data = await getPostAndMorePosts(params?.post, preview, previewData, morePostsNumberInTotal);
   const allCategories = await getAllCategories();
   const mainLogoData = await getMainLogoData();
   const postsList = await getAllPostsWithSlug();

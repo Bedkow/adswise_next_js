@@ -130,7 +130,7 @@ export async function getPostsByCategory(categoryName) {
 	const data = await fetchAPI(
 		`
     {
-      posts(where: {categoryName: "${categoryName}"}) {
+      posts(where: {categoryName: "${categoryName}"}, first: 10000) {
         edges {
           node {
             id
@@ -268,7 +268,7 @@ export async function getAllPostsForHome(preview) {
 	return data?.posts;
 }
 
-export async function getPostAndMorePosts(slug, preview, previewData) {
+export async function getPostAndMorePosts(slug, preview, previewData, morePostsNumberInTotal?) {
 	const postPreview = preview && previewData?.post;
 	// The slug may be the id of an unpublished post
 	const isId = Number.isInteger(Number(slug));
@@ -344,7 +344,7 @@ export async function getPostAndMorePosts(slug, preview, previewData) {
 						: ""
 				}
       }
-      posts(first: 3, where: { orderby: { field: DATE, order: DESC } }) {
+      posts(first: ${morePostsNumberInTotal + 1}, where: { orderby: { field: DATE, order: DESC } }) {
         edges {
           node {
             ...PostFields
