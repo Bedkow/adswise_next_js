@@ -1,6 +1,5 @@
 import PostPreview from "./post-preview";
-import { useState } from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const PostsForReadMoreContainer = styled.div`
 	display: grid;
@@ -9,10 +8,10 @@ const PostsForReadMoreContainer = styled.div`
 	gap: 60px;
 	margin-bottom: 40px;
 
-  @media screen and (max-width: 700px) {
-    grid-template-columns: 1fr;
-  }
-`
+	@media screen and (max-width: 700px) {
+		grid-template-columns: 1fr;
+	}
+`;
 
 export default function MoreStories({
 	postsForHome,
@@ -25,8 +24,6 @@ export default function MoreStories({
 	pagination?: boolean;
 	tilesNumber?: number;
 }) {
-
-
 	let posts = [];
 	let paginatedPosts;
 	let pageSize;
@@ -40,7 +37,7 @@ export default function MoreStories({
 			pageSize = 4;
 		}
 
-		paginatedPosts = posts; /*paginate(posts, currentPage, pageSize);*/
+		paginatedPosts = posts;
 	} else {
 		if (postsForHome) {
 			if (tilesNumber) {
@@ -55,13 +52,29 @@ export default function MoreStories({
 				posts = postsForReadMore;
 			}
 		}
-
 		paginatedPosts = posts;
 	}
 
 	return (
-		<>	
-				{postsForHome && paginatedPosts.map(({ node }, index) => {
+		<>
+			{postsForHome &&
+				paginatedPosts.map(({ node }, index) => {
+					return (
+						<PostPreview
+							key={node.slug}
+							title={node.title}
+							coverImage={node.featuredImage}
+							date={node.date}
+							slug={node.slug}
+							excerpt={node.excerpt}
+							category={node.categories.nodes[0].slug}
+						/>
+					);
+				})}
+
+			{postsForReadMore && (
+				<PostsForReadMoreContainer>
+					{paginatedPosts.map(({ node }, index) => {
 						return (
 							<PostPreview
 								key={node.slug}
@@ -70,28 +83,12 @@ export default function MoreStories({
 								date={node.date}
 								slug={node.slug}
 								excerpt={node.excerpt}
-								category={node.categories.nodes[0].slug}
+								category={node.categories.edges[0].node.slug}
 							/>
 						);
 					})}
-					
-
-				{postsForReadMore && 
-					<PostsForReadMoreContainer>
-						{paginatedPosts.map(({ node }, index) => {
-							return (
-								<PostPreview
-									key={node.slug}
-									title={node.title}
-									coverImage={node.featuredImage}
-									date={node.date}
-									slug={node.slug}
-									excerpt={node.excerpt}
-									category={node.categories.edges[0].node.slug}
-								/>
-							);
-						})}
-					</PostsForReadMoreContainer>}
+				</PostsForReadMoreContainer>
+			)}
 		</>
 	);
 }

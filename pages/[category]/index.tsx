@@ -7,11 +7,8 @@ import {
 	getAllPostsWithSlug,
 } from "../../lib/api";
 import Link from "next/link";
-import Image from "next/image";
 import Layout from "../../components/layout";
 import Pagination from "../../components/pagination";
-import { useState } from "react";
-import { paginate } from "../../helpers/paginate";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
@@ -71,8 +68,6 @@ function SingleCategoryPage({
 
 	// number of posts per page, passed to pagination
 	let perPage = 10;
-
-	
 
 	// only posts for current page
 	let filteredSlicedPosts = filteredPosts.edges.slice(0, perPage);

@@ -3,37 +3,22 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 const BreadcrumbsContainerStyled = styled.div`
-	color: ${props => props.theme.colors.text};
-  background-color: ${props => props.theme.colors.primary};
-  white-space: nowrap;
-  overflow: auto;
-  min-height: 23px;
-  width:100%;
-  /* padding-left: 20px; */
-  /* overflow-y: hidden; */
-  /* width: 100%; */
-	/* position: absolute; */
-	/* left: 5px; */
-	/* top: 60px; */
-	/* white-space: nowrap;
-	font-size: 2.2vw; */
-
-	/* @media screen and (min-width: 850px) {
-		font-size: 1rem;
-		left: 20px;
-	} */
+	color: ${(props) => props.theme.colors.text};
+	background-color: ${(props) => props.theme.colors.primary};
+	white-space: nowrap;
+	overflow: auto;
+	min-height: 23px;
+	width: 100%;
 
 	a {
-		color: ${props => props.theme.colors.text};
+		color: ${(props) => props.theme.colors.text};
 	}
-`
+`;
 
 export default function Breadcrumbs({
-	isCategory,
 	postsList,
 	categoriesList,
 }: {
-	isCategory?: boolean;
 	postsList?: any;
 	categoriesList?: any;
 }) {
@@ -43,14 +28,12 @@ export default function Breadcrumbs({
 
 	let category;
 	let categoryName;
-	let categorySlug;
 
 	if (router.query.category) {
 		category = categoriesList.find((category) => {
 			return category.node.slug === currentQuery.category;
 		});
 		categoryName = category?.node.name;
-		categorySlug = category?.node.slug;
 	}
 
 	let postCategoryName;
@@ -89,8 +72,6 @@ export default function Breadcrumbs({
 		routeIsPage = true;
 	}
 
-	// ADD ANCESTOR TO BREADCRUMBS WHEN PAGE QUERY IS SUBCATEGORY @@@@
-
 	return (
 		<BreadcrumbsContainerStyled>
 			<div>
@@ -99,7 +80,7 @@ export default function Breadcrumbs({
 						<span>Strona Główna</span>
 					</Link>
 				)}
-				{(routeIsPage) && <span>{` > `}</span>}
+				{routeIsPage && <span>{` > `}</span>}
 				{(() => {
 					switch (currentRoute) {
 						case "/o-nas":
@@ -115,11 +96,6 @@ export default function Breadcrumbs({
 					}
 				})()}
 
-				{/* {categoryName && (
-					<Link href="/">
-						<span>Strona Główna</span>
-					</Link>
-				)} */}
 				{postCategoryAncestors && <span>{` > `}</span>}
 				{postCategoryAncestors && (
 					<Link href={`/${postCategoryAncestorsSlug}`}>
@@ -132,7 +108,6 @@ export default function Breadcrumbs({
 						<span>{postCategoryName}</span>
 					</Link>
 				)}
-				{/* {categoryName && <span>{` > `}</span>} */}
 				{categoryName && (
 					<>
 						<span>{categoryName}</span>
@@ -141,6 +116,6 @@ export default function Breadcrumbs({
 				{postTitle && <span>{` > `}</span>}
 				{postTitle && <span>{postTitle}</span>}
 			</div>
-      </BreadcrumbsContainerStyled>
+		</BreadcrumbsContainerStyled>
 	);
 }
