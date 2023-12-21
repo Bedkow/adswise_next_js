@@ -1,11 +1,15 @@
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 
-export default function BackButton({ctaText}:{ctaText?: string}) {
-    const router = useRouter();
+export default function BackButton({ ctaText }: { ctaText?: string }) {
+	const router = useRouter();
 
-    return ( 
-        <button type="button" onClick={()=> {router.back()}}>
-            {ctaText ? ctaText: "Powrót"}
-        </button>
-    )
+	return (
+		<button
+			type='button'
+			onClick={() => {
+				router.back();
+			}}>
+			{ctaText ? ctaText : "Powrót"}
+		</button>
+	);
 }

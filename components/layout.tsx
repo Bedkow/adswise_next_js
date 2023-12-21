@@ -9,7 +9,7 @@ import Breadcrumbs from "./breadcrumbs";
 const PageLayout = styled.div`
 	width: 100%;
 
-	@media only screen and (min-width: ${(props) =>props.theme.breakpoints.tabletPlus}px) {
+	@media only screen and (min-width: ${(props) => props.theme.breakpoints.tabletPlus}px) {
 		main {
 			margin: 0 50px;
 		}
@@ -44,22 +44,16 @@ export default function Layout({
 	mainLogoData: any;
 	postsList?: any;
 }) {
+	const categoriesList = allCategories?.edges;
 
-  const categoriesList = allCategories?.edges;
+	const router = useRouter();
 
-  const router = useRouter();
-  console.log(router.route)
 	return (
 		<PageLayout className='layout'>
 			<Meta />
 			<Alert preview={preview} />
 			<PageContent>
-				<Header
-					allCategories={allCategories}
-					mainLogoData={mainLogoData}
-					postsList={postsList}
-				/>
-
+				<Header allCategories={allCategories} mainLogoData={mainLogoData} />
 				<main>
 					{router.route !== "/" ? (
 						<Breadcrumbs

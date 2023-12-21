@@ -1,4 +1,3 @@
-import { CMS_NAME, CMS_URL } from "../lib/constants";
 import styled from "styled-components";
 
 const IntroParagraph = styled.p`
@@ -19,8 +18,6 @@ export default function Intro() {
 			<IntroTitle>Tytuł strony</IntroTitle>
 			<IntroParagraph>
 				Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony Opis strony 
-				{/* Wyszukiwarke zrób do słów kluczowych co przeszukuje tekst i wchodzi na
-			rout nowy */}
 			</IntroParagraph>
 		</>
 	);

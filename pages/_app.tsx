@@ -1,5 +1,4 @@
 import { AppProps } from 'next/app';
-import '../styles/index.css';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 const theme = {

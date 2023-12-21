@@ -7,13 +7,9 @@ import {
 	getAllPostsWithSlug,
 } from "../../../lib/api";
 import Link from "next/link";
-import Image from "next/image";
 import Layout from "../../../components/layout";
 import Pagination from "../../../components/pagination";
-import { useState } from "react";
-import { paginate } from "../../../helpers/paginate";
 import { useRouter } from "next/router";
-import postcss from "postcss";
 import styled from "styled-components";
 
 const CategoryPagePostsLayout = styled.div`
@@ -44,7 +40,7 @@ function SingleCategoryPageNext({
 }) {
 	const router = useRouter();
 
-	const foundPost = filteredPosts.edges.find((post, index) => {
+	const foundPost = filteredPosts.edges.find((post) => {
 		return (
 			post.node.categories.nodes[0].slug === router.query.category ||
 			post.node.categories.nodes[0].ancestors.nodes[0].slug ===
@@ -134,13 +130,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
 	const allCategories = await getAllCategories();
 
-	// const pagesCount = Math.ceil(itemsCount / pageSize);
-	// const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
-
 	let generatedPaths = [];
 
 	allCategories.edges.map((category) => {
-		// x / page size (post number)
 		let pageNumber = Math.ceil(category.node.contentNodes.nodes.length / 1);
 		let pages = Array.from({ length: pageNumber }, (_, i) => i + 1);
 
