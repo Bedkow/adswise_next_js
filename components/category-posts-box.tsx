@@ -139,7 +139,6 @@ export default function CategoryPostsBox({
 	}
 	return (
 		<CategoryBox className='category-box'>
-			{/* <span>{layoutID}</span> */}
 			<CategoryTitle>{`| ${category}`}</CategoryTitle>
 			<PostTilesContainer layoutID={layoutID}>
 				{morePostsForHome.map((post, index) => {
