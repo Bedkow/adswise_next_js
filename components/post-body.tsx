@@ -1,12 +1,17 @@
-import styles from './post-body.module.css'
+import styled from "styled-components"
+
+const PostText = styled.div`
+  margin-bottom: 40px;
+  text-align: justify;
+  overflow-wrap: break-word;
+`
 
 export default function PostBody({ content }) {
   return (
-    <div className="max-w-2xl mx-auto">
+    <PostText>
       <div
-        className={styles.content}
         dangerouslySetInnerHTML={{ __html: content }}
       />
-    </div>
+    </PostText>
   )
 }

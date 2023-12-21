@@ -1,38 +1,48 @@
-import cn from 'classnames'
-import Image from 'next/image'
-import Link from 'next/link'
+import Link from "next/link";
+import styled from "styled-components";
+
+const CoverImageContainer = styled.div`
+	width: 100%;
+
+	img {
+		height: auto;
+		max-width: 100%;
+	}
+
+	.image-container {
+		margin: 20px auto;
+		width: 100%;
+		max-width: 2000px;
+	}
+`;
 
 interface Props {
-  title: string
-  coverImage: {
-    node: {
-      sourceUrl: string
-    }
-  }
-  slug?: string
+	title: string;
+	coverImage: {
+		node: {
+			sourceUrl: string;
+		};
+	};
+	slug?: string;
 }
 
-export default function CoverImage({ title, coverImage, slug }: Props) {
-  const image = (
-    <Image
-      width={2000}
-      height={1000}
-      alt={`Cover Image for ${title}`}
-      src={coverImage?.node.sourceUrl}
-      className={cn('shadow-small', {
-        'hover:shadow-medium transition-shadow duration-200': slug,
-      })}
-    />
-  )
-  return (
-    <div className="sm:mx-0">
-      {slug ? (
-        <Link href={`/posts/${slug}`}>
-          <a aria-label={title}>{image}</a>
-        </Link>
-      ) : (
-        image
-      )}
-    </div>
-  )
+export default function CoverImage({
+	title,
+	coverImage,
+	slug,
+}: Props) {
+	return (
+		<CoverImageContainer>
+			{slug && coverImage ? (
+				<div className='image-container'>
+					<Link href={`/post/${slug}`} aria-label={title}>
+						<img
+							alt={`Cover Image for ${title}`}
+							src={coverImage?.node.sourceUrl}
+						/>
+					</Link>
+				</div>
+			) : null}
+		</CoverImageContainer>
+	);
 }

@@ -1,7 +1,13 @@
+import styled from "styled-components"
+
+const PostTitleContainer = styled.h1`
+  font-size: 2rem;
+  margin: 10px 0px;
+`
+
 export default function PostTitle({ children }) {
   return (
-    <h1
-      className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left"
+    <PostTitleContainer
       dangerouslySetInnerHTML={{ __html: children }}
     />
   )

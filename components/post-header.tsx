@@ -1,8 +1,26 @@
-import Avatar from './avatar'
 import Date from './date'
 import CoverImage from './cover-image'
 import PostTitle from './post-title'
 import Categories from './categories'
+import styled from 'styled-components'
+
+const PostHeaderContainer = styled.div`
+  margin: 40px 0px;
+`
+
+const Author = styled.span`
+`
+
+const PostMetadataContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 10px;
+
+  @media screen and (max-width: 700px){
+    gap: 5px;
+  }
+`
 
 export default function PostHeader({
   title,
@@ -10,25 +28,37 @@ export default function PostHeader({
   date,
   author,
   categories,
+}:{
+  title,
+  coverImage?,
+  date,
+  author?,
+  categories,
 }) {
+
   return (
-    <>
-      <PostTitle>{title}</PostTitle>
-      <div className="hidden md:block md:mb-12">
-        <Avatar author={author} />
-      </div>
-      <div className="mb-8 md:mb-16 sm:mx-0">
-        <CoverImage title={title} coverImage={coverImage} />
-      </div>
-      <div className="max-w-2xl mx-auto">
-        <div className="block md:hidden mb-6">
-          <Avatar author={author} />
-        </div>
-        <div className="mb-6 text-lg">
-          Posted <Date dateString={date} />
-          <Categories categories={categories} />
-        </div>
-      </div>
-    </>
-  )
+		<PostHeaderContainer>
+			<PostTitle>{title}</PostTitle>
+			<div>
+				<CoverImage title={title} coverImage={coverImage} />
+			</div>
+			<div>
+				<PostMetadataContainer>
+					<Date dateString={date} />
+          <span>{` | `}</span>
+					<Categories categories={categories} />
+          <span>{` | `}</span>
+					<Author>
+						{author && author.node.firstName && author.node.lastName && (
+							<span>{`${author.node.firstName} ${author.node.lastName}`}</span>
+						)}
+						{author &&
+							author.node.name &&
+							!author.node.firstName &&
+							!author.node.lastName && <span>{`${author.node.name}`}</span>}
+					</Author>
+				</PostMetadataContainer>
+			</div>
+		</PostHeaderContainer>
+	);
 }
