@@ -1,4 +1,4 @@
-# AdsWise.pl blog created with Next.js
+# [AdsWise.pl](https://www.adswise.pl/) blog created with Next.js
   A frontend application created with a modern technology stack:
   - Next.js (configured for Static Site Generation)
   - TypeScript
